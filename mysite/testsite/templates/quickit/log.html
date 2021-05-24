@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Log{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block admin_name %}<p>{{nickname}}</p>{% endblock %}
+
+{% block breadcrumb %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">User Log</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'quickit:dashboard' %}">Home</a></li>
+                    <li class="breadcrumb-item active">User Log</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<!-- /.card -->
+<!-- Button trigger modal -->
+<!-- modal -->
+<div class="modal fade" id="ModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Log Content</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre id="content"></pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-info card-outline">
+            <form class="form-inline" style="margin: 20px 20px">
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12" style="">User:</label></div>
+                <div class="form-group">
+                    <select class="select2bs4" data-placeholder="" style="width: 200px;" id="USER">
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12" style="">API:</label></div>
+                <div class="form-group">
+
+                    <select class="select2bs4" data-placeholder="" style="width: 200px;" id="API">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-12" style="">Date:</label></div>
+                <div class="form-group daterange">
+                    <input class="form-control" name="range_date" type="text" id="datetext">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+
+                <!--<div class="form-group" id="keywordfrom">-->
+                <!--<input type="text"  id="keyword_txt" spellcheck="false" class="form-control"  placeholder="Input keyword..." style="width: 400px;margin-left: 10px">-->
+                <!--</div>-->
+
+                <div class="form-group">
+                    &nbsp;<button id="summit_btn" class="btn  bg-gradient-primary" type="button"
+                                  style="margin-left: 10px">Search
+                </button>
+                </div>
+
+            </form>
+            <!--<form class="form-inline" style="margin: 0px 20px;width: 100%">-->
+                 <table id="log_table" style="width: 96%;margin-left: 2%;margin-bottom: 2%" class="table table-bordered" style="word-break:break-all;word-wrap:break-word"></table>
+            <!--</form>-->
+        </div>
+
+    </div><!-- /.container-fluid -->
+</section>
+
+{% endblock %}
+
+
+{% block script %}
+<!-- Bootstrap -->
+<!-- AdminLTE -->
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/chart.js/Chart.min.js"></script>
+<script src="/static/AdminLTE-3.0.1/dist/js/demo.js"></script>
+<script src="/static/AdminLTE-3.0.1/dist/js/pages/dashboard3.js"></script>
+
+
+<!-- FLOT CHARTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.resize.min.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.pie.min.js"></script>
+<script src="/static/plugin/loading/js/loading.js"></script>
+<script>
+    function loading() {
+		$('body').loading({
+			loadingWidth:120,
+			title:'',
+			name:'test',
+			discription:'',
+			direction:'column',
+			type:'origin',
+			// originBg:'#71EA71',
+			originDivWidth:40,
+			originDivHeight:40,
+			originWidth:6,
+			originHeight:6,
+			smallLoading:false,
+			loadingMaskBg:'rgba(0,0,0,0.2)'
+		});
+
+		setTimeout(function(){
+			//removeLoading('test');
+		},3000);
+	};
+
+    var api_list = {{api_list | safe}};
+    $('#API').append('<option>All</option>')
+    for (var i = 0; i < api_list.length; i++) {
+        $('#API').append('<option>' + api_list[i] + '</option>')
+    }
+    ;
+
+    var user_list = {{user_list | safe}};
+    $('#USER').append('<option>All</option>')
+    for (var i = 0; i < user_list.length; i++) {
+        $('#USER').append('<option>' + user_list[i] + '</option>')
+    }
+    ;
+
+    $(function () {
+        $(".daterange input").each(function () {
+            var $this = $(this);
+            $this.daterangepicker({
+                locale: {
+                    "format": "YYYY/MM/DD",// 显示格式
+                    "applyLabel": "确定",
+                    "cancelLabel": "取消",
+                    "fromLabel": "开始",
+                    "toLabel": "结束",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+            }, function (start, end, label) {
+                // 点击确定后的事件，下面是为了bootstrap validate得校验，
+                // 若未使用，可忽视
+                if ($this.parents("form.required-validate").length > 0) {
+                    var $form = $this.parents("form.required-validate");
+
+                    var name = $this.attr("name");
+                    if ($form.length > 0) {
+                        var data = $form.data('bootstrapValidator');
+                        data.updateStatus(name, 'NOT_VALIDATED', null)
+                        // Validate the field
+                            .validateField(name);
+                    }
+                }
+                // 设置最小宽度，否则显示不全
+            }).css("min-width", "210px").next("i").click(function () {
+                // 对日期的i标签增加click事件，使其在鼠标点击时可以拉出日期选择
+                $(this).parent().find('input').click();
+            });
+        });
+    });
+
+    $('#summit_btn').click(function () {
+        // $('#keyword_txt').val('')
+        var user = $('#USER').val()
+        var api = $('#API').val()
+        var date = $('#datetext').val()
+        console.log(user)
+        console.log(api)
+        console.log(date)
+        $.ajax({
+            url: "/log_api/",
+            type: "POST",
+            async:true,
+            cache: false,
+            data: {
+                user: user,
+                api: api,
+                date: date
+            },
+
+            beforeSend: function () {
+                loading();
+
+            },
+            complete: function () {
+                removeLoading('test');
+            },
+            success: function (data) {
+                var columns = [{
+                    field: 'date',
+                    title: '<strong>Date</strong>',
+                    width:"20%",
+                    sortable: true,
+                    className:"text-center"
+                }, {
+                    field: 'user',
+                    title: '<strong>User</strong>',
+                    sortable: true,
+                    width:"20%",
+                    className:"text-center"
+
+                }, {
+                    field: 'operation',
+                    title: '<strong>操作</strong>',
+                    sortable: true,
+                    width:"20%",
+                    className:"text-center"
+                }, {
+                    field: 'api',
+                    title: '<strong>Api</strong>',
+                    sortable: true,
+                    width:"20%",
+                    className:"text-center"
+                }];
+                log_table = $('#log_table').DataTable({
+                    "destroy": true,
+                    "pageLength": 15,
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": true,
+                    "ordering": false,
+                    "info": false,
+                    "autoWidth": false,
+                    "order": [[0, "desc"]],
+                    dom: 't<"bottom"ip><"clear">',
+                    columns: columns,
+                    data: data['logdata']
+                });
+
+
+            }
+        })
+    });
+    $(document).ready(function () {
+    document.getElementById("summit_btn").click();
+});
+
+
+
+</script>
+
+<!-- Calendar -->
+{% endblock %}

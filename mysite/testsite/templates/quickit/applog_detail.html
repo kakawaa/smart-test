@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}LOG Detail{% endblock %}
+
+  <!-- Main Sidebar Container -->
+
+  <!-- Content Wrapper. Contains page content -->
+{% block breadcrumb %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>LOG Detail</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'quickit:dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">LOG Detail</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+{% endblock %}
+
+{% block content %}
+ <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="row">
+        <div class="col-12">
+            <div class="card card-outline card-info">
+            <div class="card-header">
+                <form class="form-inline" style="margin: 10px 0px">
+                    <a href="{% url 'quickit:applog' %}" class="nav-link active">
+                            <i class="fas fa-reply" aria-hidden="true"></i>
+                        </a>
+                    <h3 class="card-title" id="logname">{{ applog_info.logname }}</h3>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Log</label></div>
+                    <div style="width: 20%" class="form-group">
+                            <select class="form-control select2bs4" data-placeholder="Select a log..." style="width:100%" id="type_log">
+                            </select></div>
+                    <div class="form-group" style="margin: 0px 20px">
+                        <button  id="copy_btn" type="button" class="btn  bg-gradient-primary center-block ol-sm-12">Copy</button></div>
+                </form>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body pad" >
+                 <!--<div class="card-tools">
+                        <button style="color: black;" type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+               <div class="mb-3">
+                <textarea class="textarea" placeholder="Place some text here"
+                          style="width: 100%; height: 100px; font-size: 14px; line-height: 30px; border: 1px solid #dddddd; padding: 100px;"></textarea>
+              </div> -->
+
+              <textarea  id="logcontent" spellcheck="false" style="height:600px;width: 100%;background:black;color:white;line-height: 30px;; padding: 10px;font-size: 18px;border-radius: 7px;outline:none " readonly></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- /.col -->
+        </div>
+        <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/plugin/loading/js/loading.js"></script>
+<script src="{% static 'JS/applog_detail.js' %}"> </script>
+
+{% endblock %}

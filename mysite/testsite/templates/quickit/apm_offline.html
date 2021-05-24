@@ -1,0 +1,501 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}APM Offline{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block admin_name %}<p>{{nickname}}</p>{% endblock %}
+
+{% block breadcrumb %}
+<!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">APM Offline</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'quickit:dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">APM Offline</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+ <!-- /.card -->
+<!-- Button trigger modal -->
+<!-- modal -->
+<!-- view time_cost model-->
+<div class="modal fade" id="modal-view_timecost" >
+        <div class="modal-dialog modal-lg" style="width: 620px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Detail</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+                <pre id="json"></pre>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="view_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- add time_cost model-->
+<div class="modal fade" id="modal-add_timecost" >
+        <div class="modal-dialog modal-lg" style="width: 620px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Add</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+               <form class="form-inline" style="margin: 2px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">PEOJECT</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="add_project" class="form-control"  placeholder="Input Project..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">VERSION</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="add_version" class="form-control"  placeholder="Input Version..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">SCENE &nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="add_scene" class="form-control"  placeholder="Input Scene..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">TIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="add_timecost" class="form-control"  placeholder="Input TimeCost..." style="width: 500px">
+                        </div>
+
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="add_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="add_save" type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- edit time_cost model-->
+<div class="modal fade" id="modal-edit_timecost" >
+        <div class="modal-dialog modal-lg" style="width: 620px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Edit</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+               <form class="form-inline" style="margin: 2px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">PEOJECT</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="edit_project" class="form-control"  placeholder="Input Project..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">STATUS&nbsp;&nbsp;&nbsp;</label></div>
+                        <div class="form-group" >
+                            <select class="select2bs4" style="width:120px" id="edit_status">
+                            </select>
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">SCENE &nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="edit_scene" class="form-control"  placeholder="Input Scene..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="timecost_value" class="form-control"  placeholder="Input TimeCost..." style="width: 500px">
+                        </div>
+
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="edit_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="edit_save" type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- add performance model-->
+<div class="modal fade" id="modal-add_performance" >
+        <div class="modal-dialog modal-lg" style="width: 620px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Add</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+               <form class="form-inline" style="margin: 2px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">PEOJECT</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="perm_add_project" class="form-control"  placeholder="Input Project..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">VERSION</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="perm_add_version" class="form-control"  placeholder="Input Version..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">SCENE &nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="perm_add_scene" class="form-control"  placeholder="Input Scene..." style="width: 500px">
+                        </div>
+
+                </form>
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">TIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="perm_add_timecost" class="form-control"  placeholder="Input TimeCost..." style="width: 500px">
+                        </div>
+
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="perm_add_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="perm_add_save" type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- edit performance model-->
+<div class="modal fade" id="modal-edit_performance" >
+        <div class="modal-dialog modal-lg" style="width: 620px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Edit</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+               <form class="form-inline" style="margin: 2px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Project</label></div>
+                        <div class="form-group" >
+                            <input type="text" id="perm_edit_project" class="form-control"  placeholder="Project..." style="width: 100px">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Status</label></div>
+                        <div class="form-group" >
+                            <select class="select2bs4" style="width:120px" id="perm_edit_status">
+                            </select></div>
+                        <div class="form-group" >
+                          &nbsp;&nbsp;<input type="text"  id="perm_scene" class="form-control"  placeholder="Input Scene..." style="width: 200px">
+                        </div>
+
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="perm_edit_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="perm_edit_save" type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<section class="content">
+      <div class="container-fluid">
+        <div class="card card-info card-outline">
+ <form class="form-inline" style="margin: 20px 20px">
+   <div class="form-group">
+       <label class="control-label col-sm-12" style="">PROJECT</label></div>
+   <div class="form-group">
+       <select class="select2bs4"  data-placeholder="Select a Project" style="width: 200px;" id="project">
+       </select></div>
+   <div class="form-group">
+       <label class="control-label col-sm-12" style="">TYPE</label></div>
+   <div class="form-group">
+       <select class="select2bs4"  data-placeholder="Select a Type" style="width:150px" id="type">
+           <option>All</option>
+           <option>Time Cost</option>
+           <option>Performance</option>
+       </select></div>
+
+   <div class="form-group" id="scene_lable_timecost" style="display: none" >
+       <label class="control-label col-sm-12" style="">SCENE</label></div>
+   <div class="form-group" id="scene_select_timecost" style="display: none">
+       <select class="select2bs4"  data-placeholder="Select a Scene" style="width:150px" id="scene_timecost">
+       </select></div>
+   <div class="form-group" id="Competitor_lable_timecost" style="display: none">
+       <label class="control-label col-sm-12" style="">COMPETITOR</label></div>
+   <div class="form-group" id="Competitor_select_timecost" style="display: none">
+       <select class="select2bs4"  data-placeholder="Select a Competitor" style="width:150px" id="Competitor_timecost">
+       </select></div>
+
+   <div class="form-group" style="margin: 0px 20px">
+       <button style="display: none" id="summit_btn" class="btn  bg-gradient-primary" type="button">COMPARE</button></div>
+ </form>
+</div>
+        <!-- /.row -->
+
+        <div class="row">
+          <div class="col-12">
+            <!-- Line chart -->
+            <div class="card  card-outline" id="timecard_table">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fa fa-table"></i>
+                  Time Cost(ms)
+                </h3>
+
+                <div class="card-tools">
+                    <button id="task_btn"  type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#modal-add_timecost">
+                             <i class="fa fa-plus"></i>
+                            Add Data
+                        </button>
+                </div>
+              </div>
+              <div class="card-body p-1" style="overflow-x: scroll">
+                 <table id="startuptime_infos_table" class="table table-bordered" style="WORD-WRAP: break-word" width="1">
+                <thead>
+                        <tr>
+                            <th class="text-center" ><strong>ID</strong></th>
+                            <th class="text-center" ><strong>PROJECT</strong></th>
+                            <th class="text-center" ><strong>VERSION</strong></th>
+                            <th class="text-center" ><strong>SCENE</strong></th>
+                            <th class="text-center" ><strong>TIMECOST</strong></th>
+                            <th class="text-center" ><strong>CTIME</strong></th>
+                            <th class="text-center" ><strong>STATUS</strong></th>
+                            <th class="text-center" ><strong>OPERATE</strong></th>
+                        </tr>
+                        </thead>
+                <tbody>
+                        {% for StartUpTime in StartUpTime_infos %}
+                        <tr>
+                            <td style="text-align: center">{{ StartUpTime.id }}</td>
+                            <td style="text-align: center">{{ StartUpTime.pkgname }}</td>
+                            <td style="text-align: center">{{ StartUpTime.version }}</td>
+                            <td style="text-align: center;width: 25%">{{ StartUpTime.scene }}</td>
+                            <td style="text-align: center">{{ StartUpTime.timecost }}</td>
+                            <td style="text-align: center">{{ StartUpTime.ctime|date:"Y-m-d G:i:s" }}</td>
+                            <td class="project-state text-center" >
+                                {% if StartUpTime.status == 'Offline' %}
+                                <span class="badge badge-secondary">{{ StartUpTime.status }}</span>
+                                {% elif StartUpTime.status == 'Competitor'%}
+                                <span class="badge badge-primary">{{ StartUpTime.status }}</span>
+                                {% else %}
+                                <span class="badge badge-success">{{ StartUpTime.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td style="text-align: center">
+                                <a class="btn btn-primary btn-sm" href="" data-toggle="modal" data-target="#modal-view_timecost" id="view_timecost">
+                                    <i class="fas fa-folder"></i>
+                                    View
+                                </a>
+
+                                <a class="btn btn-info btn-sm" href="" data-toggle="modal" data-target="#modal-edit_timecost" id="edit_timecost">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr></tr>
+                        {% endfor %}
+                        </tbody>
+              </table>
+
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <div class="card  card-outline" id="timecost_chart" style="display: none">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fa fa-chart-line"></i>
+                  Time Cost
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="container_timecost" style="height: 350px;width: 100%"></div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <div class="card  card-outline" id="performacecard_table">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fa fa-table"></i>
+                  PERFORMANCE
+                </h3>
+
+                <div class="card-tools">
+                    <button  type="button" class="btn btn-primary btn-sm"  data-toggle="modal" data-target="#modal-add_performance">
+                        <i class="fa fa-plus"></i>
+                            Add Data
+                    </button>
+                </div>
+              </div>
+              <div class="card-body p-1" style="overflow-x: scroll">
+                <table id="performance_infos_table" class="table table-bordered" style="WORD-WRAP: break-word" width="1">
+                <thead>
+                        <tr>
+                            <th class="text-center" ><strong>ID</strong></th>
+                            <th class="text-center" ><strong>PROJECT</strong></th>
+                            <th class="text-center" ><strong>VERSION</strong></th>
+                            <th class="text-center" ><strong>LOGNAME</strong></th>
+                            <th class="text-center" ><strong>SCENE</strong></th>
+                            <th class="text-center" ><strong>CTIME</strong></th>
+                            <th class="text-center" ><strong>STATUS</strong></th>
+                            <th class="text-center" ><strong>OPERATE</strong></th>
+                        </tr>
+                        </thead>
+                <tbody>
+                        {% for Performance in Performance_infos %}
+                        <tr>
+                            <td style="text-align: center">{{ Performance.id }}</td>
+                            <td style="text-align: center">{{ Performance.pkgname }}</td>
+                            <td style="text-align: center">{{ Performance.version }}</td>
+                            <td style="text-align: center">{{ Performance.logname }}</td>
+                            <td style="text-align: center">{{ Performance.scene }}</td>
+                            <td style="text-align: center">{{ Performance.ctime|date:"Y-m-d G:i:s" }}</td>
+                            <td class="project-state text-center" >
+                                {% if Performance.status == 'Offline' %}
+                                <span class="badge badge-secondary">{{ Performance.status }}</span>
+                                {% elif Performance.status == 'Competitor'%}
+                                <span class="badge badge-primary">{{ Performance.status }}</span>
+                                {% else %}
+                                <span class="badge badge-success">{{ Performance.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td style="text-align: center">
+                                <a class="btn btn-primary btn-sm" href="{% url 'testsite:apm_detail' Performance.logname %}">
+                                    <i class="fas fa-folder"></i>
+                                    View
+                                </a>
+                                <a class="btn btn-info btn-sm" href="" data-toggle="modal" data-target="#modal-edit_performance" id="edit_perm">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Edit
+                                </a>
+
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr></tr>
+                        {% endfor %}
+                        </tbody>
+              </table>
+              </div>
+              <!-- /.card-body-->
+            </div>
+
+            <!-- /.card -->
+
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+
+{% endblock %}
+
+
+
+{% block script %}
+<!-- Bootstrap -->
+<!-- AdminLTE -->
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/chart.js/Chart.min.js"></script>
+<script src="/static/AdminLTE-3.0.1/dist/js/demo.js"></script>
+<script src="/static/AdminLTE-3.0.1/dist/js/pages/dashboard3.js"></script>
+
+
+<!-- FLOT CHARTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.resize.min.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.pie.min.js"></script>
+<script src="{% static 'JS/apm_offline.js' %}"> </script>
+<script src="/static/plugin/loading/js/loading.js"></script>
+<script src="/static/plugin/json-viewer/js/jquery.json-viewer.js"></script>
+<script>
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        var app_name_list = {{app_list | safe}};
+        var compare_project_list = {{compare_project_list | safe}};
+        var Timecost_scene_list = {{timecost_scene_list | safe}};
+        $('#project').append('<option>All</option>')
+        for (var i = 0; i < app_name_list.length; i++) {
+            $('#project').append('<option>' + app_name_list[i] + '</option>')
+            // $('#be_pk_apk').append('<option>' + app_name_list[i] + '</option>')
+        }
+        $('#Competitor_timecost').append('<option>All</option>')
+        for (var i = 0; i < compare_project_list.length; i++) {
+            $('#Competitor_timecost').append('<option>' + compare_project_list[i] + '</option>')
+            // $('#be_pk_apk').append('<option>' + app_name_list[i] + '</option>')
+        }
+        $('#scene_timecost').append('<option>All</option>')
+        for (var i = 0; i < Timecost_scene_list.length; i++) {
+            $('#scene_timecost').append('<option>' + Timecost_scene_list[i] + '</option>')
+        }
+    });
+</script>
+<!-- Calendar -->
+
+{% endblock %}

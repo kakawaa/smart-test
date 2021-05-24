@@ -1,0 +1,632 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CMS Config{% endblock %}
+{% block css %}
+{% endblock %}
+{% block admin_name %}<p>{{nickname}}</p>{% endblock %}
+
+{% block breadcrumb %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">CMS Config</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'quickit:dashboard' %}">Home</a></li>
+                    <li class="breadcrumb-item active">CMS Config</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<!-- /.card -->
+<!-- Button trigger modal -->
+<div class="modal fade" id="Curl-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div  class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Curl</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="content"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<section class="content">
+    <div class="container-fluid" id="main">
+        <div class="card card-dark card-outline">
+            <div class="card-header">
+                <div class="form-row">
+
+                    <div class="icheck-success d-inline" style="margin-left: 10px">
+                        <input type="radio" name="type" checked="" value="appconfig" id="radioSuccess1">
+                        <label for="radioSuccess1">App Config
+                        </label>
+                    </div>
+
+                    <div class="icheck-success d-inline" style="margin-left: 30px">
+                        <input type="radio" name="type" value="mediation" id="radioSuccess2">
+                        <label for="radioSuccess2">Mediation
+                        </label>
+                    </div>
+                <div style="margin-left: 30px;margin-top: 5px">
+                    <input type="checkbox" id="env" name="my-checkbox" data-off-color="danger" data-on-color="warning">
+                </div>
+                </div>
+            </div>
+
+            <form style="margin: 20px 20px">
+
+                <div class="form-row">
+                    <!--<div class="form-group col-md-1">-->
+                        <!--<label for="env" class="control-label" style="">Env:</label>-->
+                        <!--<select class="select2bs4" style="margin-left: 10px;width: 100%" data-placeholder="" id="env">-->
+                            <!--<option>Pro</option>-->
+                            <!--<option>Test</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+
+                    <div class="form-group col-md-2">
+                        <label for="anm" style="">Anm:</label>
+
+                        <select class="select2bs4" style="width: 100%" data-placeholder="" id="anm">
+                            <!--<option>vidmate</option>-->
+                            <!--<option>vmplayer</option>-->
+                            <!--<option>vdprivacy</option>-->
+                            <!--<option>shoora</option>-->
+                            <!--<option>vgame</option>-->
+                            <!--<option>kabuli</option>-->
+                            <!--<option>utranit</option>-->
+                            <!--<option>transnow</option>-->
+                            <!--<option>chalo786</option>-->
+                            <!--<option>wwe</option>-->
+                            <!--<option>appstore</option>-->
+                            <!--<option>shareu</option>-->
+                        </select>
+                    </div>
+
+                    <!--<div class="form-group col-md-1" style="margin-left: 10px">-->
+                        <!--<label for="pf" class="control-label" style="">Pf:</label>-->
+
+                        <!--<select class="select2bs4" style="width: 100%" data-placeholder="" id="pf">-->
+                            <!--<option>android</option>-->
+                            <!--<option>ios</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <div class="form-group col-md-2" style="">
+                        <label for="appver" class="control-label" style="">Version:</label>
+
+                        <input type="text" id="appver" spellcheck="false" class="form-control"
+                               placeholder="Input Version..." value="">
+                    </div>
+
+                    <div class="form-group col-md-2" style="">
+                        <label for="appvercode" class="control-label" style="">VersionCode:</label>
+
+                        <input type="text" id="appvercode" spellcheck="false" class="form-control"
+                               placeholder="Input Version Code...">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="appvercode" class="control-label" style="">Dev_Channel:</label>
+
+                        <input type="text" id="dev_channel" spellcheck="false" class="form-control"
+                               placeholder="Input Dev_Channel...">
+                    </div>
+
+
+                    <div class="form-group col-md-2" id="lan_div">
+                        <label for="lan" class="control-label" style="">Language:</label>
+                        <input type="text" id="lan" spellcheck="false" class="form-control"
+                               placeholder="language" style="" value="">
+                    </div>
+
+                    <div class="form-group col-md-2" id="install_time_div" style="display: none">
+                        <label for="install_time" class="control-label" style="">Install Time:</label>
+                        <input type="number" min="0" id="install_time" spellcheck="false" class="form-control"
+                               placeholder="install time(h)" style="" value="">
+                    </div>
+
+                    <div class="form-group col-md-2" id="loc_div" style="">
+                        <label for="lan" class="control-label" style="">Location:</label>
+                        <input type="text" id="loc" spellcheck="false" class="form-control"
+                               placeholder="location" style="" value="">
+                    </div>
+                    <!--</div>-->
+                    <!--</form>-->
+
+
+                    <!--<form class="form-inline" style="margin: 20px 20px">-->
+
+                    <div class="form-group col-md-3">
+                        <label for="appid" class="control-label" style="">Channel:</label>
+                        <input type="text" id="appid" spellcheck="false" class="form-control"
+                               placeholder="Input Channel..." style="" value="">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="bucket" class="control-label" style="">Bucket:</label>
+                        <input type="text" id="bucket" spellcheck="false" class="form-control"
+                               placeholder="Input S1-S9 or L1-L9 or only num" style="">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="pkg" class="control-label" style="">Pkg:</label>
+                        <input type="text" id="pkg" spellcheck="false" class="form-control"
+                               placeholder="Input Pkg..." style="" value="">
+
+                            <!--<select  id="pkg" style="width: 100%">-->
+                                <!--<option>com.nemo.vidmate</option>-->
+                                <!--<option>com.nemo.vidmat</option>-->
+                                <!--<option>com.pay.vpremium</option>-->
+                                <!--<option>com.yestube.downloader</option>-->
+                                <!--<option>com.android.video.browser</option>-->
+                                <!--<option>org.schabi.newpipe</option>-->
+                                <!--<option>com.biomes.vanced</option>-->
+                                <!--<option>com.utube.videotube.vanced.kit</option>-->
+                                <!--<option>com.videotube.vanced.tuber</option>-->
+                                <!--<option>com.nemo.starhalo</option>-->
+                                <!--<option>com.galo.pro</option>-->
+                                <!--<option>com.gamecenter.plugin</option>-->
+                                <!--<option>com.h5games.wingalo</option>-->
+                                <!--<option>com.vgame.center.app</option>-->
+                                <!--<option>com.wincash.game</option>-->
+                                <!--<option>com.chatnow</option>-->
+                                <!--<option>india.quizboss</option>-->
+                                <!--<option>com.india.quizboss</option>-->
+                                <!--<option>com.alhiwar</option>-->
+                                <!--<option>app.dardasha.sa</option>-->
+                                <!--<option>com.nyny.transfer</option>-->
+                                <!--<option>com.tranit.text.translate</option>-->
+                                <!--<option>com.transnow.language.translate</option>-->
+                                <!--<option>com.flatfish.cal.privacy</option>-->
+                                <!--<option>com.flatfish.video.privacy</option>-->
+                                <!--<option>com.mysecrets.vault</option>-->
+                                <!--<option>com.privacy.vault</option>-->
+                                <!--<option>com.spacex.privacy</option>-->
+                                <!--<option>cn.privacy.cal</option>-->
+                                <!--<option>com.mysecrets</option>-->
+                                <!--<option>com.mystery.cal</option>-->
+                                <!--<option>com.privacy.xspace</option>-->
+                                <!--<option>com.playit.videoplayer</option>-->
+                                <!--<option>com.quantum.player</option>-->
+                                <!--<option>com.quantum.videoplayer</option>-->
+                                <!--<option>com.moviedownload.hdvideoplayer</option>-->
+                                <!--<option>com.freevideoplayer.videodownload</option>-->
+                                <!--<option>com.quantum.vmplayer</option>-->
+                                <!--<option>com.vpn.test</option>-->
+                                <!--<option>com.free.vpn.bunny</option>-->
+                                <!--<option>com.free.fast.vpn.lightspeed</option>-->
+                                <!--<option>com.free.vpn.shoora</option>-->
+                                <!--<option>com.free.fast.vpn.shuttle</option>-->
+                                <!--<option>com.free.fast.proxy.lion.vpn</option>-->
+                                <!--<option>com.free.fast.vpn.storm.proxy</option>-->
+                                <!--<option>com.free.proxy.fast.vpn.nova</option>-->
+                                <!--<option>com.free.private.vpn.paperplane</option>-->
+                                <!--<option>com.vpn.fast.shadowsocks.orion</option>-->
+                                <!--<option>com.mobile.indiapp</option>-->
+                                <!--<option>com.zytc.transfer</option>-->
+                                <!--<option>com.shareu.share.transfer</option>-->
+                                <!--<option>com.luckyman.funnyspin</option>-->
+                                <!--<option>com.wingo.quiz</option>-->
+                                <!--<option>com.dating.lovey</option>-->
+                                <!--<option>com.dating.lovey.dev</option>-->
+                                <!--<option>com.dating.lovey.anchor</option>-->
+                                <!--<option>com.dating.lovey.anchor.dev</option>-->
+                            <!--</select>-->
+
+                    </div>
+
+                    <div class="form-group col-md-1" >
+                        <label for="country" class="control-label " style="">Country:</label>
+                        <input type="text" id="country" spellcheck="false" class="form-control"
+                               placeholder="country" style="" value="">
+                    </div>
+
+
+
+
+                    <div class="form-group col-md-1">
+                        <label for="brd" class="control-label" style="">Brd:</label>
+                        <input type="text" id="brd" spellcheck="false" class="form-control"
+                               placeholder="Brand" style="" value="">
+                    </div>
+
+
+                    <div class="form-group col-md-1">
+                        <!--<label for="summit_btn" class="control-label" style="">111</label>-->
+                        <button id="summit_btn" class="btn btn-secondary" type="button"
+                                style="margin: 30px 0 0 5px;width: 100%">Search
+                        </button>
+
+                    </div>
+
+                    <div class="form-group col-md-1">
+                        <!--<label for="summit_btn" class="control-label" style="">111</label>-->
+                        <button id="curl-btn" class="btn btn-outline-secondary" type="button"
+                                style="margin: 30px 0 0 0px;width: 100%" data-toggle="modal"
+                            data-target="#Curl-modal">Curl
+                        </button>
+
+                    </div>
+
+                </div>
+            </form>
+            <!--<form class="form-inline" style="margin: 0px 20px">-->
+            <!--<table id="apploginfo_table" class="table table-bordered"-->
+            <!--style="word-break:break-all;word-wrap:break-word"></table>-->
+        </div>
+        <!--<a id='top' class="fa fa-arrow-up"></a>-->
+          <button class="js-back-to-top back-to-top" title="回到头部">︽</button>
+
+    </div><!-- /.container-fluid -->
+</section>
+
+
+{% endblock %}
+
+
+{% block script %}
+<!-- Bootstrap -->
+<!-- AdminLTE -->
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/chart.js/Chart.min.js"></script>
+<script src="/static/AdminLTE-3.0.1/dist/js/demo.js"></script>
+<script src="/static/AdminLTE-3.0.1/dist/js/pages/dashboard3.js"></script>
+<script src="/static/plugin/json-viewer/js/jquery.json-viewer.js"></script>
+<!-- Bootstrap Switch -->
+<script src="/static/AdminLTE-3.0.1//plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- FLOT CHARTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.resize.min.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.pie.min.js"></script>
+<script src="/static/plugin/loading/js/loading.js"></script>
+<script src="/static/AdminLTE-3.0.1/plugins/jqueryEditableSelect/src/js/jquery.editable-select.js"></script>
+<!--<script src="https://rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.js"></script>-->
+<script>
+var anms_list = {{anms_list | safe}};
+    for (var i = 0; i < anms_list.length; i++) {
+        $('#anm').append('<option>' + anms_list[i] + '</option>')
+    };
+
+    // $('#pkg').editableSelect({
+    //     bg_iframe: false,
+    //     case_sensitive: false,
+    //     items_then_scroll: 10 ,
+    //     isFilter:false
+	// 	});
+
+
+    function loading() {
+        $('body').loading({
+            loadingWidth: 120,
+            title: '',
+            name: 'test',
+            discription: '',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+
+        setTimeout(function () {
+            //removeLoading('test');
+        }, 3000);
+    };
+    function loading1() {
+        $('#Curl-modal').loading({
+            loadingWidth: 120,
+            title: 'waiting for curl',
+            name: 'test1',
+            discription: '',
+            direction: 'column',
+            type: 'origin',
+            // originBg:'#71EA71',
+            originDivWidth: 40,
+            originDivHeight: 40,
+            originWidth: 6,
+            originHeight: 6,
+            smallLoading: false,
+            loadingMaskBg: 'rgba(0,0,0,0.2)'
+        });
+
+        setTimeout(function () {
+            //removeLoading('test');
+        }, 3000);
+    };
+
+
+    $('input[type=radio][name=type]').change(function() {
+        if (this.value == 'mediation') {
+            $("#install_time_div").show()
+            $("#lan_div").hide()
+        }
+        else if (this.value == 'appconfig') {
+            $("#install_time_div").hide()
+            $("#lan_div").show()
+        }
+    });
+
+
+    var options = {
+        // collapsed: $('#collapsed').is(':checked'),
+        // withQuotes: true,
+        // withLinks: false
+    };
+
+    $('#Curl-modal').on('hide.bs.modal', function () {
+        $('#curl-content').remove()
+    })
+    $('#Curl-modal').on('show.bs.modal', function () {
+        var env_bool = $("#env").bootstrapSwitch('state')
+        if (env_bool ==false){
+            env = 'Test'
+        }else {
+            env = 'Prod'
+        }
+        var anm = $("#anm").select2('val').toString();
+        var pf = 'android';
+        var version = $("#appver").val();
+        var versioncode = $("#appvercode").val();
+        var appid = $("#appid").val();
+        var bucket = $("#bucket").val();
+        var country = $("#country").val();
+        var pkg = $("#pkg").val();
+        var language = $("#lan").val();
+        var brd = $("#brd").val();
+        var dev_channel = $("#dev_channel").val();
+        var loc = $("#loc").val();
+        var install_time = $("#install_time").val();
+        if (install_time < 0){
+            install_time = 0
+        }
+        var type = $(':radio[name="type"]:checked').val();
+        $.ajax({
+            url: "/query_config_api/",
+            type: "POST",
+            async: true,
+            data: {
+                env: env,
+                anm: anm,
+                pf: pf,
+                appver: version,
+                appverc: versioncode,
+                appid: appid,
+                bucket: bucket,
+                country: country,
+                pkg: pkg,
+                language: language,
+                type: type,
+                dev_channel: dev_channel,
+                brd: brd,
+                loc:loc,
+                install_time:install_time
+
+            },
+            beforeSend: function () {
+                loading1();
+
+            },
+            complete: function () {
+                console.log('complete')
+                removeLoading('test1');
+            },
+            success: function (data) {
+                console.log(data['curl'])
+                $('#content').append('<pre id="curl-content">'+data['curl']+'</pre>')
+            }
+        });
+
+    });
+
+    $('#summit_btn').click(function () {
+        $("#json_data").remove()
+        // var env = $("#env").select2('val').toString();
+        var env_bool = $("#env").bootstrapSwitch('state')
+        if (env_bool ==false){
+            env = 'Test'
+        }else {
+            env = 'Prod'
+        }
+        var anm = $("#anm").select2('val').toString();
+        // var pf = $("#pf").select2('val').toString();
+        var pf = 'android';
+        var version = $("#appver").val();
+        var versioncode = $("#appvercode").val();
+        var appid = $("#appid").val();
+        var bucket = $("#bucket").val();
+        var country = $("#country").val();
+        var pkg = $("#pkg").val();
+        var language = $("#lan").val();
+        var brd = $("#brd").val();
+        var dev_channel = $("#dev_channel").val();
+        var loc = $("#loc").val();
+        var install_time = $("#install_time").val();
+        if (install_time < 0){
+            install_time = 0
+        }
+        var type = $(':radio[name="type"]:checked').val();
+
+        console.log(env, anm, pf, version, versioncode, appid, bucket, country, pkg);
+        $.ajax({
+            url: "/query_config_api/",
+            type: "POST",
+            async: true,
+            data: {
+                env: env,
+                anm: anm,
+                pf: pf,
+                appver: version,
+                appverc: versioncode,
+                appid: appid,
+                bucket: bucket,
+                country: country,
+                pkg: pkg,
+                language: language,
+                type: type,
+                dev_channel: dev_channel,
+                brd: brd,
+                loc:loc,
+                install_time:install_time
+
+            },
+            beforeSend: function () {
+                loading();
+                console.log('loading')
+
+            },
+            complete: function () {
+                console.log('complete')
+                removeLoading('test');
+            },
+            success: function (data) {
+                $("#main").append("<div id='json_data' class=\"card\">\n" +
+                    "<div class='card-header'>" + type.replace(/^\S/, s => s.toUpperCase()) +"<a href=\"#\"><i title=\"点击可复制\" onclick=\"copy()\" style='padding-left: 10px' class='fa fa-copy'></i></a>"+
+                    "</div> " +
+                    "<pre style=\"margin: 20px 20px\" id=\"requestJson\"></pre></div>" +
+                    "</div> ")
+                $('#requestJson').jsonViewer(data['result'], options);
+
+
+                window.json_data = JSON.stringify(data['result'])
+            }
+        });
+
+    });
+
+
+
+    function copy() {
+        // alert(json_data)
+        const el = document.createElement('textarea')
+        el.value = json_data
+        el.setAttribute('readonly', false)
+        el.setAttribute('contenteditable', true)
+        el.style.position = 'absolute'
+        el.style.left = '-99999px'
+        document.body.append(el)
+        // 保存原有的选择区域
+        const selected =
+          document.getSelection().rangeCount > 0
+            ? document.getSelection().getRangeAt(0)
+            : false
+        el.select()
+        el.setSelectionRange(0, el.textLength) // iOS 中使用 select() 函数无效
+        document.execCommand('copy')
+        document.body.removeChild(el)
+        if (selected) {
+            document.getSelection().removeAllRanges()
+            document.getSelection().addRange(selected)
+        }
+        toastr.success('复制成功');
+    };
+
+
+    $(function() {
+      var $win = $(window);
+      var $backToTop = $('.js-back-to-top');
+      // 当用户滚动到离顶部100像素时，展示回到顶部按钮
+      $win.scroll(function() {
+        if ($win.scrollTop() > 100) {
+          $backToTop.show();
+        } else {
+          $backToTop.hide();
+        }
+      });
+      // 当用户点击按钮时，通过动画效果返回头部
+        $backToTop.click(function() {
+        $('html, body').animate({
+          scrollTop: 0
+        }, 0);
+      });
+    });
+
+
+    // $("input[data-bootstrap-switch]").each(function(){
+    //
+    //   $(this).bootstrapSwitch('state', $(this).prop('checked'),);
+    // });
+    $("#env").bootstrapSwitch({
+        onText:'Prod',
+        offText:'Test'
+    }).bootstrapSwitch('state',true)
+
+
+</script>
+<link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/jqueryEditableSelect/src/css/jquery.editable-select.css">
+
+<style>
+.back-to-top {
+      display: none;
+      /* 默认是隐藏的，这样在第一屏才不显示 */
+      position: fixed;
+      /* 位置是固定的 */
+      bottom: 20px;
+      /* 显示在页面底部 */
+      right: 30px;
+      /* 显示在页面的右边 */
+      z-index: 99;
+      /* 确保不被其他功能覆盖 */
+      border: 1px solid #5cb85c;
+      /* 显示边框 */
+      outline: none;
+      /* 不显示外框 */
+      background-color: #fff;
+      /* 设置背景背景颜色 */
+      color: #5cb85c;
+      /* 设置文本颜色 */
+      cursor: pointer;
+      /* 鼠标移到按钮上显示手型 */
+      padding: 10px 15px 15px 15px;
+      /* 增加一些内边距 */
+      border-radius: 10px;
+      /* 增加圆角 */
+    }
+
+    .back-to-top:hover {
+      background-color: #5cb85c;
+      /* 鼠标移上去时，反转颜色 */
+      color: #fff;
+    }
+/*#top {*/
+    /*position: fixed;*/
+    /*right: 100px;*/
+    /*bottom: 100px;*/
+    /*z-index: 90;*/
+    /*font-size: 30px;*/
+    /*color: black;*/
+/*}*/
+    pre{
+         white-space: pre-wrap;
+word-wrap: break-word;
+    }
+
+</style>
+<!-- Calendar -->
+{% endblock %}

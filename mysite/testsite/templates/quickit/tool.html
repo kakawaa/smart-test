@@ -1,0 +1,457 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Tool</title>
+  <!-- Tell the browser to be responsive to screen width -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/static/image/logo-nemo.png">
+   <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/summernote/summernote-bs4.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/toastr/toastr.min.css">
+
+    <!-- highcharts -->
+    <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/themes/dark-unica.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="/static/AdminLTE-3.0.1/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="/static/AdminLTE-3.0.1/plugins/toastr/toastr.min.js"></script>
+     <!-- Loading -->
+	<link rel="stylesheet" href="/static/plugin/loading/css/loading.css">
+    <!-- JSON Viewer -->
+    <link href="/static/plugin/json-viewer/css/jquery.json-viewer.css" rel="stylesheet">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/daterangepicker/daterangepicker.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+    <script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <link rel="stylesheet" type="text/css" href="/static/AdminLTE-3.0.1/plugins/xcConfirm/css/xcConfirm.css"/>
+    <script src="/static/AdminLTE-3.0.1/plugins/xcConfirm/js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/AdminLTE-3.0.1/plugins/xcConfirm/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+<div class="col-md-12" style="">
+          <div class="card card-outline card-info" style="width: 100%;height:100%;position:absolute" align=”center”>
+          <div class="card-header" style="">
+            <div class="card-tools">
+                <div class="icheck-success">
+                    JsonViewer<input type="checkbox" id="edit_checkboxSuccess">
+                    <label for="edit_checkboxSuccess"></label>
+                </div>
+              </div>
+            <h3 class="card-title">
+              <i class="fa fa-wrench"></i>
+              工具
+            </h3>
+          </div>
+          <div class="card-body" style="background-color: white">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item"><a class="nav-link active"  href="#tranit_decrypt" aria-controls="tranit_decrypt" role="tab" data-toggle="tab"> <strong>LogData</strong></a></li>
+                <li class="nav-item"><a class="nav-link " href="#decrypt" aria-controls="decrypt" role="tab" data-toggle="tab"> <strong>StarHalo</strong></a></li>
+                <li class="nav-item"><a class="nav-link " href="#vdm_decrypt" aria-controls="vdm_decrypt" role="tab" data-toggle="tab"> <strong>VidMate</strong></a></li>
+                <li class="nav-item"><a class="nav-link " href="#vdm_decrypt_new" aria-controls="vdm_decrypt_new" role="tab" data-toggle="tab"> <strong>VidMate-New</strong></a></li>
+                <li class="nav-item"><a class="nav-link " href="#check_text" aria-controls="check_text" role="tab" data-toggle="tab" aria-selected="false"> <strong>Check_Text</strong></a></li>
+                <li class="nav-item"><a class="nav-link " href="#game_test" aria-controls="game_test" role="tab" data-toggle="tab" aria-selected="false"> <strong>Galo</strong></a></li>
+                <li class="nav-item"><a class="nav-link " href="#phone_maker" aria-controls="phone_maker" role="tab" data-toggle="tab" aria-selected="false"> <strong>Phone Maker</strong></a></li>
+
+
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tranit_decrypt">&nbsp
+                      <strong>anm: </strong><input style="margin-top: 5px;margin-bottom:5px;border-radius:5px" type="text" id="tb_decrypt_cust_anm" value="utranit">
+                    <div>
+                    <textarea id="tb_tranit_decrypt"  spellcheck="false" style="margin: 0px; width: 1000px; height: 430px;border-style:none;border-radius: 7px;outline:none;background:#1f272b;color:darkgrey;font-size:17px">iAykgYw5EgwEvcclyDDHmQc2qILHs/kOByyNYa1kWFmap8n7/6gRjswR2HSbCB2vNF76UGzWm/AcKk6JWqfv9cAwKB56iLmqZw/3o+hT2OU=</textarea>
+                    </div>
+
+                      <button class="btn  btn-success" onclick="tranit_decrypt()">Decrypt</button>
+                      <button class="btn  btn-success" onclick="tranit_encrypt()">Encrypt</button>
+
+                  </div>
+                <div role="tabpanel" class="tab-pane" id="decrypt">
+                    <div>
+                        <pre id="tb_decrypt_json" style="color: rebeccapurple;display: none"></pre>
+                        <textarea id="tb_decrypt" spellcheck="false" style="margin: 0px; width: 1000px; height: 430px;border-style:none;border-radius: 7px;outline:none;background:#1f272b;color: darkgrey;font-size:17px">s7iEEvsB2+rHiQPKn4G2KTg=</textarea>
+                    </div>
+
+                      <button class="btn  btn-success" onclick="decrypt()">Decrypt</button>
+                      <button class="btn  btn-success" onclick="encrypt()">Encrypt</button>
+
+                      <!--<button onclick="decrypt()">Decrypt</button>-->
+                  </div>
+                <div role="tabpanel" class="tab-pane" id="vdm_decrypt">
+                    <div>
+                        <pre id="tb_vdm_decrypt_json" style="color: rebeccapurple;display: none"></pre>
+                        <textarea id="tb_vdm_decrypt" spellcheck="false" style="margin: 0px; width: 1000px; height: 430px;border-style:none;border-radius: 7px;outline:none;background:#1f272b;color: darkgrey;font-size:17px">Bo5OLKxJJMgvkzDztCbglg==</textarea>
+                    </div>
+                    <button class="btn  btn-success" onclick="vdm_decrypt()">Decrypt</button>
+                    <button class="btn  btn-success" onclick="vdm_encrypt()">Encrypt</button>
+
+                  </div>
+                <div role="tabpanel" class="tab-pane" id="vdm_decrypt_new">
+                      <strong>crypt: </strong><input style="margin-top: 5px;margin-bottom:5px;border-radius:5px" type="text" id="tb_vdm_decrypt_new_crypt" value="cm">
+                    <div>
+                        <pre id="tb_vdm_decrypt_new_json" style="color: rebeccapurple;display: none"></pre>
+                        <textarea id="tb_vdm_decrypt_new" spellcheck="false" style="margin: 0px; width: 1000px; height: 430px;border-style:none;border-radius: 7px;outline:none;background:#1f272b;color: darkgrey;font-size:17px">%%12345</textarea>
+                    </div>
+                    <button class="btn  btn-success" onclick="vdm_decrypt_new()">Decrypt</button>
+                    <button class="btn  btn-success" onclick="vdm_encrypt_new()">Encrypt</button>
+
+                  </div>
+                <div role="tabpanel" class="tab-pane" id="check_text">
+                      <div>
+                          <textarea id="tb_check_text" spellcheck="false" style="margin: 0px; width: 1000px; height: 430px;border-style:none;border-radius: 7px;outline:none;background:#1f272b;color: darkgrey;font-size:17px">fuck</textarea>
+                      </div>
+                          <button class="btn  btn-success"  onclick="check_text()">Check</button>
+                  </div>
+                <div role="tabpanel" class="tab-pane" id="game_test">&nbsp
+                    <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">UID</label></div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<input type="text"  id="uid" class="form-control"  placeholder="Input uid..." style="width: 150px">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">SCORE</label></div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<input type="text"  id="score" class="form-control"  placeholder="1 G-coin = 100 Score" style="width: 200px">
+                        </div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="update_score"  type="button" class="btn  bg-gradient-primary center-block ol-sm-12">
+                            Update Score
+                        </button></div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="review"  type="button" class="btn  bg-gradient-info center-block ol-sm-12">
+                            Review Redeem
+                        </button></div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="reject"  type="button" class="btn  bg-gradient-danger center-block ol-sm-12">
+                            Reject Redeem
+                        </button></div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="refresh_redis"  type="button" class="btn  bg-gradient-success center-block ol-sm-12">
+                             <ion-icon name="refresh-outline"></ion-icon>
+                            Refresh Redis
+                        </button></div>
+                    </form>
+                    <form class="form-inline" style="margin: 10px 0px">
+                        <textarea id="galo_result" spellcheck="false" readonly="readonly" style="margin: 0px; width: 1000px; height: 300px;border-color:lightskyblue ; border-radius: 7px;outline:none;font-size:17px"></textarea>
+
+                    </form>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="phone_maker">&nbsp
+                    <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <select class="select2bs4" style="" data-placeholder="" id="anm">
+                            <option>vidmate</option>
+                            <option>vmplayer</option>
+                            <option>vdprivacy</option>
+                            <option>shoora</option>
+                            <option>vgame</option>
+                            <option>kabuli</option>
+                            <option>utranit</option>
+                            <option>transnow</option>
+                            <option>chalo786</option>
+                            <option>dating</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="select2bs4" style="width: 100px;" data-placeholder="" id="phone_type">
+                            <option>+91</option>
+                            <option>+201111</option>
+                            <option>+202222</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="get_phone"  type="button" class="btn  bg-gradient-primary center-block ol-sm-12">
+                            Get Phone
+                        </button></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="color:#ff2344;">验证码：4201</label></div>
+                    </form>
+                    <form class="form-inline" style="margin: 10px 0px">
+                        <textarea id="phone_list" spellcheck="false" readonly="readonly" style="margin: 0px; width: 500px; height: 300px;border-color:lightskyblue ; border-radius: 7px;outline:none;font-size:17px"></textarea>
+
+                    </form>
+
+                </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+
+          </div>
+
+<script src="/static/AdminLTE-3.0.1/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/static/AdminLTE-3.0.1/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/static/AdminLTE-3.0.1/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Sparkline -->
+<script src="/static/AdminLTE-3.0.1/plugins/sparklines/sparkline.js"></script>
+
+<!-- jQuery Knob Chart -->
+<script src="/static/AdminLTE-3.0.1/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/static/AdminLTE-3.0.1/plugins/moment/moment.min.js"></script>
+<script src="/static/AdminLTE-3.0.1/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/static/AdminLTE-3.0.1/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/static/AdminLTE-3.0.1/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/static/AdminLTE-3.0.1/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/AdminLTE-3.0.1/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/static/AdminLTE-3.0.1/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/static/AdminLTE-3.0.1/dist/js/demo.js"></script>
+<!-- Select2 -->
+<script src="/static/AdminLTE-3.0.1/plugins/select2/js/select2.full.min.js"></script>
+<!-- DataTables -->
+<script src="/static/AdminLTE-3.0.1/plugins/datatables/jquery.dataTables.js"></script>
+<script src="/static/AdminLTE-3.0.1/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- FLOT CHARTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.resize.min.js"></script>
+<!-- Toastr -->
+<script src="/static/AdminLTE-3.0.1/plugins/toastr/toastr.min.js"></script>
+<script src="/static/JS/new_tool.js"> </script>
+<script src="/static/plugin/loading/js/loading.js"></script>
+<script src="/static/plugin/json-viewer/js/jquery.json-viewer.js"></script>
+<!-- Select2 -->
+<script src="/static/AdminLTE-3.0.1/plugins/select2/js/select2.full.min.js"></script>
+
+<script>
+    $(function() {
+    $(".daterange input").each(function() {
+        var $this = $(this);
+
+        $this.daterangepicker({
+            locale : {
+                "format" : "YYYY-MM-DD",// 显示格式
+                "separator" : " / ",// 两个日期之间的分割线
+                "applyLabel" : "确定",
+                "cancelLabel" : "取消",
+                "fromLabel" : "开始",
+                "toLabel" : "结束",
+                "daysOfWeek" : [ "日", "一", "二", "三", "四", "五", "六" ],
+                "monthNames" : [ "一月", "二月", "三月", "四月", "五月", "六", "七月", "八月", "九月", "十月", "十一月", "十二月" ],
+                "firstDay" : 1,
+                "days":1
+            },
+            startDate: moment().subtract(0, 'days'),
+            endDate: moment()
+
+        }, function(start, end, label) {
+            // 点击确定后的事件，下面是为了bootstrap validate得校验，
+            // 若未使用，可忽视
+            if ($this.parents("form.required-validate").length > 0) {
+                var $form = $this.parents("form.required-validate");
+
+                var name = $this.attr("name");
+                if ($form.length > 0) {
+                    var data = $form.data('bootstrapValidator');
+                    data.updateStatus(name, 'NOT_VALIDATED', null)
+                    // Validate the field
+                    .validateField(name);
+                }
+            }
+        // 设置最小宽度，否则显示不全
+        }).css("min-width", "210px").next("i").click(function() {
+            // 对日期的i标签增加click事件，使其在鼠标点击时可以拉出日期选择
+            $(this).parent().find('input').click();
+        });
+    });
+});
+    $(function () {
+        $('.select2').select2({
+            allowClear: true,
+            tags: true
+        })
+        $("select").on("select2:select", function (evt) {
+      var element = evt.params.data.element;
+      var $element = $(element);
+      $element.detach();
+      $(this).append($element);
+      $(this).trigger("change");
+    });
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
+        //Datemask2 mm/dd/yyyy
+        $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
+        //Money Euro
+        $('[data-mask]').inputmask()
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY hh:mm A'
+            }
+        })
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function (start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+        )
+
+        //Timepicker
+        $('#timepicker').datetimepicker({
+            format: 'LT'
+        })
+
+        //Bootstrap Duallistbox
+        $('.duallistbox').bootstrapDualListbox()
+
+        //Colorpicker
+        $('.my-colorpicker1').colorpicker()
+        //color picker with addon
+        $('.my-colorpicker2').colorpicker()
+
+        $('.my-colorpicker2').on('colorpickerChange', function (event) {
+            $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+        });
+
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+    })
+</script>
+<style>
+            .box1 {
+            float: left;
+            padding: 15px 0 10px 15px;
+        }
+        a:hover{color:red;}
+        .box1 .pic {
+            width: 240px;
+            height: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #CCE8EB;
+            border: 1px solid #CCE8EB;
+        }
+
+        .box1 .pic img {
+            display: block;
+            width: 100%;
+            height: 165px;
+
+        }
+
+        .box1 .html_str{
+            display: block;
+            width: 100%;
+            height: 265px;
+        }
+
+        .box1 .html_detail {
+            height: auto;
+
+        }
+
+        .box1 .pic .detail {
+            height: 120px;
+            overflow-y: scroll;
+        }
+
+        .box1 .pic p {
+            margin: 0;
+        }
+
+
+    .detail_text{
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .daterange i {
+        position: absolute;
+        bottom: 10px;
+        right: 14px;
+        top: auto;
+        cursor: pointer;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+        background-color:#17a2b8
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+        color: white;
+    }
+    .daterange {
+        position: relative;
+    }
+</style>
+</body>
+</html>

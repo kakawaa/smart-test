@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}APK列表{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'adminlet-2.4.10/bower_components/select2/dist/css/select2.min.css' %}">
+<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'adminlet-2.4.10/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+<link href="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block breadcrumb %}
+<!-- Content Header (Page header) -->
+  <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">APK Info</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'quickit:dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">APK</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+{% endblock %}
+
+{% block content %}
+
+<!-- Main content -->
+<!--<section class="content">-->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <!--                <div class="box-header">-->
+                <!--                    <h3 class="box-title">Apk信息表</h3>-->
+                <!--                </div>-->
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form class="form-inline" style="margin: 20px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" style="">PKG&nbsp;NAME:</label></div>
+                        <div class="form-group">
+                            <select class="selectpicker show-tick form-control" style="width:auto"
+                                    id="all_apk_name"></select></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-1" style="">COL:</label></div>
+                        <div class="form-group">
+                            <select class="form-control" style="width:auto" id="all_col">
+                                <option>id</option>
+                                <option>build_id</option>
+                                <option>apk_name</option>
+                                <option>version</option>
+                                <option>version_code</option>
+                                <option>size</option>
+                                <option>time</option>
+                            </select></div>
+
+                        <div class="form-group">
+                            <input class="form-control col-sm-12" style="margin-left:10px;width: 500px"
+                                   id="search_input" placeholder="请输入关键词"></div>
+
+                    </form>
+
+                    <table id="apk_infos_table"
+                           class="table table-hover no-margin kv-grid-table table-bordered table-striped"
+                           style="table-layout: auto;">
+
+                        <thead>
+                        <tr>
+                            <th style="width: 2%;">ID</th>
+                            <th>build_id</th>
+                            <th>pkg_name</th>
+                            <th>apk_name</th>
+                            <th>version</th>
+                            <th style="width: 1%;">version_code</th>
+                            <th>size</th>
+                            <th style="width: 10%;">ctime</th>
+                            <th style="width: 15%;">more</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for apk_info in apk_infos %}
+                        <tr>
+                            <td>{{ apk_info.id }}</td>
+                            <td>{{ apk_info.build_num }}</td>
+                            <td>{{ apk_info.package_name }}</td>
+                            <td>{{ apk_info.apk_name }}</td>
+                            <td>{{ apk_info.version }}</td>
+                            <td>{{ apk_info.version_code }}</td>
+                            <td>{{ apk_info.size }}</td>
+                            <td>{{ apk_info.ctime|date:"Y-m-d G:i:s" }}</td>
+                            <td>
+                                <a href="{% url 'testsite:detail' apk_info.apk_name %}" role="button" title="查看安装包详情" class="btn btn-default btn-xs fa fa-eye" style="color: black ">&nbspdetail</a>
+                                <a id="choose" class="btn btn-success btn-xs fa fa-check-square" role="button" title="选择对比安装包" style="color: white ;background-color:#009688">&nbspselect</a>
+                                {% if is_super_admin %}
+                                <a id="delete" class="btn btn-warning btn-xs fa fa-trash-o" role="button" title="删除" style="color: white">&nbspdelete</a>
+                                {% endif %}
+                                <!--<a style="color:#404553;" href="{% url 'testsite:detail' apk_info.apk_name %}" title="查看安装包详情" class="fa fa-eye"-->
+                              <!--&gt;&nbspdetail&nbsp&nbsp&nbsp</a>-->
+                                <!--<a style="color:#404553;" href="#" class="fa faa-check-square" id="choose" title="选择对比安装包">&nbspselect&nbsp&nbsp&nbsp</a>-->
+                                <!--{% if is_super_admin %}-->
+                                <!--<a style="color:#404553;" href="#" class="fa fa-trash-o" id="delete" title="删除">&nbspdelete</a>-->
+                                <!--{% endif %}-->
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>没有数据</tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 id="title" class="box-title">安装包size对比</h3>
+                </div>
+                <div class="box-body">
+                    <div style="position:absolute;right:2px;top:-2px;cursor:pointer;display:none;"
+                         class="input_clear">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+<div>
+              <div class="form-inline" style="margin-bottom: 20px">
+                <label>对比版本：</label>
+
+                <!--<select  id="be_pk_apk" class="form-control select2" draggable="true" style="width:10%"  data-placeholder="选择安装包..."/><option value=""></option>-->
+                <!--</select>-->
+                  <!--<select multiple id="apk_size_pk" class=" chooser form-control select2" draggable="true" style="width: 70%"  data-placeholder="选择安装包..."/>-->
+                <!--</select>-->
+                <input type="text" data-placeholder="选择安装包..." class="form-control" style="width: 70%"  id="test">
+                <button style="margin-left: 10px" class="btn btn-primary" id="pk_btn">对比</button>
+              </div>
+
+    <div id="pk_table">
+
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+<!--<script src="{% static 'adminlet-2.4.10/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>-->
+<script src="{% static 'adminlet-2.4.10/bower_components/bootstrap/dist/js/bootstrap-tagsinput.min.js' %}"></script>
+
+<script src="{% static 'JS/apk_list.js' %}"> </script>
+<script>
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        var app_name_list = {{app_list | safe}};
+        $('#all_apk_name').append('<option>All</option>')
+        for (var i = 0; i < app_name_list.length; i++) {
+            $('#all_apk_name').append('<option>' + app_name_list[i] + '</option>')
+            // $('#be_pk_apk').append('<option>' + app_name_list[i] + '</option>')
+        }
+        ;
+
+        // size对比下拉框
+        var options = table.column(3).data()
+        for (var i = 0; i < options.length; i++){
+              $('#apk_size_pk').append("<option>"+options[i]+"</option>");
+        }
+    });</script>
+<style>
+
+    .up {
+        color: #ee481c;
+    }
+
+    .down {
+        color: #21a16b;
+    }
+.bootstrap-tagsinput{
+             width: 70%;
+         }
+  .btn-primary{
+    background-color: #009688;
+    border-color: #009688
+  }
+    .btn-primary:hover{
+    background-color: #00bfad;
+    border-color: #00bfad
+  }
+    .bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body{
+        background-color: #f0ad4e !important
+    }
+    a:hover, a:focus{
+        text-decoration: none;
+    }
+    .dataTables_paginate>a{
+        margin: 0 10px;
+        cursor:pointer;
+        color: #404553;
+
+    }.dataTables_paginate>span{
+
+        margin: 0 10px;
+        color: #009688;
+    }
+    .dataTables_paginate>span>a{
+        cursor:pointer;
+        margin: 0 10px;
+    }
+    .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary{
+        background-color: #00bfad;
+            border-color: #00bfad
+    }
+    .btn-primary:focus, .btn-primary.focus{
+        background-color: #00bfad;
+            border-color: #00bfad
+    }
+    .btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus{
+         background-color: #00bfad;
+            border-color: #00bfad
+    }
+</style>
+{% endblock %}

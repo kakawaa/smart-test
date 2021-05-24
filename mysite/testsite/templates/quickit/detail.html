@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}APK Detail{% endblock %}
+
+  <!-- Main Sidebar Container -->
+
+  <!-- Content Wrapper. Contains page content -->
+{% block breadcrumb %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>APK Detail</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'quickit:dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">APK Detail</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+{% endblock %}
+
+{% block content %}
+ <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+ <form class="form-inline" style="margin: 10px 0px">
+     <a href="{% url 'quickit:apk_list' %}" class="nav-link active">
+<i class="fas fa-reply" aria-hidden="true"></i>
+      </a>
+                    <h3 class="card-title">{{ apk_info.apk_name }}</h3>
+ </form>
+
+                </div>
+                <div class="card-body">
+                    <table id="apk_infos_table" class="table table-bordered table-hover" style="WORD-WRAP: break-word" width="1">
+                <thead>
+                    <tr>
+                        <th>apk_name</th>
+                        <th>版本号</th>
+                        <th>大小</th>
+                        <th>dex</th>
+                        <th>so</th>
+                        <th>xml</th>
+                        <th>arsc</th>
+
+                    </tr>
+                    </thead>
+                        <tbody>
+                    <tr>
+                        <td>{{ apk_info.apk_name }}</td>
+                        <td>{{ apk_info.version }}</td>
+                        <td>{{ apk_info.size|default:'N/A' }}</td>
+                        <td>{{ apk_detail.dex|default:'N/A' }}</td>
+                        <td>{{ apk_detail.so|default:'N/A' }}</td>
+                        <td>{{ apk_detail.xml|default:'N/A' }}</td>
+                        <td>{{apk_detail.arsc}}</td>
+
+
+
+                    </tr>
+                    </tbody>
+                <thead>
+                    <tr>
+                       <th>jar</th>
+                        <th>SF</th>
+                        <th>MF</th>
+                        <th>kotlin_metadata</th>
+                        <th>jpg</th>
+                        <th>gz</th>
+                        <th>gif</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                    <tr>
+                        <td>{{apk_detail.jar}}</td>
+                      <td>{{apk_detail.SF}}</td>
+                        <td>{{apk_detail.MF}}</td>
+                        <td>{{apk_detail.kotlin_metadata}}</td>
+                        <td>{{apk_detail.jpg}}</td>
+                        <td>{{apk_detail.gz}}</td>
+                        <td>{{apk_detail.gif}}</td>
+                    </tr>
+                    </tbody>
+                <thead>
+                    <tr>
+                        <th>png</th>
+                        <th>webp</th>
+                        <th>mp4</th>
+                        <th>properties</th>
+                        <th>kotlin_module</th>
+                        <th>kotlin_builtins</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                    <tr>
+                        <td>{{apk_detail.png}}</td>
+                        <td>{{apk_detail.webp}}</td>
+                        <td>{{apk_detail.mp4}}</td>
+                        <td>{{apk_detail.properties}}</td>
+                        <td>{{apk_detail.kotlin_module}}</td>
+                        <td>{{apk_detail.kotlin_builtins}}</td>
+                    </tr>
+                    </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+        <!-- /.col -->
+      </div>
+        <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

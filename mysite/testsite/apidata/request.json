@@ -1,0 +1,18 @@
+{
+    "appid":"com.nemo.vidmate.app",
+    "appver":"3.5909",
+    "location":"IN",
+    "country":"in",
+    "clientid":"a72bc0a2-86b2-4681-b342-0404f3e1581c",
+    "demand":"1",
+    "ds":"test",
+    "install_time":"1533301244569",
+    "language":"en",
+    "network_type":"WIFI",
+    "nop":"46003",
+    "osver":"22",
+    "planguage":"en",
+    "uid":"abc",
+    "uuid":"test",
+    "sign":"n_e_m_o"
+}

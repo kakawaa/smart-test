@@ -1,0 +1,461 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Test Maker{% endblock %}
+
+  <!-- Main Sidebar Container -->
+
+  <!-- Content Wrapper. Contains page content -->
+{% block breadcrumb %}
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Test Maker</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'quickit:dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">Test Maker</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+{% endblock %}
+
+
+
+
+{% block content %}
+<!-- 获取nickname-->
+<button id="creater" value="{{nickname}}" style="display: none"></button>
+<!-- task model-->
+<div class="modal fade" id="modal-task" >
+        <div class="modal-dialog modal-lg" style="width: 620px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Add Task</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+               <form class="form-inline" style="margin: 2px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Project</label></div>
+                        <div class="form-group" id="task_project_form">
+                            <input type="text" id="task_project" class="form-control"  placeholder="Project..." style="width: 100px">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Env</label></div>
+                        <div class="form-group" id="task_evn_form">
+                            <select class="select2bs4" style="width:70px" id="task_env">
+                                <option>Test</option>
+                                <option>Prod</option>
+                            </select></div>
+                        <div class="form-group" id="task_name_from">
+                          &nbsp;&nbsp;<input type="text"  id="task_name" class="form-control"  placeholder="Input task name..." style="width: 200px">
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Timer</label></div>
+                        <div class="form-group" id="task_time_from">
+                            <div class="icheck-success">
+                                <input type="checkbox" id="checkboxSuccess">
+                                <label for="checkboxSuccess"></label></div>
+                        </div>
+                </form>
+               <form class="form-inline" style="margin: 20px 0px;display: none" id="timer_form">
+                        <div class="form-group" id="time_value_from">
+                          &nbsp;&nbsp;<input type="text"  id="time_value" class="form-control"  placeholder="Input time value..." style="width: 200px">
+                        </div>
+                        <div class="form-group" id="time_type_form">
+                            <select class="select2bs4" style="width:100px" id="time_type" >
+                                <option>Min</option>
+                                <option>Hours</option>
+                                <option>Day</option>
+                                <option>Week</option>
+                                <option>Month</option>
+                            </select></div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="task_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="task_save" type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- edit task model-->
+<div class="modal fade" id="modal-edittask" >
+        <div class="modal-dialog modal-lg" style="width: 620px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Edit Task</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+               <form class="form-inline" style="margin: 2px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Project</label></div>
+                        <div class="form-group" id="edit_task_project_form">
+                            <input type="text" id="edit_task_project" class="form-control"  placeholder="Project..." style="width: 100px">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Env</label></div>
+                        <div class="form-group" id="edit_task_evn_form">
+                            <select class="select2bs4" style="width:70px" id="edit_task_env">
+                                <option>Test</option>
+                                <option>Prod</option>
+                            </select></div>
+                        <div class="form-group" id="edit_task_name_from">
+                          &nbsp;&nbsp;<input type="text"  id="edit_task_name" class="form-control"  placeholder="Input task name..." style="width: 200px">
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Timer</label></div>
+                         <div class="form-group" id="edit_task_time_from">
+                            <div class="icheck-success">
+                                <input type="checkbox" id="edit_checkboxSuccess">
+                                <label for="edit_checkboxSuccess"></label></div>
+                        </div>
+                </form>
+               <form class="form-inline" style="margin: 20px 0px;display: none" id="edit_timer_form">
+                        <div class="form-group" id="edit_time_value_from">
+                          &nbsp;&nbsp;<input type="text"  id="edit_time_value" class="form-control"  placeholder="Input time value..." style="width: 200px">
+                        </div>
+                        <div class="form-group" id="edit_time_type_form">
+                            <select class="select2bs4" style="width:100px" id="edit_time_type" >
+                                <option>Min</option>
+                                <option>Hours</option>
+                                <option>Day</option>
+                                <option>Week</option>
+                                <option>Month</option>
+                            </select></div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="edit_task_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="edit_task_save" type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- case model-->
+<div class="modal fade" id="modal-case" >
+        <div class="modal-dialog modal-xl" style="width: 900px">
+          <div class="modal-content">
+            <div class="modal-header" style="height: 70px">
+                <h4 class="modal-title" style="color:deepskyblue"><strong>Add Case</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" >
+               <form class="form-inline" style="margin: 2px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Project</label></div>
+                        <div class="form-group" id="case_project_form">
+                            <select class="select2bs4" style="width:120px" id="case_project">
+                            </select></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Env</label></div>
+                        <div class="form-group" id="case_evn_form">
+                            <select class="select2bs4" style="width:70px" id="case_env">
+                            </select></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">API</label></div>
+                        <div class="form-group" id="case_api_form">
+                            <input type="text" id="case_api" class="form-control"  placeholder="Input url..." style="width: 470px">
+                        </div>
+                </form>
+               <form class="form-inline" id="case_apitxt" style="margin: 20px 5px">
+                   <div class="card" style="overflow: hidden;width: 800px">
+                       <div class="card-header">
+                           <h3 class="card-title">
+                               Request
+                           </h3>
+                           <!-- tools box -->
+                           <div class="card-tools">
+                               <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse" style="color:black">
+                                   <i class="fas fa-minus"></i>
+                               </button>
+                           </div>
+                           <!-- /. tools -->
+                       </div>
+                       <!-- /.card-header -->
+                       <div class="card-body pad" style="overflow: hidden">
+                           <textarea spellcheck="false" autoFocus placeholder="Input request..." spellcheck="false" style="height:150px;width: 100%;line-height: 30px;; padding: 10px;font-size: 15px;border-radius: 7px;outline:none;background-color: white;color:black;border-color:white" id="case_request"></textarea>
+                       </div>
+                   </div>
+                </form>
+               <form class="form-inline" id="case_valuetxt" style="margin: 0px 5px">
+                   <div class="card" style="overflow: hidden;width: 800px">
+                       <div class="card-header">
+                           <h3 class="card-title">
+                               Case
+                           </h3>
+                           <!-- tools box -->
+                           <div class="card-tools">
+                <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                        title="Collapse" style="color:black">
+                  <i class="fas fa-minus"></i></button>
+
+              </div>
+                           <!-- /. tools -->
+                       </div>
+                       <!-- /.card-header -->
+                       <div class="card-body pad" style="overflow: hidden">
+                           <textarea spellcheck="false" autoFocus placeholder="Input value..." spellcheck="false" style="height:150px;width: 100%;line-height: 30px;; padding: 10px;font-size: 15px;border-radius: 7px;outline:none;background-color: white;color:black;border-color:white" id="case_value"></textarea>
+                       </div>
+                   </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="case_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="case_save" type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+</div>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-outline card-info">
+            <div class="card-header">
+              <h3 class="card-title">
+                API TESTING MAKER
+              </h3>
+              <!-- tools box -->
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                        title="Collapse" style="color:black">
+                  <i class="fas fa-minus"></i></button>
+                  <button type="button" class="btn btn-tool btn-sm" data-card-widget="maximize" style="color:black">
+                  <i class="fas fa-expand"></i></button>
+
+              </div>
+              <!-- /. tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body pad" style="overflow: auto">
+               <form class="form-inline" style="margin: 10px 0px">
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Action</label></div>
+                        <div class="form-group">
+                            <select class="select2bs4"  data-placeholder="Select a action..." style="width:80px" id="action_type">
+                                <option>Task</option>
+                                <option>Post</option>
+                            </select></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Project</label></div>
+                        <div class="form-group" id="select_project">
+                            <select class="select2bs4" data-placeholder="Select a project..." style="width:160px" id="type_project">
+                            </select></div>
+                        <div class="form-group" id="select_project_post" style="display:none">
+                            <select class="select2bs4" data-placeholder="Select a project..." style="width:160px" id="type_project_post">
+                            </select></div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-12" style="">Env</label></div>
+                        <div class="form-group" id="select_evn">
+                            <select class="select2bs4" data-placeholder="Select a project..." style="width:70px" id="type_env">
+                                <option>Test</option>
+                                <option>Prod</option>
+                            </select></div>
+                        <div class="form-group" id="apitable_form"  style="display: none">
+                            <label class="control-label col-sm-12" style="">API</label></div>
+                        <div class="form-group" id="select_api" style="display: none">
+                            <select class="select2bs4" data-placeholder="Select a api..." style="width:430px" id="type_api">
+                            </select></div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="post_btn"  type="button"  style="display: none" class="btn  bg-gradient-primary center-block ol-sm-12">Post</button></div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="decode_btn"  href="#jsoncard"  style="display: none" type="button" class="btn  bg-gradient-primary center-block ol-sm-12">Decode</button></div>
+                        <div class="form-group" id="keywordfrom">
+                          &nbsp;&nbsp;<input type="text"  id="keyword_txt" class="form-control"  placeholder="Input task name..." style="width: 500px">
+                        </div>
+                        <div class="form-group">
+                          &nbsp;&nbsp;<button id="task_btn"  type="button" class="btn  bg-gradient-primary center-block ol-sm-12"  data-toggle="modal" data-target="#modal-task">
+                             <i class="fa fa-plus"></i>
+                            Add Task
+                        </button></div>
+                </form>
+                <!-- task table -->
+                <form id="tableform">
+                    <table class="table table-bordered" width="100%" id="apitest_table" style="word-break:break-all;word-wrap:break-word">
+              <thead>
+                  <tr>
+                      <th style="width: 6%" class="text-center">
+                          <strong>ID</strong>
+                      </th>
+                      <th  class="text-center" style="width: 13%">
+                          <strong>PROJECT</strong>
+                      </th>
+                      <th style="width: 6%" class="text-center">
+                          <strong>ENV</strong>
+                      </th>
+                      <th style="width: 18%" class="text-center">
+                          <strong>TASK</strong>
+                      </th>
+
+                      <th style="width: 8%" class="text-center">
+                          <strong>STATUS</strong>
+                      </th>
+                      <th style="width: 10%" class="text-center">
+                          <strong>CREATER</strong>
+                      </th>
+                      <th class="text-center" style="width: 10%">
+                          <strong>CTIME</strong>
+                      </th>
+                      <th style="width: 30%" class="text-center">
+                          <strong>OPERATE</strong>
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for task_info in Task_infos %}
+                  <tr>
+                      <td style="text-align: center">
+                          {{ task_info.id }}
+                      </td>
+                      <td style="text-align: center">
+                          {{ task_info.project }}
+                      </td>
+                      <td style="text-align: center">
+                          {{ task_info.env }}
+                      </td>
+                      <td style="text-align: center">
+                              {{ task_info.taskname }}
+                      </td>
+
+                      <td class="project-state text-center" >
+                          {% if task_info.status == 'None' %}
+                          <span class="badge badge-secondary">{{ task_info.status }}</span>
+                          {% elif task_info.status == 'Error'%}
+                          <span class="badge badge-danger">{{ task_info.status }}</span>
+                          {% elif task_info.status == 'Running'%}
+                          <span class="badge badge-primary">{{ task_info.status }}</span>
+                          {% else %}
+                          <span class="badge badge-success">{{ task_info.status }}</span>
+                          {% endif %}
+                      </td>
+                      <td class="project-state text-center" >
+                          {{ task_info.creater }}
+                      </td>
+                      <td class="project-state text-center" >
+                          {{ task_info.ctime }}
+                      </td>
+                      <td class="project-actions text-center" >
+                          {% if task_info.status == 'Running' %}
+                          <a class="btn btn-danger btn-sm"  style="color:white;cursor:pointer" id="stop_btn">
+                              <i class="fa fa-pause">
+                              </i>
+                              Stop
+                          </a>
+                          {% else %}
+                          <a class="btn btn-primary btn-sm" style="color: white;cursor:pointer" id="run_btn">
+                              <i class="fa fa-play">
+                              </i>
+                              Run
+                          </a>
+                          {% endif %}
+                          <a class="btn btn-info btn-sm"  role="button" style="color: white;cursor:pointer" data-toggle="modal" data-target="#modal-case" id="add_case">
+                              <i class="fa fa-plus"></i>
+                              Add Case
+                          </a>
+                          <a class="btn btn-warning btn-sm" style="color: white;cursor:pointer;" data-toggle="modal" data-target="#modal-edittask" id="edit_task">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-success btn-sm" style="color: white;cursor:pointer;" id="report_btn" href="{% url 'testsite:report' task_info.taskname %}">
+                              <i class="fa fa-eye">
+                              </i>
+                              Report
+                          </a>
+                      </td>
+                  </tr>
+                        {% empty %}
+                        <tr>没有数据</tr>
+                        {% endfor %}
+              </tbody>
+          </table>
+                </form>
+                 <!-- post textrea -->
+                <form class="form-inline" id="apitxt">
+                   <textarea spellcheck="false" autoFocus placeholder="Input request..." spellcheck="false" style="height:600px;width: 49%;line-height: 30px;; padding: 10px;font-size: 17px;border-radius: 7px;outline:none;background-color: black;color: white;display: none" id="request"></textarea>
+                   &nbsp;&nbsp;&nbsp;
+                   <textarea  spellcheck="false" placeholder="Response..." style="height:600px;width: 49%;line-height: 30px;; padding: 10px;font-size: 18px;border-radius: 7px;outline:none;background-color: black;color: white;display: none" id="response" readonly></textarea>
+                   <div id="jsoncard" style="display: none">
+                       <pre id="json" style="color: rebeccapurple"></pre>
+                   </div>
+                </form>
+
+
+
+            </div>
+          </div>
+        </div>
+        <!-- /.col-->
+      </div>
+      <!-- ./row -->
+    </section>
+    <!-- /.content -->
+  <!-- /.content-wrapper -->
+{% endblock %}
+
+
+
+{% block script %}
+<script src="/static/plugin/loading/js/loading.js"></script>
+<script src="{% static 'JS/api_test.js' %}"> </script>
+<script src="/static/plugin/json-viewer/js/jquery.json-viewer.js"></script>
+<!-- date-range-picker -->
+<script src="/static/AdminLTE-3.0.1/plugins/daterangepicker/daterangepicker.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var project_list = {{project_list | safe}};
+        $('#type_project').append('<option>All</option>')
+        for (var i = 0; i < project_list.length; i++) {
+            $('#type_project').append('<option>' + project_list[i] + '</option>')
+            $('#type_project_post').append('<option>' + project_list[i] + '</option>')
+        }
+    });
+    function LoadStart() {
+            var Complete = 0;//加载完成与否，初始为0，完成为1
+            var Load = document.getElementById("Loadruning");//获取进度条
+            var i = 0;//声明跑条的初始值
+
+            //加载进度跑条
+            LoadSetTime = setInterval(function () {
+                i += 10;//每500毫米跑10份
+                Load.style.width = i.toString()+'%';
+                if (i == 90) {
+                    clearInterval(LoadSetTime);
+                }
+            }, 500);
+
+            //加载完成与否
+            GetData = setInterval(function () {
+                if (Complete == 1) {//当加载完成，也就等于1的时候
+                    Load.value = 100;//跑条完成，到100
+                    clearInterval(GetData);//加载完成的计时器清除加载完成与否计时器
+                    clearInterval(LoadSetTime);//加载完成的计时器清除加载进度跑条计时器
+                }
+            });
+        }
+</script>
+{% endblock %}

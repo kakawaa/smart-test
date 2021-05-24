@@ -1,0 +1,707 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="/static/image/logo-nemo.png">
+
+    <title>{% block title %}base{% endblock %}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/summernote/summernote-bs4.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/toastr/toastr.min.css">
+    <!-- apk选择样式-->
+    <link href="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+
+    <!-- highcharts -->
+    <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/themes/dark-unica.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="/static/AdminLTE-3.0.1/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="/static/AdminLTE-3.0.1/plugins/toastr/toastr.min.js"></script>
+     <!-- Loading -->
+	<link rel="stylesheet" href="/static/plugin/loading/css/loading.css">
+    <!-- JSON Viewer -->
+    <link href="/static/plugin/json-viewer/css/jquery.json-viewer.css" rel="stylesheet">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/static/AdminLTE-3.0.1/plugins/daterangepicker/daterangepicker.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+    <script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <link rel="stylesheet" type="text/css" href="/static/AdminLTE-3.0.1/plugins/xcConfirm/css/xcConfirm.css"/>
+    <script src="/static/AdminLTE-3.0.1/plugins/xcConfirm/js/jquery-1.9.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/AdminLTE-3.0.1/plugins/xcConfirm/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+    <!-- toast -->
+    <script src="/static/AdminLTE-3.0.1/plugins/toast/dist/spop.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/static/AdminLTE-3.0.1/plugins/toast/dist/spop.css"/>
+
+
+
+
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{% url 'quickit:dashboard' %}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+
+        <!-- SEARCH FORM -->
+        <form class="form-inline ml-3">
+            <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+
+            <!-- User Account Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-user" aria-hidden="true"></i>
+                    {{nickname}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="{% url 'testsite:change_password' %}" class="dropdown-item">
+                        <i class="fa fa-key"></i> Change Password
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'testsite:logout' %}" class="dropdown-item">
+                        <i class="fa fa-power-off"></i> Sign Out
+                    </a>
+                </div>
+            </li>
+            <!-- Control Sidebar Toggle Button -->
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4"  >
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link" >
+            <img src="/static/image/logo-nemo.png" alt="AdminLTE Logo" style="opacity: .9;width: 20% ;margin: 0 auto">
+            <span class="brand-text font-weight" style="width: 50%;font-size: 22px" ><strong>Quick TI</strong></span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2" >
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false" >
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <!--Dashboard -->
+                    <li class="nav-item" >
+                        <a href="{% url 'quickit:dashboard' %}" class="nav-link" id="test1">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    <!--APP Client -->
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon  fa fa-mobile"></i>
+                            <p>
+                                APP Client
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'quickit:apk_list' %}" class="nav-link">
+                                    <i class="far fa-circle text-info nav-icon"></i>
+                                    <p>APK</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'quickit:app_debug_page' %}" class="nav-link">
+                                    <i class="far fa-circle text-break nav-icon"></i>
+                                    <p>App Debug</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'quickit:applog' %}" class="nav-link">
+                                    <i class="far fa-circle text-warning nav-icon"></i>
+                                    <p>LOG</p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>
+                                        APM
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                   <!-- <li class="nav-item">
+                                        <a href="{% url 'quickit:apm_online' %}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Online Monitor</p>
+                                        </a>
+                                    </li>-->
+                                    <li class="nav-item">
+                                        <a href="{% url 'quickit:apm_offline' %}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Offline Monitor</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!--Server -->
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fa fa-server"></i>
+                            <p>
+                                Server
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+
+                            <li class="nav-item has-treeview">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-warning"></i>
+                                    <p>
+                                        BI Data
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    {% if admin_type == "1" or admin_type == "2" %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'quickit:online_log' %}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Online Log</p>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'quickit:offline_log' %}" class="nav-link" >
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Offline Log</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+
+
+
+
+
+                            <!--<li class="nav-item">
+                                <a href="{% url 'quickit:api_monitor' %}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-warning"></i>
+                                    <p>API Monitor</p>
+                                </a>
+                            </li> -->
+                            <li class="nav-item has-treeview">
+                                <a href="" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>
+                                        API Runner
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{% url 'quickit:api_test' %}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Test Maker</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'quickit:test_result' %}" class="nav-link" >
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Test Result</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+
+                    </li>
+                    <!--Web -->
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fa fa-globe"></i>
+                            <p>
+                                Web
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'quickit:query_config' %}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-info"></i>
+                                    <p>CMS Config</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--AD -->
+                    <!--<li class="nav-item">-->
+                        <!--<a href="{% url 'quickit:ad_sample' %}" class="nav-link">-->
+                            <!--<i class="nav-icon fas fa-th"></i>-->
+                            <!--<p>-->
+                                <!--Advertisement-->
+                                <!--<span class="right badge badge-info">AD</span>-->
+                            <!--</p>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item has-treeview">-->
+                        <!--<a href="" class="nav-link">-->
+                            <!--<i class="nav-icon fa fa-ad"></i>-->
+                            <!--<p>-->
+                                <!--Advertisement-->
+                                <!--<i class="right fas fa-angle-left"></i>-->
+                            <!--</p>-->
+                        <!--</a>-->
+                        <!--<ul class="nav nav-treeview">-->
+                            <!--<li class="nav-item">-->
+                                <!--<a href="{% url 'quickit:ad_sample' %}" class="nav-link">-->
+                                    <!--<i class="nav-icon far fa-circle text-info"></i>-->
+                                    <!--<p>Ad Sample<span class="right badge badge-info">AD</span></p>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+
+
+                    <!--DevOps -->
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fa fa-wrench"></i>
+                            <p>
+                                DevOps
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'quickit:ci_server' %}" class="nav-link">
+                                    <i class="nav-icon far fa-circle text-info"></i>
+                                    <p>CI Server</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <!--Setting -->
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fa fa-cog fa-spin fa-3x fa-fw"></i>
+                            <p>
+                                Setting
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'quickit:change_password' %}" class="nav-link">
+                                    <i class="far fa-circle text-info nav-icon"></i>
+                                    <p>Change Password</p>
+                                </a>
+                            </li>
+                        </ul>
+                        {% if admin_type == "1" %}
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'quickit:log' %}" class="nav-link">
+                                   <i class="nav-icon far fa-circle text-danger"></i>
+                                    <p>User Log</p>
+                                </a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {% block breadcrumb %}{% endblock %}
+        <!-- Main content -->
+        <section class="content">
+            <div class="content">
+                <div class="container-fluid">
+                    {% block content %}{% endblock %}
+                </div><!-- /.container-fluid -->
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+            Happy work , Happy win
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2019-2020 </strong> Flat Tester  All rights reserved.
+    </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="/static/AdminLTE-3.0.1/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/static/AdminLTE-3.0.1/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/static/AdminLTE-3.0.1/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Sparkline -->
+<script src="/static/AdminLTE-3.0.1/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/static/AdminLTE-3.0.1/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/static/AdminLTE-3.0.1/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/static/AdminLTE-3.0.1/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/static/AdminLTE-3.0.1/plugins/moment/moment.min.js"></script>
+<script src="/static/AdminLTE-3.0.1/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/static/AdminLTE-3.0.1/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/static/AdminLTE-3.0.1/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/static/AdminLTE-3.0.1/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/static/AdminLTE-3.0.1/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/static/AdminLTE-3.0.1/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/static/AdminLTE-3.0.1/dist/js/demo.js"></script>
+<!-- Select2 -->
+<script src="/static/AdminLTE-3.0.1/plugins/select2/js/select2.full.min.js"></script>
+<!-- DataTables -->
+<script src="/static/AdminLTE-3.0.1/plugins/datatables/jquery.dataTables.js"></script>
+<script src="/static/AdminLTE-3.0.1/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- FLOT CHARTS -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/static/AdminLTE-3.0.1/plugins/flot-old/jquery.flot.resize.min.js"></script>
+<!-- Toastr -->
+<script src="/static/AdminLTE-3.0.1/plugins/toastr/toastr.min.js"></script>
+<!-- 边栏高亮 -->
+<script>
+    $('a').each(function(){
+        if($(this).first().attr('href')==='{{ request.path }}'){
+            $(this).addClass('nav-link active');
+            $(this).parents('.nav-item').addClass('menu-open');
+
+        }else{
+        }
+ });
+</script>
+<!-- Page script -->
+<script>
+    $(function() {
+    $(".daterange input").each(function() {
+        var $this = $(this);
+
+        $this.daterangepicker({
+            locale : {
+                "format" : "YYYY-MM-DD",// 显示格式
+                "separator" : " / ",// 两个日期之间的分割线
+                "applyLabel" : "确定",
+                "cancelLabel" : "取消",
+                "fromLabel" : "开始",
+                "toLabel" : "结束",
+                "daysOfWeek" : [ "日", "一", "二", "三", "四", "五", "六" ],
+                "monthNames" : [ "一月", "二月", "三月", "四月", "五月", "六", "七月", "八月", "九月", "十月", "十一月", "十二月" ],
+                "firstDay" : 1,
+                "days":1
+            },
+            startDate: moment().subtract(0, 'days'),
+            endDate: moment()
+
+        }, function(start, end, label) {
+            // 点击确定后的事件，下面是为了bootstrap validate得校验，
+            // 若未使用，可忽视
+            if ($this.parents("form.required-validate").length > 0) {
+                var $form = $this.parents("form.required-validate");
+
+                var name = $this.attr("name");
+                if ($form.length > 0) {
+                    var data = $form.data('bootstrapValidator');
+                    data.updateStatus(name, 'NOT_VALIDATED', null)
+                    // Validate the field
+                    .validateField(name);
+                }
+            }
+        // 设置最小宽度，否则显示不全
+        }).css("min-width", "210px").next("i").click(function() {
+            // 对日期的i标签增加click事件，使其在鼠标点击时可以拉出日期选择
+            $(this).parent().find('input').click();
+        });
+    });
+});
+    $(function () {
+        $('.select2').select2({
+            allowClear: true,
+            tags: true
+        })
+        $("select").on("select2:select", function (evt) {
+      var element = evt.params.data.element;
+      var $element = $(element);
+      $element.detach();
+      $(this).append($element);
+      $(this).trigger("change");
+    });
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
+        //Datemask2 mm/dd/yyyy
+        $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
+        //Money Euro
+        $('[data-mask]').inputmask()
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+                format: 'MM/DD/YYYY hh:mm A'
+            }
+        })
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+            {
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
+            },
+            function (start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            }
+        )
+
+        //Timepicker
+        $('#timepicker').datetimepicker({
+            format: 'LT'
+        })
+
+        //Bootstrap Duallistbox
+        $('.duallistbox').bootstrapDualListbox()
+
+        //Colorpicker
+        $('.my-colorpicker1').colorpicker()
+        //color picker with addon
+        $('.my-colorpicker2').colorpicker()
+
+        $('.my-colorpicker2').on('colorpickerChange', function (event) {
+            $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+        });
+
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+    })
+</script>
+<style>
+            .box1 {
+            float: left;
+            padding: 15px 0 10px 15px;
+        }
+        a:hover{color:red;}
+        .box1 .pic {
+            width: 240px;
+            height: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #CCE8EB;
+            border: 1px solid #CCE8EB;
+        }
+
+        .box1 .pic img {
+            display: block;
+            width: 100%;
+            height: 165px;
+
+        }
+
+        .box1 .html_str{
+            display: block;
+            width: 100%;
+            height: 265px;
+        }
+
+        .box1 .html_detail {
+            height: auto;
+
+        }
+
+        .box1 .pic .detail {
+            height: 120px;
+            overflow-y: scroll;
+        }
+
+        .box1 .pic p {
+            margin: 0;
+        }
+
+
+    .detail_text{
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .daterange i {
+        position: absolute;
+        bottom: 10px;
+        right: 14px;
+        top: auto;
+        cursor: pointer;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice{
+        background-color:#17a2b8
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+        color: white;
+    }
+    .daterange {
+        position: relative;
+    }
+</style>
+<style>
+body::-webkit-scrollbar {
+    display: none;
+}
+    .up {
+        color: #ee481c;
+    }
+
+    .down {
+        color: #21a16b;
+    }
+.bootstrap-tagsinput{
+             width: 70%;
+             color: blue;
+         }
+.bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body{
+        background-color: deepskyblue !important
+    }
+
+    .dataTables_paginate>a{
+        margin: 0 10px;
+        cursor:pointer;
+        color: #404553;
+
+    }.dataTables_paginate>span{
+
+        margin: 0 10px;
+        color: #009688;
+    }
+    .dataTables_paginate>span>a{
+        cursor:pointer;
+        margin: 0 10px;
+    }
+</style>
+{% block script %}{% endblock %}
+</body>
+</html>
