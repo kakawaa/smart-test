@@ -24,7 +24,7 @@ $(function () {
                 },
                 success: function (data) {
                     if (data['code'] == 200) {
-                        window.location.href = "/home/";
+                        window.location.href = "/builder/";
                         return false
                     }
                     else{
@@ -53,7 +53,7 @@ $(function () {
                     },
                     success: function (data) {
                         if (data['code'] == 200) {
-                            window.location.href = "/home/";
+                            window.location.href = "/builder/";
                             return false
                         }
                         else{
@@ -82,7 +82,7 @@ $(function () {
                 },
                 success: function (data) {
                     if (data['code'] == 200) {
-                        window.location.href = "/login/";
+                        window.location.href = "/builder/";
                         return false
                     }
                     else{
@@ -110,7 +110,7 @@ $(function () {
                     },
                     success: function (data) {
                         if (data['code'] == 200) {
-                            window.location.href = "/login/";
+                            window.location.href = "/builder/";
                             return false
                         }
                         else{

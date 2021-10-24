@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 from django.urls import path
 from testsite.views.login import *
-from testsite.views.home import *
+from testsite.views.builder import *
 
 
 app_name = 'testsite'
 
 urlpatterns = [
 
-    path('',Login.login_page),
+    path('',Builder.builder_page),
 
     #【Login】
     path('login/', Login.login_page, name='login_page'),
@@ -18,5 +18,5 @@ urlpatterns = [
     path('logout/', Login.logout, name='logout'),
 
     #【Home】
-    path('home/', Home.home_page, name='home_page'),
+    path('builder/', Builder.builder_page, name='builder_page'),
 ]

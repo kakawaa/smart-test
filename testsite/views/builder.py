@@ -13,9 +13,9 @@ sys.getdefaultencoding()
 
 common = common()
 
-class Home(View):
+class Builder(View):
 
     @classmethod
-    def home_page(cls,request):
-        return render(request, 'elver/home.html')
+    def builder_page(cls,request):
+        return render(request, 'elver/builder.html')
 
