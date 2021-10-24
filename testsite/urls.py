@@ -19,4 +19,5 @@ urlpatterns = [
 
     #【Home】
     path('builder/', Builder.builder_page, name='builder_page'),
+    path('builder_step/', Builder.builder_step_page, name='builder_step_page'),
 ]

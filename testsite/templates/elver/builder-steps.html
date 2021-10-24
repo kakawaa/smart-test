@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}BUILDER-Job-Elver{% endblock %}
+{% block page-title %}
+<a class="active" href="/builder/">BUILDER</a>
+<svg t="1635085520789" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="165732" width="200" height="200"><path d="M360.704 280.746667l45.226667-45.226667 246.570666 246.528a42.666667 42.666667 0 0 1 0 60.330667l-246.528 246.570666-45.22666601-45.269333 231.42400001-231.466667-231.466667-231.424z" p-id="165733"></path></svg>
+Elver-debug
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css">
+{% endblock %}
+{% block content %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row gx-lg-4">
+            <div class="d-none d-lg-block col-lg-2">
+                <ul class="nav nav-pills nav-vertical">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">构建历史</h3>
+                        </div>
+                        <div class="card-body">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">#3</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">#2</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">#1</a>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+              </div>
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">执行步骤</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="stepper2" class="bs-stepper">
+                            <div class="bs-stepper-header" role="tablist">
+                                <div  class="step" data-target="#test-nl-1">
+                                    <button style="color: #1e74e3" type="button" class="step-trigger" role="tab" id="stepper2trigger1" aria-controls="test-nl-1">
+                                        <span style="background-color: #1e74e3" class="bs-stepper-circle">
+                                            1
+                                        </span>
+                                        <span class="bs-stepper-label">更新代码</span>
+                                    </button>
+                                </div>
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-nl-2">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper2trigger2" aria-controls="test-nl-2">
+                                        <span class="bs-stepper-circle">
+                                            2
+                                        </span>
+                                        <span class="bs-stepper-label">编译</span>
+                                    </button>
+                                </div>
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-nl-3">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper2trigger3" aria-controls="test-nl-3">
+                                        <span class="bs-stepper-circle">
+                                            3
+                                        </span>
+                                        <span class="bs-stepper-label">执行脚本</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bs-stepper-content">
+                                <div class="language-scss highlighter-rouge">
+                      <div class="highlight">
+                        <pre class="highlight"><code><span class="nv">$extra-colors</span><span class="p">:</span> <span class="p">(</span>
+  <span class="s2">"blue"</span><span class="o">:</span> <span class="nv">$blue</span><span class="o">,</span>
+  <span class="s2">"azure"</span><span class="o">:</span> <span class="nv">$azure</span><span class="o">,</span>
+  <span class="s2">"indigo"</span><span class="o">:</span> <span class="nv">$indigo</span><span class="o">,</span>
+  <span class="s2">"purple"</span><span class="o">:</span> <span class="nv">$purple</span><span class="o">,</span>
+  <span class="s2">"pink"</span><span class="o">:</span> <span class="nv">$pink</span><span class="o">,</span>
+  <span class="s2">"red"</span><span class="o">:</span> <span class="nv">$red</span><span class="o">,</span>
+  <span class="s2">"orange"</span><span class="o">:</span> <span class="nv">$orange</span><span class="o">,</span>
+  <span class="s2">"yellow"</span><span class="o">:</span> <span class="nv">$yellow</span><span class="o">,</span>
+  <span class="s2">"lime"</span><span class="o">:</span> <span class="nv">$lime</span><span class="o">,</span>
+  <span class="s2">"green"</span><span class="o">:</span> <span class="nv">$green</span><span class="o">,</span>
+  <span class="s2">"teal"</span><span class="o">:</span> <span class="nv">$teal</span><span class="o">,</span>
+  <span class="s2">"cyan"</span><span class="o">:</span> <span class="nv">$cyan</span><span class="o">,</span>
+  <span class="s2">"gray"</span><span class="o">:</span> <span class="nv">$gray-600</span><span class="o">,</span>
+  <span class="s2">"gray-dark"</span><span class="o">:</span> <span class="nv">$gray-800</span><span class="o">,</span>
+  <span class="s2">"dark"</span><span class="o">:</span> <span class="nv">$dark</span>
+<span class="p">)</span> <span class="o">!</span><span class="nb">default</span><span class="p">;</span>
+</code></pre>
+                      </div>
+                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block script %}
+{% endblock %}
