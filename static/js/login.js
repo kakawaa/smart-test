@@ -24,7 +24,7 @@ $(function () {
                 },
                 success: function (data) {
                     if (data['code'] == 200) {
-                        window.location.href = "/sign_up/";
+                        window.location.href = "/home/";
                         return false
                     }
                     else{
@@ -53,7 +53,7 @@ $(function () {
                     },
                     success: function (data) {
                         if (data['code'] == 200) {
-                            window.location.href = "/sign_up/";
+                            window.location.href = "/home/";
                             return false
                         }
                         else{

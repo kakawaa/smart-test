@@ -62,8 +62,6 @@ class Login(View):
     @classmethod
     def logout(cls,request):
         """退出登录"""
-        username = request.session['username']
-        common.add_log(username, '退出登录', 'login_api')
         auth.logout(request)
         response = redirect('/login/')
         return response
