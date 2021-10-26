@@ -20,6 +20,10 @@ class Builder(View):
         return render(request, 'elver/builder.html')
 
     @classmethod
+    def builder_detail_page(cls, request):
+        return render(request, 'elver/builder-detail.html')
+
+    @classmethod
     def builder_step_page(cls, request):
         return render(request, 'elver/builder-steps.html')
 

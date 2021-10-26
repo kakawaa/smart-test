@@ -3,7 +3,6 @@ from django.urls import path
 from testsite.views.login import *
 from testsite.views.builder import *
 
-
 app_name = 'testsite'
 
 urlpatterns = [
@@ -17,7 +16,8 @@ urlpatterns = [
     path('sign_up_api/', Login.sign_up_api, name='sign_up_api '),
     path('logout/', Login.logout, name='logout'),
 
-    #【Home】
+    #【Builder】
     path('builder/', Builder.builder_page, name='builder_page'),
+    path('builder_detail/', Builder.builder_detail_page, name='builder_detail_page'),
     path('builder_step/', Builder.builder_step_page, name='builder_step_page'),
 ]
