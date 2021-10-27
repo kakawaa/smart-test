@@ -16,6 +16,7 @@ common = common()
 class Builder(View):
 
     @classmethod
+    @method_decorator(Decorators.check_login)
     def builder_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -26,10 +27,12 @@ class Builder(View):
         return render(request, 'elver/builder.html',locals())
 
     @classmethod
+    @method_decorator(Decorators.check_login)
     def builder_detail_page(cls, request):
         return render(request, 'elver/builder-detail.html')
 
     @classmethod
+    @method_decorator(Decorators.check_login)
     def builder_step_page(cls, request):
         return render(request, 'elver/builder-steps.html')
 

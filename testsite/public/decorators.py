@@ -12,7 +12,7 @@ class Decorators(object):
         """登录检查装饰器"""
         @wraps(function)
         def wrap(request, *arg, **kwargs):
-            if request.session.get('is_login') == '1':
+            if request.session.get('is_login') == '1' or request.user.username:
                 return function(request, *arg, **kwargs)
             else:
                 return redirect('/login/')
