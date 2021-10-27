@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'social_django', # 第三方登录
     #'werkzeug_debugger_runserver',
     #'django_extensions',
     'testsite.apps.TestsiteConfig',
@@ -94,10 +95,27 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+# 填写Github中获取到的KEY和SECRET
+SOCIAL_AUTH_GITHUB_KEY = '77c1864d5fd62b3fb8f1'
+SOCIAL_AUTH_GITHUB_SECRET = '1e783604039effd72a0923660aff498eec47819f'
+SOCIAL_AUTH_GITHUB_USE_OPENID_AS_USERNAME = True
+
+# 登陆成功后的回调路由
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/builder/' # 登陆成功之后的路由
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 

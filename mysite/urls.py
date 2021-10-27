@@ -19,4 +19,6 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('testsite.urls',namespace='elver')),
+    path('', include('social_django.urls', namespace='social')),
+
 ]

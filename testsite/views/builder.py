@@ -17,7 +17,13 @@ class Builder(View):
 
     @classmethod
     def builder_page(cls,request):
-        return render(request, 'elver/builder.html')
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/builder.html',locals())
 
     @classmethod
     def builder_detail_page(cls, request):
