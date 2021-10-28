@@ -30,10 +30,22 @@ class Builder(View):
     @classmethod
     @method_decorator(Decorators.check_login)
     def builder_detail_page(cls, request):
-        return render(request, 'elver/builder-detail.html')
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/builder-detail.html',locals())
 
     @classmethod
     @method_decorator(Decorators.check_login)
     def builder_step_page(cls, request):
-        return render(request, 'elver/builder-steps.html')
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/builder-steps.html',locals())
 

@@ -3,6 +3,7 @@ from django.urls import path
 from django.urls import include
 from testsite.views.login import *
 from testsite.views.builder import *
+from testsite.views.apk import *
 
 app_name = 'testsite'
 
@@ -21,4 +22,8 @@ urlpatterns = [
     path('builder/', Builder.builder_page, name='builder_page'),
     path('builder_detail/', Builder.builder_detail_page, name='builder_detail_page'),
     path('builder_step/', Builder.builder_step_page, name='builder_step_page'),
+
+    #【APK】
+    path('apk/', APK.apk_page, name='apk_page'),
+
 ]
