@@ -8,9 +8,81 @@
     <div class="container-xl">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">APK</h3>
+                <div class="col_10">
+                    <div class="row">
+                        <div class="col-md-6 col-xl-12">
+                            <label class="form-label">项目</label>
+                            <select type="text" class="form-select" style="width: auto" placeholder="Select a date"  value="">
+                                <option value="HTML">项目Aaaaaa</option>
+                            </select>
+                        </div>
+                     </div>
+                </div>
+                <div class="col_10">
+                    <div class="row">
+                        <div class="col-md-6 col-xl-12">
+                            <label class="form-label">版本</label>
+                            <select type="text" class="form-select" style="width: auto" placeholder="Select a date"  value="">
+                                <option value="HTML">1.0.0.0</option>
+                            </select>
+                        </div>
+                     </div>
+                </div>
+                <div class="col_10">
+                    <div class="row">
+                        <div class="col-md-6 col-xl-12">
+                            <label class="form-label">环境</label>
+                            <select type="text" class="form-select" style="width: auto" placeholder="Select a date"  value="">
+                                <option value="HTML">测试</option>
+                                <option value="HTML">正式</option>
+                            </select>
+                        </div>
+                     </div>
+                </div>
+                <div class="col_10">
+                    <div class="row">
+                        <div class="col-md-6 col-xl-12">
+                            <label class="form-label">平台</label>
+                            <select type="text" class="form-select" style="width: auto" placeholder="Select a date"  value="">
+                                <option value="HTML">android</option>
+                                <option value="HTML">ios</option>
+                            </select>
+                        </div>
+                     </div>
+                </div>
             </div>
             <div class="card-body">
+                <div class="d-flex border-bottom py-1">
+                    <div class="text-muted">
+                        <ul class="pagination m-0 ">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+                                    prev
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    next
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ms-auto text-muted">
+                        <div class="ms-2 d-inline-block">
+                            <a style="cursor: pointer" id="new_apk" data-bs-toggle="modal" data-bs-target="#modal-report">
+                                <svg t="1635404150976" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="36687" width="200" height="200"><path d="M227.5328 28.4672A199.1168 199.1168 0 0 0 28.4672 227.5328v568.9344a199.1168 199.1168 0 0 0 199.0656 199.0656h568.9344a199.1168 199.1168 0 0 0 199.0656-199.0656V227.5328A199.1168 199.1168 0 0 0 796.4672 28.4672H227.5328z m0-28.4672h568.9344A227.5328 227.5328 0 0 1 1024 227.5328v568.9344A227.5328 227.5328 0 0 1 796.4672 1024H227.5328A227.5328 227.5328 0 0 1 0 796.4672V227.5328A227.5328 227.5328 0 0 1 227.5328 0z" fill="#008EFE" p-id="36688"></path><path d="M563.2 460.8V256a51.2 51.2 0 0 0-102.4 0v204.8H256a51.2 51.2 0 0 0 0 102.4h204.8v204.8a51.2 51.2 0 0 0 102.4 0v-204.8h204.8a51.2 51.2 0 0 0 0-102.4h-204.8z" fill="#008EFE" p-id="36689"></path></svg>
+                            </a>
+                            <a  id="del_apk" style="margin-left: 10px;margin-right: 10px;cursor: pointer" data-bs-toggle="modal" data-bs-target="#modal-danger">
+                                <svg t="1635405005117" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="58150" width="200" height="200"><path d="M512 0c282.7776 0 512 229.2224 512 512 0 282.7776-229.2224 512-512 512C229.2224 1024 0 794.7776 0 512 0 229.2224 229.2224 0 512 0z m-145.066667 324.266667H221.866667v51.2h76.8v426.871466h443.733333V375.466667H819.2v-51.2h-145.066667v-119.7568h-307.2V324.266667z m51.2 0v-68.5568h204.8V324.266667h-204.8z m273.066667 51.2v375.671466h-341.333333V375.466667h341.333333zM426.666667 460.8v221.866667h51.2V460.8h-51.2z m136.533333 0v221.866667h51.2V460.8h-51.2z" fill="#FF5E57" p-id="58151"></path></svg>
+                            </a>
+                        </div>
+                      </div>
+                    </div>
                 <table class="table card-table table-vcenter text-nowrap datatable" style="text-align: center">
                       <thead>
                       <tr>
@@ -42,7 +114,7 @@
                                 <div class="btn-list flex-nowrap">
                                     <a href="#" class="btn btn-white w-100 ">
                                         <svg t="1635393779577" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12868" width="200" height="200"><path d="M886.003 853.389c-19.66 0-806.73 0.612-821.669 0.612V202.679c0-17.712 15.006-32.071 33.516-32.071h784.818l3.335 682.781z" fill="#3A5CAC" p-id="12869"></path><path d="M205.947 275.289s574.745 0.908 626.261 0.908c0 0 0.583 40.118 0.583 65.828L551.81 393.517c-28.864 4.017-78.632 17.096-128.344 17.096H205.947V275.289z" fill="#F8F8F8" p-id="12870"></path><path d="M960.077 820.119c0 18.484-15.111 33.601-33.595 33.601H151.114c0-3.083 0.579-420.338 0.579-420.338 0-18.48 15.115-33.516 33.601-33.516h267.708c31.872 0 53.149-19.713 73.85-38.853 9.854-9.118 30.312-28.095 39.345-29.736h393.882V820.12h-0.002z" fill="#F3797D" p-id="12871"></path><path d="M803.137 489.9H543.972c-15.111 0-27.355 12.239-27.355 27.355 0 15.195 12.243 27.435 27.355 27.435h259.166c15.036 0 27.274-12.239 27.274-27.435 0.001-15.117-12.239-27.355-27.275-27.355z m0 120.917H543.972c-15.111 0-27.355 12.239-27.355 27.355 0 15.111 12.243 27.351 27.355 27.351h259.166c15.036 0 27.274-12.239 27.274-27.351 0.001-15.117-12.239-27.355-27.275-27.355z" fill="#FFFFFF" p-id="12872"></path></svg>
-                                        APK信息
+                                        信息
                                     </a>
                                     <span class="dropdown">
                                         <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">更多</button>
@@ -83,8 +155,6 @@
                     <li class="page-item"><a class="page-link" href="#">1</a></li>
                     <li class="page-item active"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
                     <li class="page-item">
                         <a class="page-link" href="#">
                             next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
@@ -196,6 +266,32 @@
         </div>
     </div>
 </div>
+<div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-status bg-danger"></div>
+          <div class="modal-body text-center py-4">
+            <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+            <h3>确认删除?</h3>
+            <div class="text-muted">Do you really want to remove 84 files? What you've done cannot be undone.</div>
+          </div>
+          <div class="modal-footer">
+            <div class="w-100">
+              <div class="row">
+                <div class="col"><a href="#" class="btn btn-white w-100" data-bs-dismiss="modal">
+                    Cancel
+                  </a></div>
+                <div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">
+                    Delete 84 items
+                  </a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}
 
 

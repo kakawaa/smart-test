@@ -4,3 +4,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.col_10{
+    margin-right: 15px;
+}
