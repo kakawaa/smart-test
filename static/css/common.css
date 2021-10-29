@@ -8,3 +8,16 @@
 .col_10{
     margin-right: 15px;
 }
+
+.icon_apk{
+}
+
+.icon_apk:hover{
+    width: 23px;
+    height: 23px;
+}
+
+
+.ml_15{
+    margin-left: 15px;
+}
