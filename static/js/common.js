@@ -3,7 +3,7 @@
 //loading效果
 
 const LOAGDING_TYPE={
-	small:130,
+	small:120,
     normal:170
 }
 
@@ -22,7 +22,6 @@ function loading_actions(action=null,title=null,type=LOAGDING_TYPE.small) {
         smallLoading:true,
         loadingMaskBg:'rgba(0,0,0,0.2)'
     });
-    setTimeout(function(){},3000);
 };
 
 function loading(title=null,type=LOAGDING_TYPE.small) {
@@ -36,12 +35,11 @@ function loading(title=null,type=LOAGDING_TYPE.small) {
         originBg:'white',
         originDivWidth:40,
         originDivHeight:40,
-        originWidth:6,
-        originHeight:6,
+        originWidth:5,
+        originHeight:5,
         smallLoading:true,
-        loadingMaskBg:'rgba(0,0,0,0.2)'
+        loadingMaskBg:'transparent'
     });
-    setTimeout(function(){},3000);
 }
 
 const SPOP_TYPE={
@@ -111,3 +109,13 @@ function maketable({Table=null,pageLength=10,paging=true,lengthChange=true,searc
 	return table
 
 }
+
+function json_viewer(element,input){
+    var options = {
+        collapsed: $('#collapsed').is(':checked'),
+        withQuotes: $('#with-quotes').is(':checked')
+    };
+    $(element).jsonViewer(input, options);
+}
+
+

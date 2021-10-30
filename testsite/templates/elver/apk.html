@@ -4,6 +4,7 @@
 {% block page-title %}APK INFO{% endblock %}
 
 {% block content %}
+
 <div class="page-body">
     <div class="container-xl">
         <div class="card">
@@ -17,7 +18,7 @@
                 </div>
                 <div class="input-group ml_15" style="width: 20%">
                     <div class="input-group-text">环境</div>
-                    <select class="select2-selection--single" data-placeholder="Choose one thing"  style="width: auto">
+                    <select class="select2-selection--single" data-placeholder="Choose one thing" >
                         <option>全部</option>
                         <option>测试</option>
                         <option>正式</option>
@@ -25,7 +26,7 @@
                 </div>
                 <div class="input-group ml_15" style="width: 20%">
                     <div class="input-group-text">平台</div>
-                    <select class="select2-selection--single" data-placeholder="Choose one thing"  style="width: auto">
+                    <select class="select2-selection--single" data-placeholder="Choose one thing"  >
                         <option>全部</option>
                         <option>android</option>
                         <option>ios</option>
@@ -33,7 +34,7 @@
                 </div>
                 <div class="input-group ml_15" style="width: 20%">
                     <div class="input-group-text">版本</div>
-                    <select class="select2-selection--single" data-placeholder="Choose one thing"  style="width: auto">
+                    <select class="select2-selection--single" data-placeholder="Choose one thing">
                         <option>全部</option>
                         <option>1.0.0.22</option>
                     </select>
@@ -111,7 +112,7 @@
                             <td>2021/10/10 12:00</td>
                             <td class="text-end">
                                 <div class="btn-list flex-nowrap">
-                                    <a href="#" class="btn btn-white w-100 ">
+                                    <a id="apk_info" data-bs-toggle="modal" data-bs-target="#modal-simple" class="btn btn-white w-100">
                                         <svg t="1635393779577" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12868" width="200" height="200"><path d="M886.003 853.389c-19.66 0-806.73 0.612-821.669 0.612V202.679c0-17.712 15.006-32.071 33.516-32.071h784.818l3.335 682.781z" fill="#3A5CAC" p-id="12869"></path><path d="M205.947 275.289s574.745 0.908 626.261 0.908c0 0 0.583 40.118 0.583 65.828L551.81 393.517c-28.864 4.017-78.632 17.096-128.344 17.096H205.947V275.289z" fill="#F8F8F8" p-id="12870"></path><path d="M960.077 820.119c0 18.484-15.111 33.601-33.595 33.601H151.114c0-3.083 0.579-420.338 0.579-420.338 0-18.48 15.115-33.516 33.601-33.516h267.708c31.872 0 53.149-19.713 73.85-38.853 9.854-9.118 30.312-28.095 39.345-29.736h393.882V820.12h-0.002z" fill="#F3797D" p-id="12871"></path><path d="M803.137 489.9H543.972c-15.111 0-27.355 12.239-27.355 27.355 0 15.195 12.243 27.435 27.355 27.435h259.166c15.036 0 27.274-12.239 27.274-27.435 0.001-15.117-12.239-27.355-27.275-27.355z m0 120.917H543.972c-15.111 0-27.355 12.239-27.355 27.355 0 15.111 12.243 27.351 27.355 27.351h259.166c15.036 0 27.274-12.239 27.274-27.351 0.001-15.117-12.239-27.355-27.275-27.355z" fill="#FFFFFF" p-id="12872"></path></svg>
                                         信息
                                     </a>
@@ -151,9 +152,15 @@
                             prev
                         </a>
                     </li>
+                    <!--
+                    1、小于等于10全部显示
+                    2、大于10（1,2,3,4,5,6,7,8,9,10,11）,1\10一直展示
+                     -->
                     <li class="page-item"><a class="page-link" href="#">1</a></li>
                     <li class="page-item active"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">10</a></li>
                     <li class="page-item">
                         <a class="page-link" href="#">
                             next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
@@ -265,36 +272,74 @@
         </div>
     </div>
 </div>
+
 <div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-status bg-danger"></div>
-          <div class="modal-body text-center py-4">
-            <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
-            <h3>确认删除?</h3>
-            <div class="text-muted">Do you really want to remove 84 files? What you've done cannot be undone.</div>
-          </div>
-          <div class="modal-footer">
-            <div class="w-100">
-              <div class="row">
-                <div class="col"><a href="#" class="btn btn-white w-100" data-bs-dismiss="modal">
-                    Cancel
-                  </a></div>
-                <div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">
-                    Delete 84 items
-                  </a></div>
-              </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-status bg-danger"></div>
+            <div class="modal-body text-center py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                <h3>确认删除?</h3>
+                <div class="text-muted">Do you really want to remove 84 files? What you've done cannot be undone.</div>
             </div>
-          </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col"><a href="#" class="btn btn-white w-100" data-bs-dismiss="modal">
+                            Cancel
+                        </a></div>
+                        <div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">
+                            Delete 84 items
+                        </a></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+</div>
+
+<div class="modal modal-blur fade" id="modal-simple" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">APK信息</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <pre id="json"></pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 
 
 {% block script %}
+<script>
 
+    $('#apk_tab').addClass('active');
+
+    $('#apk_info').on('click', function () {
+        $.ajax({
+            url: "/get_apk_info_api/",
+            type: "POST",
+            async: true,
+            cache: false,
+            beforeSend: function () {
+                loading();
+                },
+            complete: function () {
+                },
+            success: function (data) {
+                removeLoading()
+                json_viewer('#json',data['apk_info'])
+            }
+        });
+    });
+</script>
 {% endblock %}

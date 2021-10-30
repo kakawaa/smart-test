@@ -25,5 +25,5 @@ urlpatterns = [
 
     #【APK】
     path('apk/', APK.apk_page, name='apk_page'),
-
+    path('get_apk_info_api/', APK.get_apk_info_api, name='get_apk_info_api'),
 ]

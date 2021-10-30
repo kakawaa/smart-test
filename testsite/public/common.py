@@ -14,7 +14,7 @@ from functools import wraps
 import MySQLdb
 from logzero import logger
 import subprocess
-
+from androguard.core.bytecodes.apk import APK
 
 class common(object):
 
@@ -134,3 +134,19 @@ class common(object):
         db = MySQLdb.connect(host, user, password,table, charset='utf8')
         cursor = db.cursor()
         return cursor,db
+
+    @classmethod
+    def get_apk_info(cls):
+        """获取apk信息"""
+        apk_info = {}
+        apk_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], f"../file/test.apk")
+        androguard = APK(apk_path)
+        if androguard.is_valid_APK():
+            # apk_info.append(get_file_md5(apk_path))
+            # apk_info.append(get_cert_md5(androguard))
+            apk_info['app'] = androguard.get_app_name()
+            apk_info['pkgname'] = androguard.get_package()
+            apk_info['version_code'] = androguard.get_androidversion_code()
+            apk_info['version_name'] = androguard.get_androidversion_name()
+            apk_info['main_activity'] = androguard.get_main_activity()
+        return apk_info
