@@ -4,6 +4,8 @@ from django.urls import include
 from testsite.views.login import *
 from testsite.views.builder import *
 from testsite.views.apk import *
+from testsite.views.setting import *
+
 
 app_name = 'testsite'
 
@@ -17,6 +19,9 @@ urlpatterns = [
     path('sign_up/', Login.sign_up_page, name='sign_up_page '),
     path('sign_up_api/', Login.sign_up_api, name='sign_up_api '),
     path('logout/', Login.logout, name='logout'),
+
+    #【Setting】
+    path('setting/', Setting.setting_page, name='setting_page'),
 
     #【Builder】
     path('builder/', Builder.builder_page, name='builder_page'),

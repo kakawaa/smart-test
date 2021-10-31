@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}个人设置{% endblock %}
+{% block page-title %}个人设置{% endblock %}
+{% block style %}
+{% endblock %}
+{% block content %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row gx-lg-4">
+            <div class="d-none d-lg-block col-lg-2">
+                <ul class="nav nav-pills nav-vertical">
+                    <div class="card">
+                        <div class="card-body">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">个人信息</a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">账户密码</a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">安全设置</a>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+              </div>
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">个人信息</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <span class="avatar avatar-xl avatar-rounded" style="background-image: url(/static/image/elver.png)"></span>
+                                    </div>
+                                    <div class="card-title mb-1">Rafa Chen</div>
+                                    <div class="text-muted">Elver Author</div>
+                                </div>
+                                <input type="file" class="card-btn form-control" accept="image/*" aria-label="dddd">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="input-group mt-3">
+                              <span class="input-group-text">
+                                  昵称
+                              </span>
+                              <input type="text" class="form-control"  placeholder="请输入昵称"  autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="input-group mt-3">
+                              <span class="input-group-text">
+                                  手机
+                              </span>
+                              <input type="text" class="form-control"  placeholder="请输入手机"  autocomplete="off">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+</script>
+{% endblock %}
