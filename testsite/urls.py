@@ -4,7 +4,7 @@ from django.urls import include
 from testsite.views.login import *
 from testsite.views.builder import *
 from testsite.views.apk import *
-from testsite.views.setting import *
+from testsite.views.user import *
 
 
 app_name = 'testsite'
@@ -22,6 +22,9 @@ urlpatterns = [
 
     #【Setting】
     path('setting/', Setting.setting_page, name='setting_page'),
+
+    #【Activity】
+    path('activity/', UserActivity.user_activity_page, name='user_activity_page'),
 
     #【Builder】
     path('builder/', Builder.builder_page, name='builder_page'),
