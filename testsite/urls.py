@@ -3,7 +3,7 @@ from django.urls import path
 from django.urls import include
 from testsite.views.login import *
 from testsite.views.builder import *
-from testsite.views.apk import *
+from testsite.views import apk
 from testsite.views.user import *
 from testsite.views.api import *
 from testsite.views import server
@@ -35,8 +35,8 @@ urlpatterns = [
     path('builder_step/', Builder.builder_step_page, name='builder_step_page'),
 
     ######【APK】
-    path('apk/', APK.apk_page, name='apk_page'),
-    path('get_apk_info_api/', APK.get_apk_info_api, name='get_apk_info_api'),
+    path('apk/info', apk.INFO.apk_info_page, name='apk_info_page'),
+    path('get_apk_info_api/', apk.INFO.get_apk_info_api, name='get_apk_info_api'),
 
     ######【API】
     path('api_test/post', API.post_page, name='post_page'),

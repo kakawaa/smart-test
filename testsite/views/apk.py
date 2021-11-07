@@ -16,12 +16,11 @@ sys.getdefaultencoding()
 
 common = common()
 
-class APK(View):
-
+class INFO(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
-    def apk_page(cls,request):
+    def apk_info_page(cls,request):
         if request.user.username:
             user_type = 'github'
             username = request.user.username
