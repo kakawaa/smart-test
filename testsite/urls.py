@@ -6,6 +6,8 @@ from testsite.views.builder import *
 from testsite.views.apk import *
 from testsite.views.user import *
 from testsite.views.api import *
+from testsite.views import server
+
 
 
 app_name = 'testsite'
@@ -38,4 +40,7 @@ urlpatterns = [
 
     ######【API】
     path('api_test/post', API.post_page, name='post_page'),
+
+    ######【LOG】
+    path('server/monitor', server.MONITOR.server_monitor_page, name='server_monitor_page'),
 ]

@@ -5,6 +5,10 @@
     white-space: nowrap;
 }
 
+.log-text {
+    max-width: 500px;
+}
+
 .col_10{
     margin-right: 15px;
 }
@@ -19,5 +23,4 @@
 
 
 .ml_15{
-    margin-left: 15px;
 }
