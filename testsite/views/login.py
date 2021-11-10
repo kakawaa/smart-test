@@ -63,5 +63,5 @@ class Login(View):
     def logout(cls,request):
         """退出登录"""
         auth.logout(request)
-        response = redirect('/login/')
+        response = redirect('/login/signin')
         return response

@@ -15,7 +15,7 @@ class Decorators(object):
             if request.session.get('is_login') == '1' or request.user.username:
                 return function(request, *arg, **kwargs)
             else:
-                return redirect('/login/')
+                return redirect('/login/signin')
         return wrap
 
     @classmethod

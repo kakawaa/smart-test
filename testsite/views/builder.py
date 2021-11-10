@@ -29,7 +29,8 @@ class Builder(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
-    def builder_detail_page(cls, request):
+    def builder_detail_page(cls, request,*arg,**kwargs):
+        jobname = kwargs['jobname']
         if request.user.username:
             user_type = 'github'
             username = request.user.username
@@ -40,7 +41,9 @@ class Builder(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
-    def builder_step_page(cls, request):
+    def builder_step_page(cls, request,*arg,**kwargs):
+        jobname = kwargs['jobname']
+        item = kwargs['item']
         if request.user.username:
             user_type = 'github'
             username = request.user.username

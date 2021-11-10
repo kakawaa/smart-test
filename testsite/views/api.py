@@ -16,25 +16,17 @@ sys.getdefaultencoding()
 
 common = common()
 
-class INFO(View):
+class API(View):
+
 
     @classmethod
     @method_decorator(Decorators.check_login)
-    def apk_info_page(cls,request):
+    def post_page(cls,request):
         if request.user.username:
             user_type = 'github'
             username = request.user.username
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/apk.html',locals())
-
-    @classmethod
-    def get_apk_info_api(cls,request):
-        """获取apk信息api"""
-        project = common.request_method(request, "project")
-
-        result = {'status': 1, 'apk_info': common.get_apk_info()}
-        # result = {'status': 0, 'msg': 1}
-        return HttpResponse(json.dumps(result), content_type="application/json")
+        return render(request, 'elver/api.html',locals())
 
