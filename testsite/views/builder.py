@@ -18,7 +18,8 @@ class Builder(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
-    def builder_page(cls,request):
+    def builder_page(cls,request,*arg,**kwargs):
+        home_path = kwargs['home_path']
         if request.user.username:
             user_type = 'github'
             username = request.user.username

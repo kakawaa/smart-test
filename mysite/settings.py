@@ -115,7 +115,7 @@ SOCIAL_AUTH_GITHUB_SECRET = '1e783604039effd72a0923660aff498eec47819f'
 SOCIAL_AUTH_GITHUB_USE_OPENID_AS_USERNAME = True
 
 # 登陆成功后的回调路由
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/builder/' # 登陆成功之后的路由
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/builder/home' # 登陆成功之后的路由
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 

@@ -9,9 +9,6 @@ from testsite.views import api
 from testsite.views import server
 from testsite.views import timeline
 
-
-
-
 app_name = 'testsite'
 
 urlpatterns = [
@@ -31,8 +28,8 @@ urlpatterns = [
     ######【Activity】
     path('activity/', user.UserActivity.user_activity_page, name='user_activity_page'),
 
-    ######【Builder】
-    path('builder/home', builder.Builder.builder_page, name='builder_page'),
+    ######【BUILDER】
+    path('builder/<home_path>', builder.Builder.builder_page, name='builder_page'),
     path('builder/job/<jobname>', builder.Builder.builder_detail_page, name='builder_detail_page'),
     path('builder/job/<jobname>/<item>', builder.Builder.builder_step_page, name='builder_step_page'),
 
