@@ -13,7 +13,7 @@ app_name = 'testsite'
 
 urlpatterns = [
 
-    path('',builder.Builder.builder_page),
+    path('',login.Login.login_page, name='login_page'),
 
     ######【Login】
     path('login/signin', login.Login.login_page, name='login_page'),
