@@ -11,7 +11,7 @@ $(function () {
         var account = document.getElementById("account").value
         var password = document.getElementById("password").value
         if (account == '' || password == '') {
-            alert('Username or password cannot be empty!')
+            Spop(SPOP_TYPE['error'],'帐号或密码不能为空')
             return false
         } else {
             $.ajax({
@@ -28,7 +28,7 @@ $(function () {
                         return false
                     }
                     else{
-                        alert("account or password wrong！")
+                        Spop(SPOP_TYPE['error'],'帐号或密码错误')
                     }
                 }
             });
@@ -41,7 +41,7 @@ $(function () {
             var account = document.getElementById("account").value
             var password = document.getElementById("password").value
             if (account == '' || password == '') {
-                alert('帐号或密码不能为空！');
+                Spop(SPOP_TYPE['error'],'帐号或密码不能为空')
             } else {
                 $.ajax({
                     url: "/login_api/",
@@ -57,7 +57,7 @@ $(function () {
                             return false
                         }
                         else{
-                            alert("帐号或密码错误！")
+                            Spop(SPOP_TYPE['error'],'帐号或密码错误')
                         }
                     }
                 });
@@ -69,7 +69,7 @@ $(function () {
         var new_account = document.getElementById("new_account").value
         var new_password = document.getElementById("new_password").value
         if (new_account == '' || new_password == '') {
-            alert('Username or password cannot be empty!')
+            Spop(SPOP_TYPE['error'],'帐号或密码不能为空')
             return false
         } else {
             $.ajax({
@@ -86,7 +86,7 @@ $(function () {
                         return false
                     }
                     else{
-                        alert("账户已经存在")
+                        Spop(SPOP_TYPE['warning'],'账户已经存在')
                     }
                 }
             });
@@ -98,7 +98,7 @@ $(function () {
             var new_account = document.getElementById("new_account").value
             var new_password = document.getElementById("new_password").value
             if (new_account == '' || new_password == '') {
-                alert('帐号或密码不能为空！');
+                Spop(SPOP_TYPE['error'],'帐号或密码不能为空')
             } else {
                 $.ajax({
                     url: "/sign_up_api/",
@@ -114,7 +114,7 @@ $(function () {
                             return false
                         }
                         else{
-                            alert("账户已经存在")
+                            Spop(SPOP_TYPE['warning'],'账户已经存在')
                         }
                     }
                 });

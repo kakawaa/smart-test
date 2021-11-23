@@ -150,3 +150,15 @@ class common(object):
             apk_info['version_name'] = androguard.get_androidversion_name()
             apk_info['main_activity'] = androguard.get_main_activity()
         return apk_info
+
+    @classmethod
+    def post(cls,url,**kwargs):
+        """发送请求"""
+        playload = ''
+        for key in kwargs.keys():
+            playload += str(key) + "=" + str(kwargs[key]) + "&"
+        if playload.endswith("&"):
+            playload = playload[:-1]
+        response = requests.request("POST", url, data=playload.encode('utf-8'), headers=cls.headers,verify=False,timeout=10)
+        code = response.status_code
+        return code,json.loads(response.text)

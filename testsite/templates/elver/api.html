@@ -88,14 +88,14 @@
                                     <div class="input-group-text">功能</div>
                                     <select class="select2-selection--single" data-placeholder="请选择功能"  >
                                         <option></option>
-                                        <option>user</option>
+                                        <option>api_test</option>
                                     </select>
                                 </div>
                                 <div class="input-group ml_15" style="width: 30%">
                                     <div class="input-group-text">接口</div>
-                                    <select class="select2-selection--single" data-placeholder="请选择接口">
+                                    <select id="select_url" class="select2-selection--single" data-placeholder="请选择接口">
                                         <option></option>
-                                        <option>/user/get_user_info</option>
+                                        <option>/api_test/demo</option>
                                     </select>
                                 </div>
                             </div>
@@ -103,12 +103,13 @@
                             <div class="card-body">
                                 <div id="request_editor"></div>
                                 <div class="col-md-6 col-xl-4 mt-3">
-                                    <button type="submit" class="btn btn-primary">请求</button>
-                                    <button type="submit" class="btn btn-danger">解密</button>
-                                    <button type="submit" class="btn btn-info">比对</button>
+                                    <button id="post" type="submit" class="btn btn-primary">请求</button>
+                                    <button id="decoe" type="submit" class="btn btn-danger">解密</button>
+                                    <button id="compare" type="submit" class="btn btn-info">比对</button>
                                 </div>
                                 <div class="dropdown-divider"></div>
                                 <div class="col-md-6 col-xl-4 mt-3">
+                                    code：<label style="color: red" id="code_txt">403</label>
                                     <pre style="display: block;border: none;background-color: white" id="response"></pre>
                                 </div>
 
@@ -315,28 +316,68 @@
 </script>
 
 <script>
-  const container = document.getElementById('request_editor')
 
-  const options = {
-    mode: 'form',
-    modes: ['code', 'form', 'text', 'tree', 'view', 'preview'], // allowed modes
-    onModeChange: function (newMode, oldMode) {
-      console.log('Mode switched from', oldMode, 'to', newMode)
+    json_viewer('#response',{'status':'1'})
+
+    const container = document.getElementById('request_editor')
+
+    const options = {
+        mode: 'tree',
+        modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+        onModeChange: function (newMode, oldMode) {
+            console.log('Mode switched from', oldMode, 'to', newMode)
+        }
     }
-  }
 
-  const json = {
-    "array": [1, 2, 3],
-    "boolean": true,
-    "null": null,
-    "number": 123,
-    "object": {"a": "b", "c": "d"},
-    "string": "Hello World"
-  }
+    // "array": [1, 2, 3],
+    // "boolean": true,
+    // "null": null,
+    // "number": 123,
+    // "object": {"a": "b", "c": "d"},
 
-  const editor = new JSONEditor(container, options, json)
+    var json = {
+        "user": "elver"
+    }
+
+    const editor = new JSONEditor(container, options, json)
+
+    $('#post').on('click', function () {
+        const host = 'http://47.106.194.167:5656'
+        let url = $('#select_url').val()
+        console.log(url)
+        console.log(json)
+        if(url && isJSON(JSON.stringify(json))){
+            $.ajax({
+            url: "/api_test/get_response_api",
+            type: "POST",
+            async: true,
+            cache: false,
+            data:{
+                url: host+$('#select_url').val(),
+                payload: JSON.stringify(json)
+            },
+            beforeSend: function () {
+                loading();
+                },
+            complete: function () {
+                },
+            success: function (data) {
+                removeLoading()
+                $('#code_txt').text(data['code'])
+                document.getElementById("code_txt").style.color = '#1e74e3'
+
+                json_viewer('#response',data['response_txt'])
+            }
+        });
+        }else{
+            if(!url){
+                Spop(SPOP_TYPE['error'],'请选择接口')
+            }else if(!isJSON(JSON.stringify(json))){
+                Spop(SPOP_TYPE['error'],'request不是json')
+            }
+        }
+    });
+
 </script>
-<script>
-  json_viewer('#response',{'status':'1'})
-</script>
+
 {% endblock %}

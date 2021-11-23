@@ -8,6 +8,9 @@ from testsite.views import user
 from testsite.views import api
 from testsite.views import server
 from testsite.views import timeline
+from testsite.views import doc
+
+
 
 app_name = 'testsite'
 
@@ -39,10 +42,16 @@ urlpatterns = [
 
     ######【API】
     path('api_test/post', api.API.post_page, name='post_page'),
+    path('api_test/demo', api.API.demo_api, name='demo_api'),
+    path('api_test/get_response_api', api.API.get_response_api, name='get_response_api'),
+
 
     ######【SERVER】
     path('server/monitor', server.MONITOR.server_monitor_page, name='server_monitor_page'),
 
     ######【TIMELINE】
     path('timeline/', timeline.Timeline.timeline_page, name='timeline_page'),
+
+    ######【DOCUMENT】
+    path('doc/<path>', doc.Document.document_page, name='document_page'),
 ]

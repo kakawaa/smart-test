@@ -1,31 +1,15 @@
 'use strict'
 
-//loading效果
-
+/**
+ * loading效果
+ */
 const LOAGDING_TYPE={
 	small:120,
     normal:170
 }
 
-function loading_actions(action=null,title=null,type=LOAGDING_TYPE.small) {
+function loading(action='body',title=null,type=LOAGDING_TYPE.small) {
     $(action).loading({
-        loadingWidth:type,
-        title:title,
-        name:'loading',
-        discription:'',
-        direction:'column',
-        type:'origin',
-        originDivWidth:40,
-        originDivHeight:40,
-        originWidth:6,
-        originHeight:6,
-        smallLoading:true,
-        loadingMaskBg:'rgba(0,0,0,0.2)'
-    });
-};
-
-function loading(title=null,type=LOAGDING_TYPE.small) {
-    $('body').loading({
         loadingWidth:type,
         title:title,
         name:'test',
@@ -42,6 +26,9 @@ function loading(title=null,type=LOAGDING_TYPE.small) {
     });
 }
 
+/**
+ * toast样式
+ */
 const SPOP_TYPE={
 	error:'error',
 	success:'success',
@@ -53,21 +40,27 @@ function Spop(type,msg){
 		template: msg,
 		position  : 'top-center',
 		style: type,
-		autoclose: 1000
+		autoclose: 2000
 	});
 }
 
- //获取后缀
+/**
+ * 获取文件后缀
+ */
 function  getExtension (name) {
     return name.substring(name.lastIndexOf(".")+1)
 }
 
-//json格式化
+/**
+ * json格式化
+ */
 function parse(str) {
 	return JSON.stringify(JSON.parse(str), null, "\t");
 }
 
-//json格式检查
+/**
+ * json格式检查
+ */
 function isJSON(str) {
 	if (typeof str == 'string') {
         try {
@@ -79,17 +72,17 @@ function isJSON(str) {
             }
 
         } catch(e) {
-        	Spop(SPOP_TYPE['error'],'not json , please check request and case!')
 			return false;
         }
     }
     else{
-    	Spop(SPOP_TYPE['error'],'not string!')
         return false;
     }
 }
 
-//table
+/**
+ * 建表
+ */
 function maketable({Table=null,pageLength=10,paging=true,lengthChange=true,searching=true,columns=null,data=null}) {
 	let table = $(Table).DataTable({
         "destroy": true,
@@ -109,7 +102,9 @@ function maketable({Table=null,pageLength=10,paging=true,lengthChange=true,searc
 	return table
 
 }
-
+/**
+ * josn美化
+ */
 function json_viewer(element,input){
     var options = {
         collapsed: $('#collapsed').is(':checked'),
