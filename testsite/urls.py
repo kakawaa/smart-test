@@ -10,10 +10,7 @@ from testsite.views import server
 from testsite.views import timeline
 from testsite.views import doc
 
-
-
 app_name = 'testsite'
-
 urlpatterns = [
 
     path('',login.Login.login_page, name='login_page'),

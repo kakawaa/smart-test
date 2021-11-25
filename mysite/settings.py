@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '$*2t=(aw)n9ko5#@0b3+d1wefn)b9og@vr0=)b$0flj@+dhp5j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000
 ALLOWED_HOSTS = ['*']
 #RUNSERVERPLUS_SERVER_ADDRESS_PORT = '0.0.0.0:8887'
@@ -174,7 +174,9 @@ USE_L10N = True
 # USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    # os.path.join(BASE_DIR, 'static/image'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+#     # os.path.join(BASE_DIR, 'static/image'),
+# )
+# 静态文件收集目录
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')

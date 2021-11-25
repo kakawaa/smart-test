@@ -104,18 +104,25 @@
                                 <div id="request_editor"></div>
                                 <div class="col-md-6 col-xl-4 mt-3">
                                     <button id="post" type="submit" class="btn btn-primary">请求</button>
-                                    <button id="decoe" type="submit" class="btn btn-danger">解密</button>
+                                    <button id="decode" type="submit" class="btn btn-danger">解密</button>
                                     <button id="compare" type="submit" class="btn btn-info">比对</button>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <div class="col-md-6 col-xl-4 mt-3">
+                                <div class="response mt-3">
                                     code：<label style="color: red" id="code_txt">403</label>
                                     <pre style="display: block;border: none;background-color: white" id="response"></pre>
                                 </div>
+                                <div style="display: none" class="compare_re mt-3">
+                                    <div id="containerRight" style="margin-right: 20px;width: 47%">
+                                        请求结果<label style="color: #73a707"><strong>（测试环境）</strong></label>
+                                        <div class="dropdown-divider"></div>
+                                    </div>
 
-                                <!--<div id="containerRight" style="width: 49%"></div>-->
-                                <!--<div style="width: 49%" id="containerLeft"></div>-->
-
+                                    <div  id="containerLeft" style="width: 47%">
+                                        请求结果<label style="color: red"><strong>（正式环境）</strong></label>
+                                        <div class="dropdown-divider"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -141,165 +148,6 @@
     </div>
 </div>
 
-<div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">New Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
-                </div>
-                <label class="form-label">Report type</label>
-                <div class="form-selectgroup-boxes row mb-3">
-                    <div class="col-lg-6">
-                        <label class="form-selectgroup-item">
-                            <input type="radio" name="report-type" value="1" class="form-selectgroup-input" checked>
-                            <span class="form-selectgroup-label d-flex align-items-center p-3">
-                                <span class="me-3">
-                                    <span class="form-selectgroup-check"></span>
-                                </span>
-                                <span class="form-selectgroup-label-content">
-                                    <span class="form-selectgroup-title strong mb-1">Simple</span>
-                                    <span class="d-block text-muted">Provide only basic data needed for the report</span>
-                                </span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-6">
-                        <label class="form-selectgroup-item">
-                            <input type="radio" name="report-type" value="1" class="form-selectgroup-input">
-                            <span class="form-selectgroup-label d-flex align-items-center p-3">
-                                <span class="me-3">
-                                    <span class="form-selectgroup-check"></span>
-                                </span>
-                                <span class="form-selectgroup-label-content">
-                                    <span class="form-selectgroup-title strong mb-1">Advanced</span>
-                                    <span class="d-block text-muted">Insert charts and additional advanced analyses to be inserted in the report</span>
-                                </span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="mb-3">
-                            <label class="form-label">Report url</label>
-                            <div class="input-group input-group-flat">
-                                <span class="input-group-text">
-                                    https://tabler.io/reports/
-                                </span>
-                                <input type="text" class="form-control ps-0"  value="report-01" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="mb-3">
-                            <label class="form-label">Visibility</label>
-                            <select class="form-select">
-                                <option value="1" selected>Private</option>
-                                <option value="2">Public</option>
-                                <option value="3">Hidden</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Client name</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Reporting period</label>
-                            <input type="date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div>
-                            <label class="form-label">Additional information</label>
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">Cancel</a>
-                <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-                    Create new report
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-status bg-danger"></div>
-            <div class="modal-body text-center py-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
-                <h3>确认删除?</h3>
-                <div class="text-muted">Do you really want to remove 84 files? What you've done cannot be undone.</div>
-            </div>
-            <div class="modal-footer">
-                <div class="w-100">
-                    <div class="row">
-                        <div class="col"><a href="#" class="btn btn-white w-100" data-bs-dismiss="modal">
-                            Cancel
-                        </a></div>
-                        <div class="col"><a href="#" class="btn btn-danger w-100" data-bs-dismiss="modal">
-                            Delete 84 items
-                        </a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal modal-blur fade" id="modal-apkinfo" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">APK信息</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <pre id="json"></pre>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal modal-blur fade" id="modal-qrcode" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">扫码下载</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="margin:0 auto;">
-                <div id="qrcode"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 
@@ -342,6 +190,8 @@
     const editor = new JSONEditor(container, options, json)
 
     $('#post').on('click', function () {
+        $('.response').show()
+        $('.compare_re').hide()
         const host = 'http://47.106.194.167:5656'
         let url = $('#select_url').val()
         console.log(url)
@@ -379,5 +229,70 @@
     });
 
 </script>
+
+<script>
+  const containerLeft = document.getElementById('containerLeft')
+  const containerRight = document.getElementById('containerRight')
+
+  function onClassName({ path, field, value }) {
+    const leftValue = _.get(jsonRight, path)
+    const rightValue = _.get(jsonLeft, path)
+
+    return _.isEqual(leftValue, rightValue)
+      ? 'the_same_element'
+      : 'different_element'
+  }
+
+  const optionsLeft = {
+    mode: 'form',
+      modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+    onClassName: onClassName,
+    onChangeJSON: function (j) {
+      jsonLeft = j
+      window.editorRight.refresh()
+    }
+  }
+
+  const optionsRight = {
+    mode: 'form',
+      modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+    onClassName: onClassName,
+    onChangeJSON: function (j) {
+      jsonRight = j
+      window.editorLeft.refresh()
+    }
+  }
+
+  let jsonLeft = {
+      "name": "rafa",
+      "info":{
+          "a":"a",
+          "b":"b"
+      },
+      "age": "19"
+
+  }
+
+  let jsonRight = {
+      "name": "rafa",
+      "age": "19"
+
+  }
+
+  window.editorLeft = new JSONEditor(containerLeft, optionsLeft, jsonLeft)
+  window.editorRight = new JSONEditor(containerRight, optionsRight, jsonRight)
+
+  $('#compare').on('click', function () {
+      $('.response').hide()
+      $('.compare_re').show()
+    });
+</script>
+
+<script>
+    $('#decode').on('click', function () {
+        Spop(SPOP_TYPE['warning'],'无加密字段')
+    });
+</script>
+
 
 {% endblock %}
