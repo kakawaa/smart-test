@@ -16,19 +16,20 @@ sys.getdefaultencoding()
 
 common = common()
 
-class API(View):
+class API_POST(View):
 
 
     @classmethod
     @method_decorator(Decorators.check_login)
     def post_page(cls,request):
+        """手工测试主页"""
         if request.user.username:
             user_type = 'github'
             username = request.user.username
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/api.html',locals())
+        return render(request, 'elver/api/api.html',locals())
 
 
     @classmethod
@@ -43,12 +44,50 @@ class API(View):
         """获取接口返回api"""
         url = common.request_method(request, "url")
         payload = common.request_method(request, "payload")
-        print(url)
-
         payload = json.loads(payload)
-        print(payload)
         get_response = common.post(url,**payload)
         code = get_response[0]
         response_txt = get_response[1]
         result = {'status': 1, 'code': code, 'response_txt': response_txt}
         return HttpResponse(json.dumps(result), content_type="application/json")
+
+class API_TASK(View):
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
+    def task_page(cls,request):
+        """自动化测试主页"""
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/api/api_task.html',locals())
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
+    def task_content_page(cls,request,*arg,**kwargs):
+        """自动化测试主页"""
+        taskname = kwargs['taskname']
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/api/api_task_content.html', locals())
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
+    def api_case_page(cls, request, *arg, **kwargs):
+        """自动化测试主页"""
+        taskname = kwargs['taskname']
+        apiname = kwargs['apiname']
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/api/api_case.html', locals())

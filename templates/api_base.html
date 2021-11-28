@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.5.6/jsoneditor.min.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+    code {
+      background-color: #f5f5f5;
+    }
+
+    #containerLeft {
+      display: inline-block;
+      width: 500px;
+      height: 500px;
+      margin-right: 10px;
+    }
+
+    #containerRight {
+      display: inline-block;
+      width: 500px;
+      height: 500px;
+    }
+    #containerRight .different_element {
+      background-color: #acee61;
+    }
+    #containerRight .different_element div.jsoneditor-field,
+    #containerRight .different_element div.jsoneditor-value {
+      color: red;
+    }
+
+    #containerLeft .different_element {
+      background-color: pink;
+    }
+    #containerLeft .different_element div.jsoneditor-field,
+    #containerLeft .different_element div.jsoneditor-value {
+      color: red;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="card">
+            <ul class="nav nav-tabs nav-tabs-alt" data-bs-toggle="tabs">
+                {% block api_tab %}{% endblock %}
+            </ul>
+            <div class="card-body">
+                <div class="tab-content">
+                    {% block api_tab_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.5.6/jsoneditor.min.js"></script>
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+    integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww=="
+    crossorigin="anonymous"
+  >
+
+</script>
+
+<script>
+    $('#api_tab').addClass('active');
+    function tab_click(tab){
+        window.location.href = "/api_test/"+tab;
+    }
+</script>
+{% block api_script %}
+{% endblock %}
+{% endblock %}
+
+

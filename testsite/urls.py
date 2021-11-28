@@ -37,11 +37,14 @@ urlpatterns = [
     path('apk/info', apk.INFO.apk_info_page, name='apk_info_page'),
     path('get_apk_info_api/', apk.INFO.get_apk_info_api, name='get_apk_info_api'),
 
-    ######【API】
-    path('api_test/post', api.API.post_page, name='post_page'),
-    path('api_test/demo', api.API.demo_api, name='demo_api'),
-    path('api_test/get_response_api', api.API.get_response_api, name='get_response_api'),
+    ######【API TEST】
+    path('api_test/post', api.API_POST.post_page, name='post_page'),
+    path('api_test/demo', api.API_POST.demo_api, name='demo_api'),
+    path('api_test/get_response_api', api.API_POST.get_response_api, name='get_response_api'),
 
+    path('api_test/task', api.API_TASK.task_page, name='task_page'),
+    path('api_test/task/<taskname>', api.API_TASK.task_content_page, name='task_content_page'),
+    path('api_test/task/<taskname>/<apiname>', api.API_TASK.api_case_page, name='api_case_page'),
 
     ######【SERVER】
     path('server/monitor', server.MONITOR.server_monitor_page, name='server_monitor_page'),
