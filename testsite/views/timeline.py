@@ -25,4 +25,4 @@ class Timeline(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/timeline.html',locals())
+        return render(request, 'elver/other/timeline.html',locals())

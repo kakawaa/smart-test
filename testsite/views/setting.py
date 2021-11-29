@@ -25,4 +25,4 @@ class Setting(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/setting.html',locals())
+        return render(request, 'elver/other/setting.html',locals())

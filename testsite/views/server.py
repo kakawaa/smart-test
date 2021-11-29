@@ -18,7 +18,6 @@ common = common()
 
 class MONITOR(View):
 
-
     @classmethod
     @method_decorator(Decorators.check_login)
     def server_monitor_page(cls,request):
@@ -28,5 +27,18 @@ class MONITOR(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/server.html',locals())
+        return render(request, 'elver/server/server.html',locals())
+
+class LOG(View):
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
+    def server_log_page(cls,request):
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/server/log.html',locals())
 

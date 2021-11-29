@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="card">
+            <ul class="nav nav-tabs nav-tabs-alt" data-bs-toggle="tabs">
+                {% block server_tab %}{% endblock %}
+            </ul>
+            <div class="card-body">
+                <div class="tab-content">
+                    {% block server_tab_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $('#server_tab').addClass('active');
+    function tab_click(tab){
+        window.location.href = "/server/"+tab;
+    }
+</script>
+{% block server_script %}
+{% endblock %}
+{% endblock %}
+
+

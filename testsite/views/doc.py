@@ -26,4 +26,4 @@ class Document(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/doc.html',locals())
+        return render(request, 'elver/other/doc.html',locals())

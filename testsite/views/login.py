@@ -17,7 +17,7 @@ class Login(View):
 
     @classmethod
     def login_page(cls,request):
-        return render(request, 'elver/sign-in.html')
+        return render(request, 'elver/login/sign-in.html')
 
 
     @classmethod
@@ -44,7 +44,7 @@ class Login(View):
     @classmethod
     def sign_up_page(cls, request):
         """账号注册页面"""
-        return render(request, 'elver/sign-up.html')
+        return render(request, 'elver/login/sign-up.html')
 
     @classmethod
     def sign_up_api(cls, request):

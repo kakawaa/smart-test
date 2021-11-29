@@ -18,7 +18,6 @@ common = common()
 
 class API_POST(View):
 
-
     @classmethod
     @method_decorator(Decorators.check_login)
     def post_page(cls,request):
@@ -91,3 +90,17 @@ class API_TASK(View):
             user_type = 'elver'
             username = request.session['username']
         return render(request, 'elver/api/api_case.html', locals())
+
+class API_STRESS_TEST(View):
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
+    def stress_test_page(cls,request):
+        """压力测试主页"""
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/api/api_stress_test.html',locals())

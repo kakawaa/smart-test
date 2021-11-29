@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import handler404
+from django.conf.urls import handler500
+
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
@@ -23,6 +25,8 @@ from django.conf.urls import url ##新增
 from testsite.views import error
 
 handler404 = error.CommonError.error_404_page
+handler500 = error.CommonError.error_500_page
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('testsite.urls',namespace='elver')),

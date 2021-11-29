@@ -26,7 +26,7 @@ class Builder(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/builder.html',locals())
+        return render(request, 'elver/builder/builder.html',locals())
 
     @classmethod
     @method_decorator(Decorators.check_login)
@@ -38,7 +38,7 @@ class Builder(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/builder-detail.html',locals())
+        return render(request, 'elver/builder/builder-detail.html',locals())
 
     @classmethod
     @method_decorator(Decorators.check_login)
@@ -51,5 +51,5 @@ class Builder(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        return render(request, 'elver/builder-steps.html',locals())
+        return render(request, 'elver/builder/builder-steps.html',locals())
 

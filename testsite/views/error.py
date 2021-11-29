@@ -19,4 +19,9 @@ class CommonError(View):
     @classmethod
     @method_decorator(Decorators.check_login)
     def error_404_page(cls,request,exception):
-        return render(request, 'elver/404.html')
+        return render(request, 'elver/error/404.html')
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
+    def error_500_page(cls, request):
+        return render(request, 'elver/error/500.html')
