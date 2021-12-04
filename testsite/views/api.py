@@ -12,6 +12,7 @@ from testsite.public.decorators import Decorators
 from django.http import HttpResponse
 import requests
 import sys
+import time
 sys.getdefaultencoding()
 
 common = common()
@@ -62,12 +63,26 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+        tasks = models.AutomationTask.objects.all().order_by('-id')
         return render(request, 'elver/api/api_task.html',locals())
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    def task_more_page(cls, request,*arg,**kwargs):
+        """自动化任务配置页"""
+        taskname = kwargs['taskname']
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        return render(request, 'elver/api/api_task_more.html', locals())
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
     def task_content_page(cls,request,*arg,**kwargs):
-        """自动化测试主页"""
+        """自动化任务内容页"""
         taskname = kwargs['taskname']
         if request.user.username:
             user_type = 'github'
@@ -80,7 +95,7 @@ class API_TASK(View):
     @classmethod
     @method_decorator(Decorators.check_login)
     def api_case_page(cls, request, *arg, **kwargs):
-        """自动化测试主页"""
+        """自动化用例页"""
         taskname = kwargs['taskname']
         apiname = kwargs['apiname']
         if request.user.username:
@@ -90,6 +105,61 @@ class API_TASK(View):
             user_type = 'elver'
             username = request.session['username']
         return render(request, 'elver/api/api_case.html', locals())
+
+    @classmethod
+    def create_task_api(cls, request):
+        """创建任务接口"""
+        taskname = common.request_method(request, "taskname")
+        username = request.session['username']
+        task_num = models.AutomationTask.objects.filter(taskname=taskname).count()
+        if task_num == 0:
+            models.AutomationTask(taskname=taskname,owner=username).save()
+            result = {'status': 1, 'msg': '创建任务成功'}
+        else:
+            result = {'status': 0, 'msg': '该任务已存在'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def get_task_api(cls, request):
+        """获取任务信息接口"""
+        taskname = common.request_method(request, "taskname")
+        if taskname:
+            success_num = models.AutomationTask.objects.filter(taskname=taskname).values("success_num").first()[
+                'success_num']
+            error_num = models.AutomationTask.objects.filter(taskname=taskname).values("error_num").first()['error_num']
+            sum_num = models.AutomationTask.objects.filter(taskname=taskname).values("sum_num").first()['sum_num']
+            status = models.AutomationTask.objects.filter(taskname=taskname).values("status").first()['status']
+            timer_type = models.AutomationTask.objects.filter(taskname=taskname).values("timer_type").first()[
+                'timer_type']
+            timer_value = models.AutomationTask.objects.filter(taskname=taskname).values("timer_value").first()[
+                'timer_value']
+            owner = models.AutomationTask.objects.filter(taskname=taskname).values("owner").first()['owner']
+            task_data = {
+                "success_num": success_num,
+                "error_num": error_num,
+                "sum_num": sum_num,
+                "status": status,
+                "timer_type": timer_type,
+                "timer_value": timer_value,
+                "owner":owner
+            }
+            result = {'status': 1, 'data': task_data}
+        else:
+            result = {'status': 0, 'msg': 'taskname is empty'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def delete_task_api(cls, request):
+        """删除任务接口"""
+        taskname = common.request_method(request, "taskname")
+        username = request.session['username']
+        owner = models.AutomationTask.objects.filter(taskname=taskname).values("owner").last()['owner']
+        if owner == username:
+            models.AutomationTask.objects.filter(taskname=taskname).delete()
+            result = {'status': 1, 'msg': '删除成功！'}
+        else:
+            result = {'status': 0, 'msg': '不是OWNER,无法操作!'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
 
 class API_STRESS_TEST(View):
 
