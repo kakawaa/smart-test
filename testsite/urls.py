@@ -10,6 +10,8 @@ from testsite.views import server
 from testsite.views import timeline
 from testsite.views import doc
 from testsite.views import apm
+from testsite.views import code
+
 
 app_name = 'testsite'
 urlpatterns = [
@@ -50,9 +52,19 @@ urlpatterns = [
     path('api_test/automation/<taskname>', api.API_TASK.task_content_page, name='task_content_page'),
     path('api_test/automation/<taskname>/config', api.API_TASK.task_more_page, name='task_more_page'),
     path('api_test/automation/<taskname>/<apiname>', api.API_TASK.api_case_page, name='api_case_page'),
+    path('api_test/automation/<taskname>/<apiname>/<casename>', api.API_TASK.api_case_page, name='api_case_page'),
     path('api_test/api/create_task', api.API_TASK.create_task_api, name='create_task_api'),
     path('api_test/api/get_task', api.API_TASK.get_task_api, name='get_task_api'),
+    path('api_test/api/run_task', api.API_TASK.run_task_api, name='run_task_api'),
     path('api_test/api/delete_task', api.API_TASK.delete_task_api, name='delete_task_api'),
+    path('api_test/api/create_task_content', api.API_TASK.create_task_content_api, name='create_task_content_api'),
+    path('api_test/api/edit_task_content', api.API_TASK.edit_task_content_api, name='edit_task_content_api'),
+    path('api_test/api/set_task_content_status', api.API_TASK.set_task_content_status_api, name='set_task_content_status_api'),
+    path('api_test/api/delete_task_content', api.API_TASK.delete_task_content_api, name='delete_task_content_api'),
+    path('api_test/api/create_task_case', api.API_TASK.create_task_case_api, name='create_task_case_api'),
+    path('api_test/api/delete_task_case', api.API_TASK.delete_task_case_api, name='delete_task_case_api'),
+    path('api_test/api/get_newcase', api.API_TASK.get_newcase_api, name='get_newcase_api'),
+
     ######【API TEST - 压力测试】
     path('api_test/stress', api.API_STRESS_TEST.stress_test_page, name='stress_test_page'),
 
@@ -71,4 +83,9 @@ urlpatterns = [
     path('apm/test', apm.APM_TEST.test_page, name='test_page'),
     ######【APM - 云端报告】
     path('apm/report', apm.APM_REPORT.report_home_page, name='report_home_page'),
+    ######【CODE - 静态代码扫描】
+    path('code/analysis', code.Analysis.code_analysis_page, name='code_analysis_page'),
+    ######【CODE - 代码覆盖率】
+    path('code/coverage', code.Coverage.code_coverage_page, name='code_coverage_page'),
+
 ]

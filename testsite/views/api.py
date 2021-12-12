@@ -64,6 +64,7 @@ class API_TASK(View):
             user_type = 'elver'
             username = request.session['username']
         tasks = models.AutomationTask.objects.all().order_by('-id')
+        task_num = models.AutomationTaskContent.objects.all().count()
         return render(request, 'elver/api/api_task.html',locals())
 
     @classmethod
@@ -90,6 +91,8 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+        apis = models.AutomationTaskContent.objects.filter(taskname=taskname).order_by('-id')
+        api_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
         return render(request, 'elver/api/api_task_content.html', locals())
 
     @classmethod
@@ -104,6 +107,12 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+        cases = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname).order_by('id')
+        case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname).count()
+        if case_num > 0:
+            casename = kwargs['casename']
+            case_type = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname,casename=casename).values("case_type").first()['case_type']
+            case_asserts = models.AutomationTaskCaseAssert.objects.filter(taskname=taskname,apiname=apiname,casename=casename).order_by('id')
         return render(request, 'elver/api/api_case.html', locals())
 
     @classmethod
@@ -149,16 +158,139 @@ class API_TASK(View):
         return HttpResponse(json.dumps(result), content_type="application/json")
 
     @classmethod
+    def get_newcase_api(cls, request):
+        """获取api最新用例名称接口"""
+        taskname = common.request_method(request, "taskname")
+        apiname = common.request_method(request, "apiname")
+        case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname).count()
+        if taskname and apiname:
+            if case_num>0:
+                newest_case = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname).values("casename").first()['casename']
+                result = {'status': 1, 'newest_case': newest_case}
+            else:
+                result = {'status': 1, 'newest_case': 'no case'}
+        else:
+            result = {'status': 0, 'msg': 'taskname is empty'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def run_task_api(cls, request):
+        """执行任务接口"""
+        taskname = common.request_method(request, "taskname")
+        new_status = common.request_method(request, "new_status")
+        username = request.session['username']
+        try:
+            models.AutomationTask.objects.filter(taskname=taskname).update(status=new_status)
+            result = {'status': 1, 'msg': '开始执行！'}
+        except Exception as e:
+            result = {'status': 0, 'msg': e}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
     def delete_task_api(cls, request):
         """删除任务接口"""
         taskname = common.request_method(request, "taskname")
         username = request.session['username']
         owner = models.AutomationTask.objects.filter(taskname=taskname).values("owner").last()['owner']
-        if owner == username:
+        api_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
+        if owner == username and api_num == 0:
             models.AutomationTask.objects.filter(taskname=taskname).delete()
             result = {'status': 1, 'msg': '删除成功！'}
         else:
-            result = {'status': 0, 'msg': '不是OWNER,无法操作!'}
+            if owner != username:
+                result = {'status': 0, 'msg': '不是OWNER,无法操作!'}
+            else:
+                result = {'status': 0, 'msg': '该任务下有接口数>0'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def create_task_content_api(cls, request):
+        """创建任务内容接口"""
+        taskname = common.request_method(request, "taskname")
+        apiname = common.request_method(request, "apiname")
+        url = common.request_method(request, "url")
+        username = request.session['username']
+        api_num = models.AutomationTaskContent.objects.filter(taskname=taskname,apiname=apiname).count()
+        if api_num == 0:
+            models.AutomationTaskContent(taskname=taskname, apiname=apiname,url=url).save()
+            result = {'status': 1, 'msg': '创建接口成功'}
+        else:
+            result = {'status': 0, 'msg': '该接口已存在'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def edit_task_content_api(cls, request):
+        """编辑任务api接口"""
+        id = common.request_method(request, "id")
+        new_apiname = common.request_method(request, "new_apiname")
+        new_url = common.request_method(request, "new_url")
+        username = request.session['username']
+        ctime = time.strftime("%Y-%m-%d %H:%M", time.localtime())
+        try:
+            models.AutomationTaskContent.objects.filter(id=id).update(apiname=new_apiname, url=new_url,ctime=ctime)
+            result = {'status': 1, 'msg': '更新成功！'}
+        except Exception as e:
+            result = {'status': 0, 'msg':e}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def set_task_content_status_api(cls, request):
+        """更新任务api状态接口"""
+        id = common.request_method(request, "id")
+        new_status = common.request_method(request, "new_status")
+        username = request.session['username']
+        ctime = time.strftime("%Y-%m-%d %H:%M", time.localtime())
+        try:
+            models.AutomationTaskContent.objects.filter(id=id).update(status=new_status,ctime=ctime)
+            result = {'status': 1, 'msg': '更新成功！'}
+        except Exception as e:
+            result = {'status': 0, 'msg': e}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def delete_task_content_api(cls, request):
+        """删除任务api接口"""
+        id = common.request_method(request, "id")
+        taskname = common.request_method(request, "taskname")
+        apiname = common.request_method(request, "apiname")
+        username = request.session['username']
+        models.AutomationTaskContent.objects.filter(id=id).delete()
+        models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname).delete()
+        models.AutomationTaskCaseAssert.objects.filter(taskname=taskname,apiname=apiname).delete()
+        result = {'status': 1, 'msg': '删除成功！'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def create_task_case_api(cls, request):
+        """创建任务用例接口"""
+        taskname = common.request_method(request, "taskname")
+        apiname = common.request_method(request, "apiname")
+        case_type = common.request_method(request, "case_type")
+        casename = common.request_method(request, "casename")
+        username = request.session['username']
+        case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname,casename=casename).count()
+        if case_num == 0:
+            models.AutomationTaskCase(taskname=taskname, apiname=apiname, case_type=case_type,casename=casename).save()
+            result = {'status': 1, 'msg': '创建用例成功'}
+        else:
+            result = {'status': 0, 'msg': '该用例名称已存在'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def delete_task_case_api(cls, request):
+        """删除任务用例接口"""
+        taskname = common.request_method(request, "taskname")
+        apiname = common.request_method(request, "apiname")
+        casename = common.request_method(request, "casename")
+        username = request.session['username']
+        models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname,casename=casename).delete()
+        models.AutomationTaskCaseAssert.objects.filter(taskname=taskname,apiname=apiname,casename=casename).delete()
+        case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname).count()
+        if case_num > 0:
+            first_casename = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname).values("casename").first()['casename']
+            result = {'status': 1, 'msg': '删除成功！','first_casename':first_casename}
+        else:
+            result = {'status': 1, 'msg': '删除成功！', 'first_casename': 'no case'}
         return HttpResponse(json.dumps(result), content_type="application/json")
 
 class API_STRESS_TEST(View):

@@ -6,6 +6,8 @@
 <a class="active" style="color: #1e71df" href="/api_test/automation/{{ taskname }}">{{ taskname }}</a>
 <svg t="1635085520789" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="165732" width="200" height="200"><path d="M360.704 280.746667l45.226667-45.226667 246.570666 246.528a42.666667 42.666667 0 0 1 0 60.330667l-246.528 246.570666-45.22666601-45.269333 231.42400001-231.466667-231.466667-231.424z" p-id="165733"></path></svg>
 {{ apiname }}
+<svg t="1635085520789" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="165732" width="200" height="200"><path d="M360.704 280.746667l45.226667-45.226667 246.570666 246.528a42.666667 42.666667 0 0 1 0 60.330667l-246.528 246.570666-45.22666601-45.269333 231.42400001-231.466667-231.466667-231.424z" p-id="165733"></path></svg>
+{{ casename }}
 {% endblock %}
 
 {% block api_tab %}
@@ -33,7 +35,7 @@
 <div class="tab-pane active">
     <div class="row mb-3">
         <div class="col-auto">
-            <a href="#" class="btn btn-default">
+            <a href="#" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#modal-new-case">
                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                 用例
             </a>
@@ -41,36 +43,40 @@
                 <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
                 保存
             </a>
-            <a href="#" class="btn btn-default" style="margin-left: 10px">
+            <a onclick="del_case('{{ casename }}')" href="#" class="btn btn-default" style="margin-left: 10px" data-bs-toggle="modal" data-bs-target="#modal-danger">
                 <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
-                全部删除
+                删除
             </a>
         </div>
     </div>
-    <div class="accordion">
+
+    <div class="dropdown-divider"></div>
+
+    {% if case_num > 0 %}
+    <div class="btn-group mt-2">
+        {% for case in cases %}
+        {% if case.casename == casename %}
+        <a type="button" class="btn btn-primary" href="/api_test/automation/{{ taskname }}/{{ apiname }}/{{ case.casename }}">{{ case.casename }}</a>
+        {% else %}
+        <a type="button" class="btn" href="/api_test/automation/{{ taskname }}/{{ apiname }}/{{ case.casename }}">{{ case.casename }}</a>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if case_type == 'Json' %}
+    <div class="accordion mt-3">
         <div class="accordion-item">
             <h2 class="accordion-header" id="heading-1">
                 <div class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true">
-                    用例1
-                    <a  style="cursor: pointer;margin-left: 10px" data-bs-toggle="modal" data-bs-target="#modal-danger">
-                        <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
-                    </a>
+                    用例内容
                 </div>
             </h2>
             <div id="collapse-1" class="accordion-collapse collapse show">
                 <div class="accordion-body pt-2">
-                    <div class="input-group mt-3 mb-3" style="width: 200px">
-                        <div class="input-group-text">请求参数</div>
-                        <select class="select2-selection--single" data-placeholder="请选择请求参数">
-                            <option>Json</option>
-                            <option>Get</option>
-                            <option>脚本</option>
-                        </select>
-                    </div>
                     <div id="request_editor"></div>
                     <div class="row mt-3 mb-3">
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default">
+                            <a href="#" class="btn btn-default add-assert">
                                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                                 断言
                             </a>
@@ -80,71 +86,90 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-group" style="width: 300px">
-                            <span class="input-group-text">
-                                校验参数
-                            </span>
-                            <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off">
+                    <div class="assert-form">
+                        <div class="row">
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    校验参数
+                                </span>
+                                <input disabled type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="code">
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <div class="input-group-text">断言类型</div>
+                                <select disabled class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    <option><</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    预期值
+                                </span>
+                                <input disabled type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="200">
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-default">
+                                    <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
+                                    调试
+                                </a>
+                            </div>
                         </div>
-                        <div class="input-group" style="width: 300px">
-                            <div class="input-group-text">断言类型</div>
-                            <select class="select2-selection--single" data-placeholder="请选择断言类型">
-                                <option></option>
-                                <option>==</option>
-                                <option>!=</option>
-                                <option>></option>
-                                <option><</option>
-                                <option>true</option>
-                                <option>false</option>
-                            </select>
+                        {% for case_assert in case_asserts%}
+                        <div class="row case-assert mt-3">
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    校验参数
+                                </span>
+                                <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <div class="input-group-text">断言类型</div>
+                                <select  class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    <option><</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    预期值
+                                </span>
+                                <input  type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-default">
+                                    <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
+                                    调试
+                                </a>
+                                <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">
+                                    <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
+                                    删除
+                                </a>
+                            </div>
                         </div>
-                        <div class="input-group" style="width: 300px">
-                            <span class="input-group-text">
-                                预期值
-                            </span>
-                            <input type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off">
-                        </div>
-
-                        <div class="col-auto">
-                            <a href="#" class="btn btn-default">
-                                <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
-                                调试
-                            </a>
-                            <a href="#" class="btn btn-default" style="margin-left: 10px">
-                                <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
-                                删除
-                            </a>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% elif case_type == 'Get' %}
     <div class="accordion mt-3">
         <div class="accordion-item">
             <h2 class="accordion-header" id="heading-2">
                 <div class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="true">
-                    用例2
-                    <a  style="cursor: pointer;margin-left: 10px" data-bs-toggle="modal" data-bs-target="#modal-danger">
-                        <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
-                    </a>
+                    用例内容
                 </div>
             </h2>
             <div id="collapse-2" class="accordion-collapse collapse show">
                 <div class="accordion-body pt-2">
-                    <div class="input-group mt-3 mb-3" style="width: 200px">
-                        <div class="input-group-text">请求参数</div>
-                        <select class="select2-selection--single" data-placeholder="请选择请求参数">
-                            <option>Get</option>
-                            <option>Json</option>
-                            <option>脚本</option>
-                        </select>
-                    </div>
                     <textarea class="form-control" name="example-textarea-input" rows="3" placeholder="Content..">user=elver&age=18</textarea>
                     <div class="row mt-3 mb-3">
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default">
+                            <a href="#" class="btn btn-default add-assert" id="add-assert">
                                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                                 断言
                             </a>
@@ -154,68 +179,87 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-group" style="width: 300px">
-                            <span class="input-group-text">
-                                校验参数
-                            </span>
-                            <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off">
+                    <div class="assert-form">
+                        <div class="row">
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    校验参数
+                                </span>
+                                <input disabled type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="code">
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <div class="input-group-text">断言类型</div>
+                                <select disabled class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    <option><</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    预期值
+                                </span>
+                                <input disabled type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="200">
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-default">
+                                    <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
+                                    调试
+                                </a>
+                            </div>
                         </div>
-                        <div class="input-group" style="width: 300px">
-                            <div class="input-group-text">断言类型</div>
-                            <select class="select2-selection--single" data-placeholder="请选择断言类型">
-                                <option></option>
-                                <option>==</option>
-                                <option>!=</option>
-                                <option>></option>
-                                <option><</option>
-                                <option>true</option>
-                                <option>false</option>
-                            </select>
+                        {% for case_assert in case_asserts%}
+                        <div class="row case-assert mt-3">
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    校验参数
+                                </span>
+                                <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <div class="input-group-text">断言类型</div>
+                                <select  class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    <option><</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    预期值
+                                </span>
+                                <input  type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-default">
+                                    <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
+                                    调试
+                                </a>
+                                <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">
+                                    <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
+                                    删除
+                                </a>
+                            </div>
                         </div>
-                        <div class="input-group" style="width: 300px">
-                            <span class="input-group-text">
-                                预期值
-                            </span>
-                            <input type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off">
-                        </div>
-
-                        <div class="col-auto">
-                            <a href="#" class="btn btn-default">
-                                <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
-                                调试
-                            </a>
-                            <a href="#" class="btn btn-default" style="margin-left: 10px">
-                                <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
-                                删除
-                            </a>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% else %}
     <div class="accordion mt-3">
         <div class="accordion-item">
             <h2 class="accordion-header" id="heading-3">
                 <div class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="true">
-                    用例3
-                    <a  style="cursor: pointer;margin-left: 10px" data-bs-toggle="modal" data-bs-target="#modal-danger">
-                        <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
-                    </a>
+                    用例内容
                 </div>
             </h2>
             <div id="collapse-3" class="accordion-collapse collapse show">
                 <div class="accordion-body pt-2">
                     <div class="row mt-3 mb-3">
-                        <div class="input-group" style="width: 200px">
-                        <div class="input-group-text">请求参数</div>
-                        <select class="select2-selection--single" data-placeholder="请选择请求参数">
-                            <option>脚本</option>
-                            <option>Get</option>
-                            <option>Json</option>
-                        </select>
-                    </div>
                         <div class="col-auto">
                             <a href="#" class="btn btn-default">
                                 <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
@@ -223,8 +267,7 @@
                             </a>
                         </div>
                     </div>
-
-                    <textarea id="codeMirrorDemo">
+                    <textarea id="codeMirrorDemo3">
 #!/usr/bin/env python
 """Script Demo 支持请求动态生成 python3"""
 
@@ -257,7 +300,7 @@ if __name__ == '__main__':
               </textarea>
                     <div class="row mt-3 mb-3">
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default">
+                            <a href="#" class="btn btn-default add-assert">
                                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                                 断言
                             </a>
@@ -267,40 +310,188 @@ if __name__ == '__main__':
                             </a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-group" style="width: 300px">
-                            <span class="input-group-text">
-                                校验参数
-                            </span>
-                            <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off">
+                    <div class="assert-form">
+                        <div class="row">
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    校验参数
+                                </span>
+                                <input disabled type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="code">
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <div class="input-group-text">断言类型</div>
+                                <select disabled class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    <option><</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    预期值
+                                </span>
+                                <input disabled type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="200">
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-default">
+                                    <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
+                                    调试
+                                </a>
+                            </div>
                         </div>
-                        <div class="input-group" style="width: 300px">
-                            <div class="input-group-text">断言类型</div>
-                            <select class="select2-selection--single" data-placeholder="请选择断言类型">
-                                <option></option>
-                                <option>==</option>
-                                <option>!=</option>
-                                <option>></option>
-                                <option><</option>
-                                <option>true</option>
-                                <option>false</option>
-                            </select>
+                        {% for case_assert in case_asserts%}
+                        <div class="row case-assert mt-3">
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    校验参数
+                                </span>
+                                <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <div class="input-group-text">断言类型</div>
+                                <select  class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    <option><</option>
+                                </select>
+                            </div>
+                            <div class="input-group" style="width: 300px">
+                                <span class="input-group-text">
+                                    预期值
+                                </span>
+                                <input  type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-default">
+                                    <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
+                                    调试
+                                </a>
+                                <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">
+                                    <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
+                                    删除
+                                </a>
+                            </div>
                         </div>
-                        <div class="input-group" style="width: 300px">
-                            <span class="input-group-text">
-                                预期值
-                            </span>
-                            <input type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off">
-                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
-                        <div class="col-auto">
-                            <a href="#" class="btn btn-default">
-                                <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
-                                调试
+
+    {% else %}
+    <div class="empty">
+        <div class="empty-img"><img src="/static/tabler/static/illustrations/undraw_printing_invoices_5r4r.svg"></div>
+        <p class="empty-title">No results found</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="modal modal-blur fade" id="modal-new-case" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">创建用例</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <div class="form-selectgroup-boxes row">
+                    <div class="col-lg-4">
+                        <label class="form-selectgroup-item">
+                            <input type="radio"  name="case_type" value="Get" class="form-selectgroup-input" checked>
+                            <span class="form-selectgroup-label d-flex align-items-center p-3">
+                                <span class="me-3">
+                                    <span class="form-selectgroup-check"></span>
+                                </span>
+                                <span class="form-selectgroup-label-content">
+                                    <span class="form-selectgroup-title strong mb-1">Get</span>
+                                    <span class="d-block text-muted">Get请求体</span>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-selectgroup-item">
+                            <input type="radio"  name="case_type" value="Json" class="form-selectgroup-input">
+                            <span class="form-selectgroup-label d-flex align-items-center p-3">
+                                <span class="me-3">
+                                    <span class="form-selectgroup-check"></span>
+                                </span>
+                                <span class="form-selectgroup-label-content">
+                                    <span class="form-selectgroup-title strong mb-1">Json</span>
+                                    <span class="d-block text-muted">Json请求体</span>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-selectgroup-item">
+                            <input type="radio"  name="case_type" value="Script" class="form-selectgroup-input">
+                            <span class="form-selectgroup-label d-flex align-items-center p-3">
+                                <span class="me-3">
+                                    <span class="form-selectgroup-check"></span>
+                                </span>
+                                <span class="form-selectgroup-label-content">
+                                    <span class="form-selectgroup-title strong mb-1">Script</span>
+                                    <span class="d-block text-muted">脚本自定义</span>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="new_case_content">
+                            <div class="col">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        用例名称
+                                    </span>
+                                    <input id="new_case_name" type="text" class="form-control"  placeholder="请输入任务名称.."  autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">取消</a>
+                <a href="#" class="btn btn-primary ms-auto"  id="create_case">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                    创建
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-status bg-danger"></div>
+            <div class="modal-body text-center py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                <h3>确认删除?</h3>
+                <div class="text-muted case-name"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <a href="#" class="btn btn-white w-100" data-bs-dismiss="modal">
+                            取消
                             </a>
-                            <a href="#" class="btn btn-default" style="margin-left: 10px">
-                                <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
-                                删除
+                        </div>
+                        <div class="col">
+                            <a href="#" id="del_case_confirm" class="btn btn-danger w-100">
+                            确认
                             </a>
                         </div>
                     </div>
@@ -309,12 +500,152 @@ if __name__ == '__main__':
         </div>
     </div>
 </div>
+
+
 {% endblock %}
 
 {% block api_script %}
 
 <script>
 
+    $('#create_case').on('click', function () {
+        let taskname = '{{ taskname }}';
+        let apiname = '{{ apiname }}';
+        let case_name = $('#new_case_name').val().trim();
+        let case_type = $(':radio[name="case_type"]:checked').val();
+        if(case_name && case_type){
+            $.ajax({
+                url: "/api_test/api/create_task_case",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    taskname: taskname,
+                    apiname: apiname,
+                    case_type:case_type,
+                    casename:case_name
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        window.location.href = '/api_test/automation/{{ taskname }}/{{ apiname }}/'+case_name
+                    }
+                }
+            });
+        }else{
+            Spop(SPOP_TYPE['error'],'用例名称不能为空')
+        }
+    });
+
+    function del_case(casename){
+
+        let taskname = '{{ taskname }}';
+
+        let apiname = '{{ apiname }}';
+
+        $('.case-name').text(casename)
+
+        $('#del_case_confirm').on('click', function () {
+            $.ajax({
+                url: "/api_test/api/delete_task_case",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    casename: casename,
+                    taskname:taskname,
+                    apiname:apiname
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['first_casename'] == 'no case' ){
+                        window.location.href = '/api_test/automation/{{ taskname }}/{{ apiname }}'
+                    }else{
+                        window.location.href = '/api_test/automation/{{ taskname }}/{{ apiname }}/'+data['first_casename']
+                    }
+                }
+            });
+        });
+
+    }
+
+    $(document).ready(function () {
+        window.active_id = -1
+    })
+
+    $('.add-assert').on('click', function (e) {
+        e.preventDefault();
+        let id = active_id
+        console.log(id)
+        let i = $('.assert-form').children().length
+        $(document).ready(function() {
+            $('.select2-selection--single').select2({
+                theme: "bootstrap-5",
+                containerCssClass: "select2--small",
+                selectionCssClass: "select2--small",
+                dropdownCssClass: "select2--small",
+            });
+        });
+
+        $('.assert-form').append('<div id="case_"'+ id + '_' + i +' class="row mt-3">\n' +
+        '                        <div class="input-group" style="width: 300px">\n' +
+        '                            <span class="input-group-text">\n' +
+        '                                校验参数\n' +
+        '                            </span>\n' +
+        '                            <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case.parameter }}">\n' +
+        '                        </div>\n' +
+        '                        <div class="input-group" style="width: 300px">\n' +
+        '                            <div class="input-group-text">断言类型</div>\n' +
+        '                            <select class="select2-selection--single"  data-placeholder="请选择断言类型">\n' +
+        '                                <option>==</option>\n' +
+        '                                <option>!=</option>\n' +
+        '                                <option>></option>\n' +
+        '                                <option><</option>\n' +
+        '                            </select>\n' +
+        '                        </div>\n' +
+        '                        <div class="input-group" style="width: 300px">\n' +
+        '                            <span class="input-group-text">\n' +
+        '                                预期值\n' +
+        '                            </span>\n' +
+        '                            <input type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case.value }}">\n' +
+        '                        </div>\n' +
+        '\n' +
+        '                        <div class="col-auto">\n' +
+        '                            <a href="#" class="btn btn-default">\n' +
+        '                                <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>\n' +
+        '                                调试\n' +
+        '                            </a>\n' +
+        '                            <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">\n' +
+        '                                <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>\n' +
+        '                                删除\n' +
+        '                            </a>\n' +
+        '                        </div>\n' +
+        '                    </div>')
+
+    });
+
+
+    $(document).on('click', '.remove-assert', function (e) {
+        e.preventDefault();
+        if ($('.assert-form').children().length == 1) {
+            Spop(SPOP_TYPE['error'],'最后一个')
+        } else {
+            $("#" + $(this).parent().parent().attr('id')).remove()
+        }
+
+    })
     var container = document.getElementById('request_editor')
 
     var options = {
@@ -331,10 +662,11 @@ if __name__ == '__main__':
 
     var editor = new JSONEditor(container, options, json)
 
+
 </script>
 
 <script>
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo3"), {
         mode: "python",
         theme: "monokai",
         lineNumbers: true

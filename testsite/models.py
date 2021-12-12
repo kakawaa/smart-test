@@ -45,3 +45,52 @@ class AutomationTask(models.Model):
     ctime = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return ' %s' % ( self.taskname)
+
+class AutomationTaskContent(models.Model):
+    """API自动化任务内容表"""
+    id = models.AutoField(primary_key=True)
+    taskname = models.CharField(max_length=32)
+    apiname = models.CharField(max_length=32)
+    url = models.CharField(max_length=32)
+    status = models.TextField(default='待执行')
+    ctime = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return ' %s' % ( self.apiname)
+
+class AutomationTaskCase(models.Model):
+    """API自动化任务用例表"""
+    id = models.AutoField(primary_key=True)
+    taskname = models.CharField(max_length=32)
+    apiname = models.CharField(max_length=32)
+    casename = models.TextField(default='用例1')
+    status = models.TextField(default='待执行')
+    case_type = models.TextField(default='Get')
+    request_content = models.TextField(null=True)
+    ctime = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return ' %s' % ( self.apiname)
+
+class AutomationTaskCaseAssert(models.Model):
+    """API自动化任务用例校验参数表"""
+    id = models.AutoField(primary_key=True)
+    taskname = models.CharField(max_length=32)
+    apiname = models.CharField(max_length=32)
+    casename = models.TextField(default='用例1')
+    parameter = models.TextField(default='code')
+    value = models.TextField(default='200')
+    assert_type = models.TextField(default='==')
+    ctime = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return ' %s' % ( self.casenum)
+
+class AutomationTaskReport(models.Model):
+    """API自动化任务报告表"""
+    id = models.AutoField(primary_key=True)
+    taskname = models.CharField(max_length=32)
+    apiname = models.CharField(max_length=32)
+    success_num = models.IntegerField(default=0)
+    error_num = models.IntegerField(default=0)
+    runner = models.TextField(default='自动化')
+    ctime = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return ' %s' % ( self.apiname)

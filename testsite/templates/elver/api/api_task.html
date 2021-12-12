@@ -79,12 +79,18 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default">
+                            {% if task.status == 'running' %}
+                            <a onclick="run_task('{{ task.taskname }}','')" href="#" class="btn btn-outline-danger">
+                                停止
+                            </a>
+                            {% else %}
+                            <a onclick="run_task('{{ task.taskname }}','running')" href="#" class="btn btn-outline-primary">
                                 执行
                             </a>
+                            {% endif %}
                         </div>
                         <div class="col-auto">
-                            <a href="/api_test/automation/{{ task.taskname }}" class="btn btn-default">
+                            <a href="/api_test/automation/{{ task.taskname }}" class="btn btn-outline-dark">
                                 进入
                             </a>
                         </div>
@@ -210,9 +216,35 @@
         }
     });
 
+    function run_task(taskname,new_status){
+        $.ajax({
+            url: "/api_test/api/run_task",
+            type: "POST",
+            async: true,
+            cache: false,
+            data:{
+                taskname: taskname,
+                new_status:new_status
+            },
+            beforeSend: function () {
+                loading();
+            },
+            complete: function () {
+                removeLoading()
+            },
+            success: function (data) {
+                if(data['status'] != 1 ){
+                    Spop(SPOP_TYPE['error'],data['msg'])
+                }else{
+                    //Spop(SPOP_TYPE['success'],data['msg'])
+                    location.reload()
+                }
+            }
+        });
+    }
+
     $('.task-card div.task-body').on('click', '.card-dropdown', function () {
         let taskname = $(this).parents('div.task-body').children('div.align-items-center').children('div.col-auto').children('h4.card-title').text().trim()
-        console.log(taskname)
         $('#del_task_confirm').on('click', function () {
             $.ajax({
                 url: "/api_test/api/delete_task",
