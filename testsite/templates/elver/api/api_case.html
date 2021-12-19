@@ -1,5 +1,5 @@
 {% extends 'api_base.html' %}
-{% block title %}TASK - {{ taskname }} - {{ apiname }} {% endblock %}
+{% block title %}TASK - {{ taskname }} - {{ apiname }} - {{ casename }} {% endblock %}
 {% block page-title %}
 <a class="active" style="color: #1e71df" href="/api_test/automation">自动化测试</a>
 <svg t="1635085520789" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="165732" width="200" height="200"><path d="M360.704 280.746667l45.226667-45.226667 246.570666 246.528a42.666667 42.666667 0 0 1 0 60.330667l-246.528 246.570666-45.22666601-45.269333 231.42400001-231.466667-231.466667-231.424z" p-id="165733"></path></svg>
@@ -35,15 +35,11 @@
 <div class="tab-pane active">
     <div class="row mb-3">
         <div class="col-auto">
-            <a href="#" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#modal-new-case">
+            <a class="btn btn-default" data-bs-toggle="modal" data-bs-target="#modal-new-case">
                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                 用例
             </a>
-            <a href="#" class="btn btn-default" style="margin-left: 10px">
-                <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
-                保存
-            </a>
-            <a onclick="del_case('{{ casename }}')" href="#" class="btn btn-default" style="margin-left: 10px" data-bs-toggle="modal" data-bs-target="#modal-danger">
+            <a onclick="del_case('{{ casename }}')"  class="btn btn-default" style="margin-left: 10px" data-bs-toggle="modal" data-bs-target="#modal-danger">
                 <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
                 删除
             </a>
@@ -73,10 +69,18 @@
             </h2>
             <div id="collapse-1" class="accordion-collapse collapse show">
                 <div class="accordion-body pt-2">
-                    <div id="request_editor"></div>
                     <div class="row mt-3 mb-3">
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default add-assert">
+                            <a  class="btn btn-default save_case">
+                                <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
+                                保存
+                            </a>
+                        </div>
+                    </div>
+                    <div id="request_editor{{ case_id }}"></div>
+                    <div class="row mt-3 mb-3">
+                        <div class="col-auto">
+                            <a href="#" class="btn btn-default add-assert-{{ casename }}">
                                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                                 断言
                             </a>
@@ -117,34 +121,55 @@
                             </div>
                         </div>
                         {% for case_assert in case_asserts%}
-                        <div class="row case-assert mt-3">
+                        <div class="row case-assert {{ case_assert.assert_id }} mt-3">
                             <div class="input-group" style="width: 300px">
                                 <span class="input-group-text">
                                     校验参数
                                 </span>
-                                <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
+                                <input id="{{ case_assert.parameter_id }}" type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
                             </div>
                             <div class="input-group" style="width: 300px">
                                 <div class="input-group-text">断言类型</div>
-                                <select  class="select2-selection--single" data-placeholder="请选择断言类型">
+                                <select id="{{ case_assert.assert_type_id }}" class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    {% if case_assert.assert_type == '==' %}
                                     <option>==</option>
                                     <option>!=</option>
                                     <option>></option>
                                     <option><</option>
+                                    {% elif case_assert.assert_type == '!=' %}
+                                    <option>!=</option>
+                                    <option>==</option>
+                                    <option>></option>
+                                    <option><</option>
+                                    {% elif case_assert.assert_type == '>' %}
+                                    <option>></option>
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option><</option>
+                                    {% else %}
+                                    <option><</option>
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    {% endif %}
                                 </select>
                             </div>
                             <div class="input-group" style="width: 300px">
                                 <span class="input-group-text">
                                     预期值
                                 </span>
-                                <input  type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
+                                <input id="{{ case_assert.value_id }}" type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
                             </div>
                             <div class="col-auto">
-                                <a href="#" class="btn btn-default">
+                                <a class="btn btn-default">
                                     <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
                                     调试
                                 </a>
-                                <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">
+                                <a  onclick="set_assert('{{ case_assert.assert_id }}')" class="btn btn-default" style="margin-left: 10px">
+                                    <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
+                                    保存
+                                </a>
+                                <a onclick="del_assert('{{ case_assert.assert_id }}')"  class="btn btn-default remove-assert" style="margin-left: 10px">
                                     <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
                                     删除
                                 </a>
@@ -166,10 +191,18 @@
             </h2>
             <div id="collapse-2" class="accordion-collapse collapse show">
                 <div class="accordion-body pt-2">
-                    <textarea class="form-control" name="example-textarea-input" rows="3" placeholder="Content..">user=elver&age=18</textarea>
                     <div class="row mt-3 mb-3">
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default add-assert" id="add-assert">
+                            <a  class="btn btn-default save_case">
+                                <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
+                                保存
+                            </a>
+                        </div>
+                    </div>
+                    <textarea id="request-content-get" class="form-control" name="example-textarea-input" rows="3" placeholder="Content..">{{ request_content }}</textarea>
+                    <div class="row mt-3 mb-3">
+                        <div class="col-auto">
+                            <a href="#" class="btn btn-default add-assert-{{ casename }}">
                                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                                 断言
                             </a>
@@ -200,7 +233,7 @@
                                 <span class="input-group-text">
                                     预期值
                                 </span>
-                                <input disabled type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="200">
+                                <input id="code_value" disabled type="text" class="form-control assert-value"  placeholder="请输入预期值"  autocomplete="off" value="200">
                             </div>
                             <div class="col-auto">
                                 <a href="#" class="btn btn-default">
@@ -209,35 +242,56 @@
                                 </a>
                             </div>
                         </div>
-                        {% for case_assert in case_asserts%}
-                        <div class="row case-assert mt-3">
+                        {% for case_assert in case_asserts %}
+                        <div class="row case-assert {{ case_assert.assert_id }} mt-3">
                             <div class="input-group" style="width: 300px">
                                 <span class="input-group-text">
                                     校验参数
                                 </span>
-                                <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
+                                <input id="{{ case_assert.parameter_id }}" type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
                             </div>
                             <div class="input-group" style="width: 300px">
                                 <div class="input-group-text">断言类型</div>
-                                <select  class="select2-selection--single" data-placeholder="请选择断言类型">
+                                <select  id="{{ case_assert.assert_type_id }}" class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    {% if case_assert.assert_type == '==' %}
                                     <option>==</option>
                                     <option>!=</option>
                                     <option>></option>
                                     <option><</option>
+                                    {% elif case_assert.assert_type == '!=' %}
+                                    <option>!=</option>
+                                    <option>==</option>
+                                    <option>></option>
+                                    <option><</option>
+                                    {% elif case_assert.assert_type == '>' %}
+                                    <option>></option>
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option><</option>
+                                    {% else %}
+                                    <option><</option>
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    {% endif %}
                                 </select>
                             </div>
                             <div class="input-group" style="width: 300px">
                                 <span class="input-group-text">
                                     预期值
                                 </span>
-                                <input  type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
+                                <input  id="{{ case_assert.value_id }}" type="text" class="form-control assert-value"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
                             </div>
                             <div class="col-auto">
-                                <a href="#" class="btn btn-default">
+                                <a  class="btn btn-default">
                                     <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
                                     调试
                                 </a>
-                                <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">
+                                <a  onclick="set_assert('{{ case_assert.assert_id }}')" class="btn btn-default" style="margin-left: 10px">
+                                    <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
+                                    保存
+                                </a>
+                                <a onclick="del_assert('{{ case_assert.assert_id }}')"   class="btn btn-default remove-assert" style="margin-left: 10px">
                                     <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
                                     删除
                                 </a>
@@ -261,46 +315,20 @@
                 <div class="accordion-body pt-2">
                     <div class="row mt-3 mb-3">
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default">
+                            <a  class="btn btn-default">
                                 <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
                                 调试
                             </a>
+                            <a  class="btn btn-default save_case" style="margin-left: 10px">
+                                <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
+                                保存
+                            </a>
                         </div>
                     </div>
-                    <textarea id="codeMirrorDemo3">
-#!/usr/bin/env python
-"""Script Demo 支持请求动态生成 python3"""
-
-import sys
-import os
-import time
-import requests
-
-def get_response(url,data,timeout=30):
-  """接口请求获取返回报文"""
-  headers = {
-        'Content-Type': "application/x-www-form-urlencoded",
-        'Cache-Control': "no-cache"
-    }
-  response = requests.request("POST", url, data=data, headers=headers, timeout=timeout)
-  return response
-
-def make_request(data):
-  """必须打印新的请求在终端才能获取"""
-  print(data)
-
-if __name__ == '__main__':
-
-  #新接口请求参数依赖其他接口的返回
-  data = 'username=elver&age=18'
-  phone = get_response('http://xxxx/get_user_info',data)['data']['phone']
-  new_data = f'username=elver&age=18&phone={phone}'
-  #生成用例的请求报文
-  make_request(new_data)
-              </textarea>
+                    <textarea id="codeMirrorDemo{{ case_id }}">{{ script_content }}</textarea>
                     <div class="row mt-3 mb-3">
                         <div class="col-auto">
-                            <a href="#" class="btn btn-default add-assert">
+                            <a href="#" class="btn btn-default add-assert-{{ casename }}">
                                 <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
                                 断言
                             </a>
@@ -340,35 +368,56 @@ if __name__ == '__main__':
                                 </a>
                             </div>
                         </div>
-                        {% for case_assert in case_asserts%}
-                        <div class="row case-assert mt-3">
+                        {% for case_assert in case_asserts %}
+                        <div class="row case-assert {{ case_assert.assert_id }} mt-3">
                             <div class="input-group" style="width: 300px">
                                 <span class="input-group-text">
                                     校验参数
                                 </span>
-                                <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
+                                <input id="{{ case_assert.parameter_id }}" type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case_assert.parameter }}">
                             </div>
                             <div class="input-group" style="width: 300px">
                                 <div class="input-group-text">断言类型</div>
-                                <select  class="select2-selection--single" data-placeholder="请选择断言类型">
+                                <select id="{{ case_assert.assert_type_id }}" class="select2-selection--single" data-placeholder="请选择断言类型">
+                                    {% if case_assert.assert_type == '==' %}
                                     <option>==</option>
                                     <option>!=</option>
                                     <option>></option>
                                     <option><</option>
+                                    {% elif case_assert.assert_type == '!=' %}
+                                    <option>!=</option>
+                                    <option>==</option>
+                                    <option>></option>
+                                    <option><</option>
+                                    {% elif case_assert.assert_type == '>' %}
+                                    <option>></option>
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option><</option>
+                                    {% else %}
+                                    <option><</option>
+                                    <option>==</option>
+                                    <option>!=</option>
+                                    <option>></option>
+                                    {% endif %}
                                 </select>
                             </div>
                             <div class="input-group" style="width: 300px">
                                 <span class="input-group-text">
                                     预期值
                                 </span>
-                                <input  type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
+                                <input  id="{{ case_assert.value_id }}" type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case_assert.value }}">
                             </div>
                             <div class="col-auto">
-                                <a href="#" class="btn btn-default">
+                                <a  class="btn btn-default">
                                     <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>
                                     调试
                                 </a>
-                                <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">
+                                <a  onclick="set_assert('{{ case_assert.assert_id }}')" class="btn btn-default" style="margin-left: 10px">
+                                    <svg t="1638011236280" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="180824" width="200" height="200"><path d="M799.5904 927.232H232.448c-62.0544 0-112.3328-50.7392-112.3328-113.408V206.592c0-62.6176 50.2784-113.408 112.3328-113.408h485.4784c9.4208 0 18.432 3.7376 25.1392 10.3936l158.1056 156.672a36.4544 36.4544 0 0 1 10.752 25.856v527.7184c0 62.6176-50.2784 113.408-112.3328 113.408z" fill="#FFAC3E" p-id="180825"></path><path d="M620.3392 450.816H411.6992c-54.7328 0-99.1232-44.3904-99.1232-99.1232V93.184h406.8864v258.4576c0 54.784-44.3904 99.1744-99.1232 99.1744z" fill="#FF7C0E" p-id="180826"></path><path d="M602.9312 361.6256H490.3936c-22.6304 0-40.96-18.3296-40.96-40.96s18.3296-40.96 40.96-40.96h112.5888c22.6304 0 40.96 18.3296 40.96 40.96s-18.3808 40.96-41.0112 40.96z" fill="#FFFFFF" p-id="180827"></path></svg>
+                                    保存
+                                </a>
+                                <a onclick="del_assert('{{ case_assert.assert_id }}')"   class="btn btn-default remove-assert" style="margin-left: 10px">
                                     <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
                                     删除
                                 </a>
@@ -506,13 +555,53 @@ if __name__ == '__main__':
 
 {% block api_script %}
 
+
 <script>
 
+    $(document).ready(function () {
+        window.active_id = Date.now()
+        console.log(Date.now())
+        arrayOfDocFonts = document.getElementsByClassName("assert-value");
+        for (var i = 0; i < arrayOfDocFonts.length; i++) {
+            if (arrayOfDocFonts[i].id != "") console.log("assert-value ID:"+arrayOfDocFonts[i].id);
+        }
+    })
+
+
+    function escape2Html(str) {
+        var arrEntities={'quot':'"'};
+        return str.replace(/&(quot);/ig,function(all,t){return arrEntities[t];});
+    }
+
+    if(document.getElementById("codeMirrorDemo{{ case_id }}")){
+        var code = CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo{{ case_id }}"), {
+            mode: "python",
+            theme: "monokai",
+            lineNumbers: true
+        });
+    }
+
+    if(document.getElementById("request_editor{{ case_id }}")){
+        var container = document.getElementById('request_editor{{ case_id }}')
+        var options = {
+            mode: 'form',
+            modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+            onModeChange: function (newMode, oldMode) {
+                console.log('Mode switched from', oldMode, 'to', newMode)
+            }
+        }
+        var json = JSON.parse(escape2Html('{{ request_content }}'))
+        var editor = new JSONEditor(container, options, json)
+
+    }
+
     $('#create_case').on('click', function () {
+
         let taskname = '{{ taskname }}';
         let apiname = '{{ apiname }}';
         let case_name = $('#new_case_name').val().trim();
         let case_type = $(':radio[name="case_type"]:checked').val();
+
         if(case_name && case_type){
             $.ajax({
                 url: "/api_test/api/create_task_case",
@@ -544,14 +633,64 @@ if __name__ == '__main__':
         }
     });
 
-    function del_case(casename){
+
+    $('.save_case').on('click', function () {
 
         let taskname = '{{ taskname }}';
-
         let apiname = '{{ apiname }}';
+        let case_name = '{{ casename }}';
+        let request_content
+        switch ('{{ case_type }}') {
+            case 'Get':
+                request_content = $('#request-content-get').val().trim()
+                break;
+            case 'Json':
+                request_content = JSON.stringify(editor.get())
+                break;
+            case 'Script':
+                request_content = code.getValue()
+                break
+            default:
+                request_content = $('#request-content-get').val().trim()
+        }
 
+        if(request_content){
+            $.ajax({
+                url: "/api_test/api/edit_task_case",
+                type: "POST",
+                async: true,
+                cache: false,
+                dataType: 'json',
+                data:{
+                    taskname: taskname,
+                    apiname: apiname,
+                    casename:case_name,
+                    request_content:request_content
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        Spop(SPOP_TYPE['success'],data['msg'])
+                    }
+                }
+            });
+        }else{
+            Spop(SPOP_TYPE['error'],'请求体不能为空')
+        }
+    });
+
+
+    function del_case(casename){
+        let taskname = '{{ taskname }}';
+        let apiname = '{{ apiname }}';
         $('.case-name').text(casename)
-
         $('#del_case_confirm').on('click', function () {
             $.ajax({
                 url: "/api_test/api/delete_task_case",
@@ -581,95 +720,99 @@ if __name__ == '__main__':
 
     }
 
-    $(document).ready(function () {
-        window.active_id = -1
-    })
-
-    $('.add-assert').on('click', function (e) {
-        e.preventDefault();
-        let id = active_id
-        console.log(id)
-        let i = $('.assert-form').children().length
-        $(document).ready(function() {
-            $('.select2-selection--single').select2({
-                theme: "bootstrap-5",
-                containerCssClass: "select2--small",
-                selectionCssClass: "select2--small",
-                dropdownCssClass: "select2--small",
-            });
+    function set_assert(id){
+        let case_id = id.replace('assert_','')
+        let parameter = $('#parameter_'+case_id).val()
+        let value = $('#value_'+case_id).val()
+        let assert_type = $('#assert_type_'+case_id).val()
+        $.ajax({
+            url: "/api_test/api/edit_case_assert",
+            type: "POST",
+            async: true,
+            cache: false,
+            data:{
+                assert_id: id,
+                parameter:parameter,
+                value:value,
+                assert_type:assert_type
+            },
+            beforeSend: function () {
+                loading();
+            },
+            complete: function () {
+                removeLoading()
+            },
+            success: function (data) {
+                if(data['status'] == 1 ){
+                    Spop(SPOP_TYPE['success'],data['msg'])
+                }else{
+                    Spop(SPOP_TYPE['error'],data['msg'])
+                }
+            }
         });
-
-        $('.assert-form').append('<div id="case_"'+ id + '_' + i +' class="row mt-3">\n' +
-        '                        <div class="input-group" style="width: 300px">\n' +
-        '                            <span class="input-group-text">\n' +
-        '                                校验参数\n' +
-        '                            </span>\n' +
-        '                            <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ case.parameter }}">\n' +
-        '                        </div>\n' +
-        '                        <div class="input-group" style="width: 300px">\n' +
-        '                            <div class="input-group-text">断言类型</div>\n' +
-        '                            <select class="select2-selection--single"  data-placeholder="请选择断言类型">\n' +
-        '                                <option>==</option>\n' +
-        '                                <option>!=</option>\n' +
-        '                                <option>></option>\n' +
-        '                                <option><</option>\n' +
-        '                            </select>\n' +
-        '                        </div>\n' +
-        '                        <div class="input-group" style="width: 300px">\n' +
-        '                            <span class="input-group-text">\n' +
-        '                                预期值\n' +
-        '                            </span>\n' +
-        '                            <input type="text" class="form-control"  placeholder="请输入预期值"  autocomplete="off" value="{{ case.value }}">\n' +
-        '                        </div>\n' +
-        '\n' +
-        '                        <div class="col-auto">\n' +
-        '                            <a href="#" class="btn btn-default">\n' +
-        '                                <svg t="1638010895757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="175517" width="200" height="200"><path d="M512 512m-506 0a506 506 0 1 0 1012 0 506 506 0 1 0-1012 0Z" fill="#90DFAA" p-id="175518"></path><path d="M198.4 195.8h627.4v461.2H198.4z" fill="#324A5E" p-id="175519"></path><path d="M256.2 246H768v360.6H256.2z" fill="#E6E9EE" p-id="175520"></path><path d="M512 320.2c-58.6 0-106.2 47.6-106.2 106.2s47.6 106.2 106.2 106.2 106.2-47.6 106.2-106.2-47.6-106.2-106.2-106.2z" fill="#F1543F" p-id="175521"></path><path d="M477.4 359.4v135.4l99-67.6z" fill="#FFFFFF" p-id="175522"></path><path d="M198.4 747.2h627.4v68H198.4z" fill="#E6E9EE" p-id="175523"></path><path d="M198.4 747.2H448v68H198.4z" fill="#FF7058" p-id="175524"></path><path d="M276.4 781.2m-47 0a47 47 0 1 0 94 0 47 47 0 1 0-94 0Z" fill="#324A5E" p-id="175525"></path></svg>\n' +
-        '                                调试\n' +
-        '                            </a>\n' +
-        '                            <a href="#" class="btn btn-default remove-assert" style="margin-left: 10px">\n' +
-        '                                <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>\n' +
-        '                                删除\n' +
-        '                            </a>\n' +
-        '                        </div>\n' +
-        '                    </div>')
-
-    });
-
-
-    $(document).on('click', '.remove-assert', function (e) {
-        e.preventDefault();
-        if ($('.assert-form').children().length == 1) {
-            Spop(SPOP_TYPE['error'],'最后一个')
-        } else {
-            $("#" + $(this).parent().parent().attr('id')).remove()
-        }
-
-    })
-    var container = document.getElementById('request_editor')
-
-    var options = {
-        mode: 'form',
-        modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
-        onModeChange: function (newMode, oldMode) {
-            console.log('Mode switched from', oldMode, 'to', newMode)
-        }
     }
 
-    var json = {
-        "user": "elver"
+    function del_assert(assert_id){
+        window.event.preventDefault()
+        $.ajax({
+            url: "/api_test/api/delete_case_assert",
+            type: "POST",
+            async: true,
+            cache: false,
+            data:{
+                assert_id: assert_id
+            },
+            beforeSend: function () {
+                loading();
+            },
+            complete: function () {
+                removeLoading()
+            },
+            success: function (data) {
+                if(data['status'] == 1 ){
+                    Spop(SPOP_TYPE['success'],data['msg'])
+                    $("." + assert_id).remove()
+                }else{
+                    Spop(SPOP_TYPE['error'],data['msg'])
+                }
+            }
+        });
     }
 
-    var editor = new JSONEditor(container, options, json)
 
-
-</script>
-
-<script>
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo3"), {
-        mode: "python",
-        theme: "monokai",
-        lineNumbers: true
+    $('.add-assert-'+'{{ casename }}').on('click', function (e) {
+        e.preventDefault()
+        let id = Date.now()
+        console.log(id)
+        $.ajax({
+            url: "/api_test/api/create_case_assert",
+            type: "POST",
+            async: true,
+            cache: false,
+            data:{
+                taskname: '{{ taskname }}',
+                apiname: '{{ apiname }}',
+                casename:'{{ casename }}',
+                parameter:'',
+                value:'',
+                assert_type:'==',
+                active_id:active_id
+            },
+            beforeSend: function () {
+                loading();
+            },
+            complete: function () {
+                removeLoading()
+            },
+            success: function (data) {
+                if(data['status'] != 1 ){
+                    Spop(SPOP_TYPE['error'],data['msg'])
+                }else{
+                    window.location.reload()
+                }
+            }
+        });
     });
+
 </script>
 {% endblock %}

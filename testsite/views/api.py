@@ -97,6 +97,21 @@ class API_TASK(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    def task_report_page(cls, request,*arg,**kwargs):
+        """自动化报告页"""
+        taskname = kwargs['taskname']
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+        report_num = models.AutomationTaskResult.objects.filter(taskname=taskname).count()
+        results = models.AutomationTaskResult.objects.filter(taskname=taskname).order_by('-id')
+        return render(request, 'elver/api/api_task_report.html', locals())
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
     def api_case_page(cls, request, *arg, **kwargs):
         """自动化用例页"""
         taskname = kwargs['taskname']
@@ -112,6 +127,12 @@ class API_TASK(View):
         if case_num > 0:
             casename = kwargs['casename']
             case_type = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname,casename=casename).values("case_type").first()['case_type']
+            case_id = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname,casename=casename).values("id").first()['id']
+            if case_type == 'Get' or case_type == 'Json':
+                request_content = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname,casename=casename).values("request_content").first()['request_content']
+            else:
+                request_content = '{}'
+            script_content = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname,casename=casename).values("request_content").first()['request_content']
             case_asserts = models.AutomationTaskCaseAssert.objects.filter(taskname=taskname,apiname=apiname,casename=casename).order_by('id')
         return render(request, 'elver/api/api_case.html', locals())
 
@@ -268,12 +289,44 @@ class API_TASK(View):
         case_type = common.request_method(request, "case_type")
         casename = common.request_method(request, "casename")
         username = request.session['username']
-        case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname,casename=casename).count()
-        if case_num == 0:
-            models.AutomationTaskCase(taskname=taskname, apiname=apiname, case_type=case_type,casename=casename).save()
-            result = {'status': 1, 'msg': '创建用例成功'}
-        else:
-            result = {'status': 0, 'msg': '该用例名称已存在'}
+        try:
+            case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname,casename=casename).count()
+            if case_num == 0:
+                models.AutomationTaskCase(taskname=taskname, apiname=apiname, case_type=case_type,casename=casename).save()
+                result = {'status': 1, 'msg': '创建用例成功'}
+            else:
+                result = {'status': 0, 'msg': '该用例名称已存在'}
+        except Exception as e:
+            result = {'status': 0, 'msg': e}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def edit_task_case_api(cls, request):
+        """编辑任务用例接口"""
+        taskname = common.request_method(request, "taskname")
+        apiname = common.request_method(request, "apiname")
+        case_type = common.request_method(request, "case_type")
+        casename = common.request_method(request, "casename")
+        request_content = common.request_method(request, "request_content")
+        try:
+            models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname, casename=casename).update(request_content=request_content)
+            result = {'status': 1, 'msg': '保存成功！'}
+        except Exception as e:
+            result = {'status': 0, 'msg': e}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    def edit_case_assert_api(cls, request):
+        """编辑用例断言接口"""
+        assert_id = common.request_method(request, "assert_id")
+        parameter = common.request_method(request, "parameter")
+        value = common.request_method(request, "value")
+        assert_type = common.request_method(request, "assert_type")
+        try:
+            models.AutomationTaskCaseAssert.objects.filter(assert_id=assert_id).update(parameter=parameter,value=value,assert_type=assert_type)
+            result = {'status': 1, 'msg': '保存成功！'}
+        except Exception as e:
+            result = {'status': 0, 'msg': e}
         return HttpResponse(json.dumps(result), content_type="application/json")
 
     @classmethod
@@ -291,6 +344,44 @@ class API_TASK(View):
             result = {'status': 1, 'msg': '删除成功！','first_casename':first_casename}
         else:
             result = {'status': 1, 'msg': '删除成功！', 'first_casename': 'no case'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+    
+    @classmethod
+    def create_case_assert_api(cls, request):
+        """创建用例断言接口"""
+        taskname = common.request_method(request, "taskname")
+        apiname = common.request_method(request, "apiname")
+        casename = common.request_method(request, "casename")
+        parameter = common.request_method(request, "parameter")
+        value = common.request_method(request, "value")
+        assert_type = common.request_method(request, "assert_type")
+        active_id = common.request_method(request, "active_id")
+        assert_id = f'assert_{active_id}'
+        assert_type_id = f'assert_type_{active_id}'
+        parameter_id = f'parameter_{active_id}'
+        value_id = f'value_{active_id}'
+        debug_id = f'debug_{active_id}'
+        del_id = f'del_{active_id}'
+        username = request.session['username']
+        try:
+            models.AutomationTaskCaseAssert(taskname=taskname, apiname=apiname,casename=casename,
+            assert_type=assert_type,parameter=parameter,value=value,assert_type_id=assert_type_id,
+            assert_id=assert_id,parameter_id=parameter_id,value_id=value_id,debug_id=debug_id,del_id=del_id).save()
+            result = {'status': 1, 'msg': '创建断言成功'}
+        except Exception as e:
+            result = {'status': 0, 'msg': e}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+    
+    @classmethod
+    def delete_case_assert_api(cls, request):
+        """删除用例断言接口"""
+        assert_id = common.request_method(request, "assert_id")
+        username = request.session['username']
+        try:
+            models.AutomationTaskCaseAssert.objects.filter(assert_id=assert_id).delete()
+            result = {'status': 1, 'msg': '删除成功！'}
+        except Exception as e:
+            result = {'status': 0, 'msg': e}    
         return HttpResponse(json.dumps(result), content_type="application/json")
 
 class API_STRESS_TEST(View):

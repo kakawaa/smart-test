@@ -50,9 +50,11 @@ urlpatterns = [
     ######【API TEST - 自动化测试】
     path('api_test/automation', api.API_TASK.task_page, name='task_page'),
     path('api_test/automation/<taskname>', api.API_TASK.task_content_page, name='task_content_page'),
+    path('api_test/automation/<taskname>/report', api.API_TASK.task_report_page, name='task_report_page'),
     path('api_test/automation/<taskname>/config', api.API_TASK.task_more_page, name='task_more_page'),
     path('api_test/automation/<taskname>/<apiname>', api.API_TASK.api_case_page, name='api_case_page'),
     path('api_test/automation/<taskname>/<apiname>/<casename>', api.API_TASK.api_case_page, name='api_case_page'),
+
     path('api_test/api/create_task', api.API_TASK.create_task_api, name='create_task_api'),
     path('api_test/api/get_task', api.API_TASK.get_task_api, name='get_task_api'),
     path('api_test/api/run_task', api.API_TASK.run_task_api, name='run_task_api'),
@@ -62,9 +64,14 @@ urlpatterns = [
     path('api_test/api/set_task_content_status', api.API_TASK.set_task_content_status_api, name='set_task_content_status_api'),
     path('api_test/api/delete_task_content', api.API_TASK.delete_task_content_api, name='delete_task_content_api'),
     path('api_test/api/create_task_case', api.API_TASK.create_task_case_api, name='create_task_case_api'),
+    path('api_test/api/edit_task_case', api.API_TASK.edit_task_case_api, name='edit_task_case_api'),
+    path('api_test/api/edit_case_assert', api.API_TASK.edit_case_assert_api, name='edit_case_assert_api'),
     path('api_test/api/delete_task_case', api.API_TASK.delete_task_case_api, name='delete_task_case_api'),
     path('api_test/api/get_newcase', api.API_TASK.get_newcase_api, name='get_newcase_api'),
+    path('api_test/api/create_case_assert', api.API_TASK.create_case_assert_api, name='create_case_assert_api'),
+    path('api_test/api/delete_case_assert', api.API_TASK.delete_case_assert_api, name='delete_case_assert_api'),
 
+    
     ######【API TEST - 压力测试】
     path('api_test/stress', api.API_STRESS_TEST.stress_test_page, name='stress_test_page'),
 

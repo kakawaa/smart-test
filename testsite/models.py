@@ -79,17 +79,24 @@ class AutomationTaskCaseAssert(models.Model):
     parameter = models.TextField(default='code')
     value = models.TextField(default='200')
     assert_type = models.TextField(default='==')
+    assert_type_id = models.TextField(default='')
+    assert_id = models.TextField(default='')
+    parameter_id = models.TextField(default='')
+    value_id = models.TextField(default='')
+    debug_id = models.TextField(default='')
+    del_id = models.TextField(default='')
     ctime = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return ' %s' % ( self.casenum)
 
-class AutomationTaskReport(models.Model):
+class AutomationTaskResult(models.Model):
     """API自动化任务报告表"""
     id = models.AutoField(primary_key=True)
     taskname = models.CharField(max_length=32)
     apiname = models.CharField(max_length=32)
-    success_num = models.IntegerField(default=0)
-    error_num = models.IntegerField(default=0)
+    url = models.CharField(max_length=32)
+    report_id = models.CharField(max_length=32)
+    status =  models.CharField(max_length=32)
     runner = models.TextField(default='自动化')
     ctime = models.DateTimeField(default=timezone.now)
     def __str__(self):
