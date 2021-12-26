@@ -49,9 +49,10 @@ class AutomationTask(models.Model):
 class AutomationTaskContent(models.Model):
     """API自动化任务内容表"""
     id = models.AutoField(primary_key=True)
+    run_id = models.TextField(default='NA')
     taskname = models.CharField(max_length=32)
     apiname = models.CharField(max_length=32)
-    url = models.CharField(max_length=32)
+    url = models.TextField(default='')
     status = models.TextField(default='待执行')
     ctime = models.DateTimeField(default=timezone.now)
     def __str__(self):
@@ -89,15 +90,22 @@ class AutomationTaskCaseAssert(models.Model):
     def __str__(self):
         return ' %s' % ( self.casenum)
 
+
 class AutomationTaskResult(models.Model):
-    """API自动化任务报告表"""
+    """API自动化任务结果表"""
     id = models.AutoField(primary_key=True)
-    taskname = models.CharField(max_length=32)
-    apiname = models.CharField(max_length=32)
-    url = models.CharField(max_length=32)
-    report_id = models.CharField(max_length=32)
-    status =  models.CharField(max_length=32)
+    run_id = models.TextField(default='')
+    taskname = models.TextField()
+    apiname = models.TextField()
+    casename = models.TextField()
+    status = models.TextField()
+    parameter = models.TextField()
+    assert_type = models.TextField()
+    pre_value = models.TextField()
+    final_value = models.TextField(null=True)
+    response = models.TextField(null=True)
     runner = models.TextField(default='自动化')
+    error = models.TextField(default='')
     ctime = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return ' %s' % ( self.apiname)

@@ -8,11 +8,12 @@
     <title>{% block title %}base{% endblock %}</title>
     <link rel="icon" href="/static/image/elver.png">
     <!-- Plugin CSS files -->
-    <link href="/static/tabler/dist/css/tabler.min.css" rel="stylesheet"/>
-    <link href="/static/tabler/dist/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="/static/tabler/dist/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="/static/tabler/dist/css/tabler-vendors.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler-flags.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler-payments.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler-vendors.min.css">
     <link href="/static/tabler/dist/css/demo.min.css" rel="stylesheet"/>
+
     <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css"><!-- Select2-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.1.1/dist/select2-bootstrap-5-theme.min.css" />
@@ -40,7 +41,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                <a href="#">
+                <a >
                     <img src="/static/image/elver.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                 </a>
             </h1>
@@ -51,7 +52,7 @@
                     </a>
                 </div>
                 <div class="nav-item dropdown d-none d-md-flex me-3">
-                    <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
+                    <a  class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="Show notifications">
                         <svg t="1636516367078" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10675" width="200" height="200"><path d="M512.204715 823.652174m-200.347826 0a200.347826 200.347826 0 1 0 400.695652 0 200.347826 200.347826 0 1 0-400.695652 0Z" fill="#4C91FF" p-id="10676"></path><path d="M846.117759 742.956522c-16.695652 0-27.826087-11.130435-27.826087-27.826087V528.695652c0-158.608696-116.869565-297.73913-275.478261-314.434782-183.652174-16.695652-336.695652 128-336.695652 306.086956v194.782609c0 16.695652-11.130435 27.826087-27.826087 27.826087s-27.826087-11.130435-27.826087-27.826087v-183.652174C150.465585 336.695652 297.943846 166.956522 492.726454 158.608696c208.695652-11.130435 381.217391 155.826087 381.217392 361.73913v194.782609c0 13.913043-13.913043 27.826087-27.826087 27.826087z" fill="#231815" p-id="10677"></path><path d="M512.204715 339.478261c-16.695652 0-27.826087-11.130435-27.826087-27.826087V27.826087c0-16.695652 11.130435-27.826087 27.826087-27.826087s27.826087 11.130435 27.826087 27.826087v283.826087c0 16.695652-13.913043 27.826087-27.826087 27.826087zM946.291672 815.304348c0 16.695652-11.130435 27.826087-27.826087 27.826087H103.161237c-16.695652 0-27.826087-11.130435-27.826087-27.826087s11.130435-27.826087 27.826087-27.826087h815.304348c16.695652 0 27.826087 13.913043 27.826087 27.826087z" fill="#231815" p-id="10678"></path></svg>
                         <span class="badge bg-red"></span>
                     </a>
@@ -62,7 +63,7 @@
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                    <a  class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                         {% if user_type == 'github' %}
                         <svg t="1635327985340" class="icon" viewBox="0 0 1049 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1198" width="200" height="200"><path d="M524.979332 0C234.676191 0 0 234.676191 0 524.979332c0 232.068678 150.366597 428.501342 358.967656 498.035028 26.075132 5.215026 35.636014-11.299224 35.636014-25.205961 0-12.168395-0.869171-53.888607-0.869171-97.347161-146.020741 31.290159-176.441729-62.580318-176.441729-62.580318-23.467619-60.841976-58.234462-76.487055-58.234463-76.487055-47.804409-32.15933 3.476684-32.15933 3.476685-32.15933 53.019436 3.476684 80.83291 53.888607 80.83291 53.888607 46.935238 79.963739 122.553122 57.365291 152.97411 43.458554 4.345855-33.897672 18.252593-57.365291 33.028501-70.402857-116.468925-12.168395-239.022047-57.365291-239.022047-259.012982 0-57.365291 20.860106-104.300529 53.888607-140.805715-5.215026-13.037566-23.467619-66.926173 5.215027-139.067372 0 0 44.327725-13.906737 144.282399 53.888607 41.720212-11.299224 86.917108-17.383422 131.244833-17.383422s89.524621 6.084198 131.244833 17.383422C756.178839 203.386032 800.506564 217.29277 800.506564 217.29277c28.682646 72.1412 10.430053 126.029806 5.215026 139.067372 33.897672 36.505185 53.888607 83.440424 53.888607 140.805715 0 201.64769-122.553122 245.975415-239.891218 259.012982 19.121764 16.514251 35.636014 47.804409 35.636015 97.347161 0 70.402857-0.869171 126.898978-0.869172 144.282399 0 13.906737 9.560882 30.420988 35.636015 25.205961 208.601059-69.533686 358.967656-265.96635 358.967655-498.035028C1049.958663 234.676191 814.413301 0 524.979332 0z" fill="#191717" p-id="1199"></path><path d="M199.040177 753.571326c-0.869171 2.607513-5.215026 3.476684-8.691711 1.738342s-6.084198-5.215026-4.345855-7.82254c0.869171-2.607513 5.215026-3.476684 8.691711-1.738342s5.215026 5.215026 4.345855 7.82254z m-6.953369-4.345856M219.900283 777.038945c-2.607513 2.607513-7.82254 0.869171-10.430053-2.607514-3.476684-3.476684-4.345855-8.691711-1.738342-11.299224 2.607513-2.607513 6.953369-0.869171 10.430053 2.607514 3.476684 4.345855 4.345855 9.560882 1.738342 11.299224z m-5.215026-5.215027M240.760389 807.459932c-3.476684 2.607513-8.691711 0-11.299224-4.345855-3.476684-4.345855-3.476684-10.430053 0-12.168395 3.476684-2.607513 8.691711 0 11.299224 4.345855 3.476684 4.345855 3.476684 9.560882 0 12.168395z m0 0M269.443034 837.011749c-2.607513 3.476684-8.691711 2.607513-13.906737-1.738342-4.345855-4.345855-6.084198-10.430053-2.607513-13.037566 2.607513-3.476684 8.691711-2.607513 13.906737 1.738342 4.345855 3.476684 5.215026 9.560882 2.607513 13.037566z m0 0M308.555733 853.526c-0.869171 4.345855-6.953369 6.084198-13.037566 4.345855-6.084198-1.738342-9.560882-6.953369-8.691711-10.430053 0.869171-4.345855 6.953369-6.084198 13.037566-4.345855 6.084198 1.738342 9.560882 6.084198 8.691711 10.430053z m0 0M351.145116 857.002684c0 4.345855-5.215026 7.82254-11.299224 7.82254-6.084198 0-11.299224-3.476684-11.299224-7.82254s5.215026-7.82254 11.299224-7.82254c6.084198 0 11.299224 3.476684 11.299224 7.82254z m0 0M391.126986 850.049315c0.869171 4.345855-3.476684 8.691711-9.560882 9.560882-6.084198 0.869171-11.299224-1.738342-12.168395-6.084197-0.869171-4.345855 3.476684-8.691711 9.560881-9.560882 6.084198-0.869171 11.299224 1.738342 12.168396 6.084197z m0 0" fill="#191717" p-id="1200"></path></svg>
                         {% else %}
@@ -202,7 +203,7 @@
 <script src="/static/tabler/dist/libs/choices.js/public/assets/scripts/choices.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <!-- Tabler Core -->
-<script src="/static/tabler/dist/js/tabler.min.js"></script>
+<script src="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/js/tabler.min.js"></script>
 <!-- Select2-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- JsonViewer-->
@@ -220,6 +221,8 @@
 <script src="/static/AdminLTE-3.2.0-rc/plugins/codemirror/mode/xml/xml.js"></script>
 <script src="/static/AdminLTE-3.2.0-rc/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 <script src="/static/AdminLTE-3.2.0-rc/plugins/codemirror/mode/python/python.js"></script>
+<!-- sweetalert2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Common-->
 <script src="/static/js/common.js"></script>
 <!-- 模块切换高亮 -->
@@ -234,6 +237,7 @@
 </script>
 <!-- select2 -->
 <script>
+    var owner = $('.user-name').text()
     $(document).ready(function() {
         $('.select2-selection--single').select2({
             theme: "bootstrap-5",

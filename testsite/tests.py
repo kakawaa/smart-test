@@ -26,9 +26,21 @@ def get_apk_info(apk_path):
 
     return apk_info
 
+def compare(pagramer,type,value):
+    """断言比较"""
+    if type == '==':
+        Flag = (False,True)[pagramer == value]
+    elif type == '!=':
+        Flag = (False,True)[pagramer != value]
+    elif type == '>':
+        Flag = (False,True)[len(pagramer) > int(value)]
+    elif type == '<':
+        Flag = (False,True)[len(pagramer) < int(value)]
+    return Flag
+
 
 if __name__ == '__main__':
-    file_dir = os.path.join(os.path.split(os.path.realpath(__file__))[0], f"file/test.apk")
-    print(get_apk_info(file_dir))
-    print(get_apk_info.__name__)
-
+    # file_dir = os.path.join(os.path.split(os.path.realpath(__file__))[0], f"file/test.apk")
+    # print(get_apk_info(file_dir))
+    # print(get_apk_info.__name__)
+    print(compare('dd', '<', '10'))

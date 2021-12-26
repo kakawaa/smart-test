@@ -192,7 +192,7 @@ There are two types of boxes, info boxes & small boxes. Both boxes are used to d
       <div class="icon">
         <i class="fas fa-shopping-cart"></i>
       </div>
-      <a href="#" class="small-box-footer">
+      <a  class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
@@ -206,7 +206,7 @@ There are two types of boxes, info boxes & small boxes. Both boxes are used to d
       <div class="icon">
         <i class="fas fa-user-plus"></i>
       </div>
-      <a href="#" class="small-box-footer">
+      <a  class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
     </div>
@@ -223,7 +223,7 @@ There are two types of boxes, info boxes & small boxes. Both boxes are used to d
   <div class="icon">
     <i class="fas fa-shopping-cart"></i>
   </div>
-  <a href="#" class="small-box-footer">
+  <a  class="small-box-footer">
     More info <i class="fas fa-arrow-circle-right"></i>
   </a>
 </div>
@@ -238,7 +238,7 @@ There are two types of boxes, info boxes & small boxes. Both boxes are used to d
   <div class="icon">
     <i class="fas fa-user-plus"></i>
   </div>
-  <a href="#" class="small-box-footer">
+  <a  class="small-box-footer">
     More info <i class="fas fa-arrow-circle-right"></i>
   </a>
 </div>
@@ -303,7 +303,7 @@ To simulate a loading state, simply place this code before the `.info-box` / `.s
       <div class="icon">
         <i class="fas fa-shopping-cart"></i>
       </div>
-      <a href="#" class="small-box-footer">
+      <a  class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
       <div class="overlay">
@@ -362,7 +362,7 @@ You can also use a dark loading style with adding `.dark` to `.overlay` like thi
       <div class="icon">
         <i class="fas fa-shopping-cart"></i>
       </div>
-      <a href="#" class="small-box-footer">
+      <a  class="small-box-footer">
         More info <i class="fas fa-arrow-circle-right"></i>
       </a>
       <div class="overlay dark">

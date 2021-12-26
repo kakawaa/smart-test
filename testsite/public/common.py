@@ -1,4 +1,7 @@
 import datetime
+from enum import Flag
+from re import T
+from django.db.models.expressions import F
 import requests
 import urllib.parse
 import base64
@@ -56,7 +59,6 @@ class common(object):
             if isinstance(out, list or dict):
                 logger.info("命令输出为：")
                 try:
-                    # 失败重试一次
                     json.dumps(out, indent=4)
                 except:
                     cmd = subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -152,13 +154,78 @@ class common(object):
         return apk_info
 
     @classmethod
-    def post(cls,url,**kwargs):
-        """发送请求"""
+    def case_get_post(cls, url, playload):
+        """用例发送Get请求"""
+        response = requests.request("POST", url, data=playload.encode('utf-8'),
+                                    headers=cls.headers, verify=False,timeout=20)
+        code = response.status_code
+        return code, json.loads(response.text)
+
+    @classmethod
+    def case_json_post(cls,url,request):
+        """用例发送Json请求"""
         playload = ''
-        for key in kwargs.keys():
-            playload += str(key) + "=" + str(kwargs[key]) + "&"
+        request = json.loads(request)
+        for key in request.keys():
+            playload += str(key) + "=" + str(request[key]) + "&"
         if playload.endswith("&"):
             playload = playload[:-1]
-        response = requests.request("POST", url, data=playload.encode('utf-8'), headers=cls.headers,verify=False,timeout=10)
+        response = requests.request("POST", url, data=playload.encode('utf-8'),
+                                    headers=cls.headers,verify=False,timeout=20)
         code = response.status_code
         return code,json.loads(response.text)
+    
+    @classmethod
+    def compare(cls,parameter,assert_type,value):
+        """参数比较"""
+        if assert_type == '==':
+            Flag = (False,True)[str(parameter) == str(value)]
+            result = {'pre':str(value),'final':str(parameter)}
+        elif assert_type == '!=':
+            Flag = (False,True)[str(parameter) != str(value)]
+            result = {'pre':str(value),'final':str(parameter)}
+        elif assert_type == '>':
+            if isinstance(parameter,str):
+                Flag = (False,True)[len(parameter) > int(value)]
+                result = {'pre':int(value),'final':len(parameter)}
+            elif isinstance(parameter,int):
+                Flag = (False,True)[parameter > int(value)]
+                result = {'pre':int(value),'final':parameter}
+            else:
+                Flag = (False,True)[len(parameter) > int(value)]    
+                result = {'pre':int(value),'final':len(parameter)}
+        elif assert_type == '<':
+            if isinstance(parameter,str):
+                Flag = (False,True)[len(parameter) < int(value)]
+                result = {'pre':int(value),'final':len(parameter)}
+            elif isinstance(parameter,int):
+                Flag = (False,True)[parameter < int(value)]
+                result = {'pre':int(value),'final':parameter}
+            else:
+                Flag = (False,True)[len(parameter) < int(value)]    
+                result = {'pre':int(value),'final':len(parameter)}    
+        return Flag,result
+
+    @classmethod
+    def assert_check(cls,**kwargs):
+        """断言检查"""
+        if kwargs['check_type'] == 'code':
+            if kwargs['case_type'] in ['Get','Script']:
+                final_value = cls.case_get_post(kwargs['url'],kwargs['playload'])[0]
+                compare_result = cls.compare(final_value,kwargs['assert_type'], kwargs['value'])
+                response = cls.case_get_post(kwargs['url'],kwargs['playload'])[1]
+            else:
+                final_value = cls.case_json_post(kwargs['url'],kwargs['playload'])[0]
+                compare_result = cls.compare(final_value,kwargs['assert_type'], kwargs['value'])
+                response = cls.case_json_post(kwargs['url'], kwargs['playload'])[1]
+        else:
+            if kwargs['case_type'] in ['Get','Script']:
+                final_value = cls.case_get_post(kwargs['url'],kwargs['playload'])[1][kwargs['parameter']]
+                compare_result = cls.compare(final_value,kwargs['assert_type'], kwargs['value'])
+                response = cls.case_get_post(kwargs['url'], kwargs['playload'])[1]
+            else:
+                final_value = cls.case_json_post(kwargs['url'],kwargs['playload'])[1][kwargs['parameter']]
+                compare_result = cls.compare(final_value,kwargs['assert_type'], kwargs['value'])
+                response = cls.case_json_post(kwargs['url'], kwargs['playload'])[1]
+        result = {'pass': compare_result[0], 'pre': compare_result[1]['pre'], 'final': compare_result[1]['final'],'response':response}
+        return result

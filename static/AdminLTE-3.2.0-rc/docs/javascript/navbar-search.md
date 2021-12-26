@@ -26,7 +26,7 @@ The jQuery API provides more customizable options that allows the developer to p
 ##### HTML Markup
 Place this HTML Markup after inside the header.
 ```html
-<a data-widget="navbar-search" href="#" role="button">
+<a data-widget="navbar-search"  role="button">
   <i class="fas fa-search"></i>
 </a>
 <div class="navbar-search-block">
@@ -49,7 +49,7 @@ Place this HTML Markup after inside the header.
 Or you can place the search button inside the navbar as nav-item with this markup:
 ```html
 <li class="nav-item">
-  <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+  <a class="nav-link" data-widget="navbar-search"  role="button">
     <i class="fas fa-search"></i>
   </a>
   <div class="navbar-search-block">

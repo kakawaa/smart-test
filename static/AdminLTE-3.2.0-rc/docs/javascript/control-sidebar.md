@@ -23,7 +23,7 @@ This plugin can be activated as a jQuery plugin or using the data api. To activa
 Add `data-widget="control-sidebar"` to any button or a element to activate the plugin.
 
 ```html
-<a href="#" data-widget="control-sidebar">Toggle Control Sidebar</a>
+<a  data-widget="control-sidebar">Toggle Control Sidebar</a>
 ```
 
 ###### jQuery
@@ -48,7 +48,7 @@ $("#my-toggle-button").ControlSidebar('toggle');
 > ##### Tip!
 > You can use any option via the data-attributes like this to enable auto collapse sidebar on 768 pixels width.
 > ```html
-> <a href="#" data-widget="control-sidebar" data-controlsidebar-slide="false">Toggle Control Sidebar</a>
+> <a  data-widget="control-sidebar" data-controlsidebar-slide="false">Toggle Control Sidebar</a>
 > ```
 {: .quote-info}
 

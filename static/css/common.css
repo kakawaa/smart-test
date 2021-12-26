@@ -9,6 +9,13 @@
     max-width: 500px;
 }
 
+.report-text {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .col_10{
     margin-right: 15px;
 }
@@ -36,4 +43,19 @@
 
 .ml_30{
     margin-left: 30px;
+}
+
+.nav-link{
+    cursor: pointer;
+}
+
+.dropdown{
+    cursor: pointer;
+}
+.dropdown-item{
+    cursor: pointer;
+}
+.move{
+    cursor: pointer;
+    color:red;
 }

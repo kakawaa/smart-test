@@ -35,11 +35,7 @@ class Decorators(object):
             try:
                 func = function(request,*arg, **kwargs)
             except:
-                username = request.session['username']
-                logger.info(f'[{username}]{function} error info:')
                 traceback.print_exc()
-                models.User.objects.filter(username=username).update(error_info=traceback.format_exc())
-                return redirect('/error/')
             else:
                 return func
         return wrap

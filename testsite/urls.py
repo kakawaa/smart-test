@@ -46,12 +46,13 @@ urlpatterns = [
     ######【API TEST - 手工测试】
     path('api_test/post', api.API_POST.post_page, name='post_page'),
     path('api_test/demo', api.API_POST.demo_api, name='demo_api'),
-    path('api_test/get_response_api', api.API_POST.get_response_api, name='get_response_api'),
+    path('api_test/get_response', api.API_POST.get_response_api, name='get_response_api'),
     ######【API TEST - 自动化测试】
     path('api_test/automation', api.API_TASK.task_page, name='task_page'),
     path('api_test/automation/<taskname>', api.API_TASK.task_content_page, name='task_content_page'),
-    path('api_test/automation/<taskname>/report', api.API_TASK.task_report_page, name='task_report_page'),
+    path('api_test/automation/<taskname>/report/<run_id>', api.API_TASK.task_report_page, name='task_report_page'),
     path('api_test/automation/<taskname>/config', api.API_TASK.task_more_page, name='task_more_page'),
+    path('api_test/automation/<taskname>/<apiname>/result/<run_id>', api.API_TASK.task_result_page, name='task_result_page'),
     path('api_test/automation/<taskname>/<apiname>', api.API_TASK.api_case_page, name='api_case_page'),
     path('api_test/automation/<taskname>/<apiname>/<casename>', api.API_TASK.api_case_page, name='api_case_page'),
 
@@ -62,6 +63,7 @@ urlpatterns = [
     path('api_test/api/create_task_content', api.API_TASK.create_task_content_api, name='create_task_content_api'),
     path('api_test/api/edit_task_content', api.API_TASK.edit_task_content_api, name='edit_task_content_api'),
     path('api_test/api/set_task_content_status', api.API_TASK.set_task_content_status_api, name='set_task_content_status_api'),
+    path('api_test/api/run_task_content', api.API_TASK.run_task_content_api, name='run_task_content_api'),
     path('api_test/api/delete_task_content', api.API_TASK.delete_task_content_api, name='delete_task_content_api'),
     path('api_test/api/create_task_case', api.API_TASK.create_task_case_api, name='create_task_case_api'),
     path('api_test/api/edit_task_case', api.API_TASK.edit_task_case_api, name='edit_task_case_api'),
@@ -70,8 +72,9 @@ urlpatterns = [
     path('api_test/api/get_newcase', api.API_TASK.get_newcase_api, name='get_newcase_api'),
     path('api_test/api/create_case_assert', api.API_TASK.create_case_assert_api, name='create_case_assert_api'),
     path('api_test/api/delete_case_assert', api.API_TASK.delete_case_assert_api, name='delete_case_assert_api'),
+    path('api_test/api/debug_case_assert', api.API_TASK.debug_case_assert_api, name='debug_case_assert_api'),
+    path('api_test/api/debug_case_script', api.API_TASK.debug_case_script_api, name='debug_case_script_api'),
 
-    
     ######【API TEST - 压力测试】
     path('api_test/stress', api.API_STRESS_TEST.stress_test_page, name='stress_test_page'),
 
