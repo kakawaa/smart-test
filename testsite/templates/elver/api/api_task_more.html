@@ -32,18 +32,22 @@
     <div class="col">
         信息设置
         <div class="dropdown-divider"></div>
-        <div class="input-group mt-2 mb-3" style="width: 400px">
+        <div class="input-group mt-2 mb-3" style="width: 450px">
             <span class="input-group-text">
                 任务名称
             </span>
-            <input type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ taskname }}">
+            <input id="new_taskname" type="text" class="form-control"  placeholder="请输入参数"  autocomplete="off" value="{{ taskname }}">
         </div>
 
         <div class="row mt-4">
             <div class="col-auto">设置定时</div>
             <span class="col-auto">
                 <label class="form-check form-switch">
-                    <input style="cursor: pointer" class="form-check-input" type="checkbox" checked>
+                    {% if timer_switch == 'true' %}
+                    <input  style="cursor: pointer" class="form-check-input timer_switch" type="checkbox" checked>
+                    {% else %}
+                    <input  style="cursor: pointer" class="form-check-input timer_switch" type="checkbox">
+                    {% endif %}
                 </label>
             </span>
         </div>
@@ -51,17 +55,50 @@
         <div class="dropdown-divider"></div>
         <div class="row mt-3">
             <div class="col-auto ">
-                 <div class="input-group" style="width: 400px">
+                 <div class="input-group" style="width: 450px">
                      <div class="input-group-text">
                          定时间隔
                      </div>
-                     <select class="select2-selection--single" data-placeholder="请选时间">
-                         <option></option>
-                         <option>1分钟执行一次</option>
+                     <select id="timer_value" class="select2-selection--single" data-placeholder="请选时间">
+                         {% if timer_value == '30分钟执行一次' %}
+                         <option>30分钟执行一次</option>
                          <option>5分钟执行一次</option>
                          <option>10分钟执行一次</option>
                          <option>1小时执行一次</option>
                          <option>24小时执行一次</option>
+                         {% elif timer_value == '5分钟执行一次' %}
+                         <option>5分钟执行一次</option>
+                         <option>10分钟执行一次</option>
+                         <option>30分钟执行一次</option>
+                         <option>1小时执行一次</option>
+                         <option>24小时执行一次</option>
+                         {% elif timer_value == '10分钟执行一次' %}
+                         <option>10分钟执行一次</option>
+                         <option>5分钟执行一次</option>
+                         <option>30分钟执行一次</option>
+                         <option>1小时执行一次</option>
+                         <option>24小时执行一次</option>
+                         {% elif timer_value == '1小时执行一次' %}
+                         <option>1小时执行一次</option>
+                         <option>5分钟执行一次</option>
+                         <option>10分钟执行一次</option>
+                         <option>30分钟执行一次</option>
+                         <option>24小时执行一次</option>
+                         {% elif timer_value == '24小时执行一次' %}
+                         <option>24小时执行一次</option>
+                         <option>5分钟执行一次</option>
+                         <option>10分钟执行一次</option>
+                         <option>30分钟执行一次</option>
+                         <option>1小时执行一次</option>
+
+                         {% else %}
+                         <option></option>
+                         <option>5分钟执行一次</option>
+                         <option>10分钟执行一次</option>
+                         <option>30分钟执行一次</option>
+                         <option>1小时执行一次</option>
+                         <option>24小时执行一次</option>
+                         {% endif %}
                      </select>
                  </div>
 
@@ -71,33 +108,49 @@
             <div class="col-auto">消息通知</div>
             <span class="col-auto" >
                 <label class="form-check form-switch">
-                    <input style="cursor: pointer" class="form-check-input" type="checkbox">
+                    {% if ding_switch == 'true' %}
+                    <input  style="cursor: pointer" class="form-check-input ding_switch" type="checkbox" checked>
+                    {% else %}
+                    <input  style="cursor: pointer" class="form-check-input ding_switch" type="checkbox">
+                    {% endif %}
                 </label>
             </span>
         </div>
         <div class="dropdown-divider"></div>
         <div class="row mt-3">
             <div class="col-auto">
-                 <div class="input-group" style="width: 400px">
+                 <div class="input-group" style="width: 450px">
                      <span class="input-group-text">
                          钉钉链接
                      </span>
-                     <input type="text" class="form-control"  placeholder="请输入钉钉token链接，安全关键字设置'Elver'"  autocomplete="off">
+                     <input id="ding_token" value="{{ ding_token }}" type="text" class="form-control"  placeholder="请输入钉钉token链接，安全关键字设置'智测云'"  autocomplete="off">
                  </div>
             </div>
         </div>
-
-
         <div class="row mt-4">
             <div class="col-auto">任务成员</div>
-            <div class="col-auto" style="cursor: pointer">
-                <svg t="1638600100198" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7634" width="200" height="200"><path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#5680FA" p-id="7635"></path><path d="M490.666667 341.333333m21.333333 0l0 0q21.333333 0 21.333333 21.333334l0 298.666666q0 21.333333-21.333333 21.333334l0 0q-21.333333 0-21.333333-21.333334l0-298.666666q0-21.333333 21.333333-21.333334Z" fill="#FFFFFF" p-id="7636"></path><path d="M682.666667 490.666667m0 21.333333l0 0q0 21.333333-21.333334 21.333333l-298.666666 0q-21.333333 0-21.333334-21.333333l0 0q0-21.333333 21.333334-21.333333l298.666666 0q21.333333 0 21.333334 21.333333Z" fill="#FFFFFF" p-id="7637"></path></svg>
-            </div>
-
         </div>
         <div class="dropdown-divider"></div>
-        <div class="card-table table-responsive" style="width: 400px">
-            <table class="table">
+        <div class="input-group mt-2 mb-2" style="width: 450px">
+            <span class="input-group-text">
+                平台用户
+            </span>
+            <select id="user_select" class="select2-selection--single" data-placeholder="请选择用户">
+                <option></option>
+                {% for user in users %}
+                <option>{{ user.username }}</option>
+                {% endfor %}
+            </select>
+            <div style="margin-left: 10px" class="col-auto">
+                <a id="add_task_user" class="btn btn-default">
+                    <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
+                    添加
+                </a>
+            </div>
+        </div>
+
+        <div class="card-table table-responsive" style="width: 450px">
+            <table id="task_user_table" class="table table-vcenter">
                 <thead>
                 <tr>
                     <th></th>
@@ -107,45 +160,56 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for task_user in task_users %}
                 <tr>
-                    <td><span class="avatar avatar-sm" style="background-image: url(/static/image/elver.png)"></span></td>
-                    <td>Elver</td>
-                    <td>管理员</td>
-                    <td class="text-nowrap text-muted"><a class="move">移除</a></td>
+                    {% if task_user.avatar %}
+                    <td><span class="avatar avatar-sm" style="background-image: url('{{ task_user.avatar }}');background-color: white;border-radius: 100%"></span></td>
+                    {% else %}
+                    <td><span class="avatar avatar-sm" style="background-image: url(/static/image/avatar.png);background-color: white;border-radius: 100%"></span></td>
+                    {% endif %}
+                    <td>{{ task_user.username }}</td>
+                    <td>{{ task_user.role }}</td>
+                    {% if task_user.role != '管理员' %}
+                    <td class="text-nowrap text-muted"><a onclick="remove_task_user('{{ task_user.username }}')" class="move" data-bs-toggle="modal" data-bs-target="#modal-danger" >移除</a></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                 </tr>
-                <tr>
-                    <td><span class="avatar avatar-sm" style="background-image: url(/static/image/elver.png)"></span></td>
-                    <td>Rafa</td>
-                    <td>成员</td>
-                    <td class="text-nowrap text-muted"><a class="move">移除</a></td>
-                </tr>
+                {% endfor %}
                 </tbody>
             </table>
-            <div class="card-footer d-flex align-items-center">
-                <ul class="pagination m-0 ms-auto">
-                    <li class="page-item disabled">
-                        <a class="page-link"  tabindex="-1" aria-disabled="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
-                            prev
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" >1</a></li>
-                    <li class="page-item active"><a class="page-link" >2</a></li>
-                    <li class="page-item"><a class="page-link" >3</a></li>
-                    <li class="page-item"><a class="page-link" >4</a></li>
-                    <li class="page-item"><a class="page-link" >5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" >
-                            next
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
         <div class="dropdown-divider"></div>
         <div class="col-md-6 col-xl-4 mt-3">
-            <button type="submit" class="btn btn-primary">保存</button>
+            <button id="task_info_save" type="submit" class="btn btn-primary">保存</button>
+        </div>
+    </div>
+</div>
+<div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-status bg-danger"></div>
+            <div class="modal-body text-center py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                <h3>确认删除?</h3>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <a  class="btn btn-white w-100" data-bs-dismiss="modal">
+                            取消
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a  id="del_user_confirm" class="btn btn-danger w-100">
+                            确认
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -153,4 +217,115 @@
 {% endblock %}
 
 {% block api_script %}
+<script>
+
+    $(document).ready(function () {})
+
+    $('#task_info_save').on('click', function () {
+        let ding_switch = $(".ding_switch").is(':checked')
+        let timer_switch = $(".timer_switch").is(':checked')
+        let new_taskname = $("#new_taskname").val().trim()
+        let timer_value = $("#timer_value").val().trim()
+        let ding_token = $("#ding_token").val().trim()
+        if(new_taskname){
+            $.ajax({
+                url: "/api_test/api/edit_task",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    taskname:'{{ taskname }}' ,
+                    new_taskname: new_taskname,
+                    timer_switch: timer_switch,
+                    timer_value:timer_value,
+                    ding_switch:ding_switch,
+                    ding_token:ding_token
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        if(new_taskname == '{{ taskname }}'){
+                            Spop(SPOP_TYPE['success'],'保存成功')
+                        }else{
+                            window.location.href = '/api_test/automation/'+new_taskname+'/config'
+                        }
+                    }
+                }
+            });
+        }else{
+            Spop(SPOP_TYPE['error'],'任务名称不能为空')
+        }
+    });
+
+    $('#add_task_user').on('click', function (e) {
+        window.event.preventDefault()
+        let taskname = '{{ taskname }}'
+        let username = $('#user_select').val()
+        $.ajax({
+            url: "/api_test/api/add_task_user",
+            type: "POST",
+            async: true,
+            cache: false,
+            data:{
+                taskname:taskname,
+                username: username,
+                owner:owner
+            },
+            beforeSend: function () {
+                loading();
+            },
+            complete: function () {
+                removeLoading()
+            },
+            success: function (data) {
+                if(data['status'] != 1 ){
+                    Spop(SPOP_TYPE['error'],data['msg'])
+                }else{
+                    Spop(SPOP_TYPE['success'],data['msg'])
+                    location.reload()
+                }
+            }
+        });
+    });
+
+    function remove_task_user(username){
+        window.event.preventDefault()
+        let taskname = '{{ taskname }}'
+        $('#del_user_confirm').on('click', function () {
+            $.ajax({
+                url: "/api_test/api/remove_task_user",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    taskname:taskname,
+                    username: username,
+                    owner:owner
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        Spop(SPOP_TYPE['success'],data['msg'])
+                        location.reload()
+                    }
+                }
+            });
+        });
+    }
+
+</script>
 {% endblock %}

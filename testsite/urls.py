@@ -11,6 +11,8 @@ from testsite.views import timeline
 from testsite.views import doc
 from testsite.views import apm
 from testsite.views import code
+from testsite.views import app
+
 
 
 app_name = 'testsite'
@@ -20,9 +22,12 @@ urlpatterns = [
     ######【Login】
     path('login/signin', login.Login.login_page, name='login_page'),
     path('login/signup', login.Login.sign_up_page, name='sign_up_page '),
-    path('login_api/', login.Login.login_api, name='login_api '),
     path('sign_up_api/', login.Login.sign_up_api, name='sign_up_api '),
     path('logout/', login.Login.logout, name='logout'),
+    path('login_api/', login.Login.login_api, name='login_api '),
+
+    path('scan_login/', login.Login.scan_login, name='scan_login '),
+    path('scan_login_api/', login.Login.scan_login_api, name='scan_login_api '),
 
     ######【Setting】
     path('setting/profile', user.Setting.setting_page, name='setting_page'),
@@ -57,12 +62,15 @@ urlpatterns = [
     path('api_test/automation/<taskname>/<apiname>/<casename>', api.API_TASK.api_case_page, name='api_case_page'),
 
     path('api_test/api/create_task', api.API_TASK.create_task_api, name='create_task_api'),
+    path('api_test/api/edit_task', api.API_TASK.edit_task_api, name='edit_task_api'),
     path('api_test/api/get_task', api.API_TASK.get_task_api, name='get_task_api'),
     path('api_test/api/run_task', api.API_TASK.run_task_api, name='run_task_api'),
     path('api_test/api/delete_task', api.API_TASK.delete_task_api, name='delete_task_api'),
     path('api_test/api/create_task_content', api.API_TASK.create_task_content_api, name='create_task_content_api'),
     path('api_test/api/edit_task_content', api.API_TASK.edit_task_content_api, name='edit_task_content_api'),
-    path('api_test/api/set_task_content_status', api.API_TASK.set_task_content_status_api, name='set_task_content_status_api'),
+    path('api_test/api/set_apiname_status', api.API_TASK.set_apiname_status_api, name='set_apiname_status_api'),
+    path('api_test/api/get_online_apiname', api.API_TASK.get_online_apiname_api,name='get_online_apiname_api'),
+    path('api_test/api/run_jenkins_job', api.API_TASK.run_jenkins_job_api, name='run_jenkins_job_api'),
     path('api_test/api/run_task_content', api.API_TASK.run_task_content_api, name='run_task_content_api'),
     path('api_test/api/delete_task_content', api.API_TASK.delete_task_content_api, name='delete_task_content_api'),
     path('api_test/api/create_task_case', api.API_TASK.create_task_case_api, name='create_task_case_api'),
@@ -74,6 +82,9 @@ urlpatterns = [
     path('api_test/api/delete_case_assert', api.API_TASK.delete_case_assert_api, name='delete_case_assert_api'),
     path('api_test/api/debug_case_assert', api.API_TASK.debug_case_assert_api, name='debug_case_assert_api'),
     path('api_test/api/debug_case_script', api.API_TASK.debug_case_script_api, name='debug_case_script_api'),
+    path('api_test/api/get_timer_task', api.API_TASK.get_timer_task_api, name='get_timer_task_api'),
+    path('api_test/api/add_task_user', api.API_TASK.add_task_user_api, name='add_task_user_api'),
+    path('api_test/api/remove_task_user', api.API_TASK.remove_task_user_api, name='remove_task_user_api'),
 
     ######【API TEST - 压力测试】
     path('api_test/stress', api.API_STRESS_TEST.stress_test_page, name='stress_test_page'),
@@ -97,5 +108,11 @@ urlpatterns = [
     path('code/analysis', code.Analysis.code_analysis_page, name='code_analysis_page'),
     ######【CODE - 代码覆盖率】
     path('code/coverage', code.Coverage.code_coverage_page, name='code_coverage_page'),
+
+    ######【APP】
+    path('app/feedback', app.FeedBack.feedback_page, name='feedback_page'),
+    path('app/action', app.Action.action_log_page, name='action_log_page'),
+    path('app/log', app.APP_LOG.app_log_page, name='app_log_page'),
+    path('app/crash', app.Crash.crash_log_page, name='crash_log_page'),
 
 ]

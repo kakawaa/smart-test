@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}DOCUMENT{% endblock %}
+{% block page-title %}帮助文档{% endblock %}
+
+{% block content %}
+
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row gx-lg-4">
+            <div class="d-none d-lg-block col-lg-3">
+                <ul class="nav nav-pills nav-vertical">
+                    <li class="nav-item">
+                        <a href="/doc/started" class="nav-link active">
+                            智测云平台
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#menu-content" class="nav-link" data-bs-toggle="collapse" aria-expanded="false">
+                            API TEST
+                            <span class="nav-link-toggle"></span>
+                        </a>
+                        <ul class="nav nav-pills collapse" id="menu-content">
+
+                            <li class="nav-item">
+                                <a  href="/doc/api_test" class="nav-link">
+                                    自动化测试
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-9">
+                <div class="card card-lg">
+                    <div class="card-body">
+                        <div class="markdown"><div>
+                        <div class="d-flex mb-3">
+                            <h1 class="m-0">智测云（Smart Test）</h1>
+                        </div>
+                        </div>
+                            <p>智测云是一个提供多种测试技术解决方案的质量开放平台，提供的功能服务包括CI/CD构建器、APK包检测、自动化测试、性能测试、服务监控、代码检查。</p>
+                            <p>我们致力于解决低效、繁琐的测试执行，我们的目标是Simple Test In Smart Test !</p>
+
+                            <div class="mt-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h3>API TEST</h3>
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                - <a href="/doc/api_test">自动化测试</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+</script>
+{% endblock %}

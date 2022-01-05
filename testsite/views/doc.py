@@ -17,13 +17,8 @@ common = common()
 class Document(View):
 
     @classmethod
-    @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def document_page(cls,request,*arg,**kwargs):
         path = kwargs['path']
-        if request.user.username:
-            user_type = 'github'
-            username = request.user.username
-        else:
-            user_type = 'elver'
-            username = request.session['username']
-        return render(request, 'elver/other/doc.html',locals())
+        return render(request, f'elver/doc/{path}.html',locals())
+

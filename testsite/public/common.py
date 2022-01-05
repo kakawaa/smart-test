@@ -122,7 +122,7 @@ class common(object):
         fh = open(path + '/'+str(time.strftime("%Y%m%d%H%M%S", time.localtime())) + "." + file_type, "wb")
         fh.write(bs)
         fh.close()
-        filepath = f'http://47.106.194.167:8181/ti/{file_type}/{str(time.strftime("%Y%m%d%H%M%S", time.localtime()))}.{file_type}'
+        filepath = f'http://0.0.0.0:8181/ti/{file_type}/{str(time.strftime("%Y%m%d%H%M%S", time.localtime()))}.{file_type}'
         filename = time.strftime("%Y%m%d%H%M%S", time.localtime()) + "." + file_type
         if file_type.__contains__('json'):
             os.chdir(path)
@@ -229,3 +229,56 @@ class common(object):
                 response = cls.case_json_post(kwargs['url'], kwargs['playload'])[1]
         result = {'pass': compare_result[0], 'pre': compare_result[1]['pre'], 'final': compare_result[1]['final'],'response':response}
         return result
+
+    @classmethod
+    def build_jenkins_job(cls,jobname,parameter:dict):
+        """构建jenkins任务"""
+        server = jenkins.Jenkins('http://0.0.0.0:8081/', username='chenhq', password='chq175246')
+        server.build_job(jobname,parameter)
+
+    @classmethod
+    def dingding_robot(cls, data ,dingding_robot_token):
+        """发送钉钉消息"""
+        headers = {'content-type': 'application/json'}
+        r = requests.post(dingding_robot_token, headers=headers, data=json.dumps(data))
+        r.encoding = 'utf-8'
+        return (r.text)
+
+    @classmethod
+    def send_api_error_msg(cls,ding_switch,**kwargs):
+        """发送api监控异常消息"""
+        taskname = kwargs['taskname']
+        apiname = kwargs['apiname']
+        url = kwargs['url']
+        casename = kwargs['casename']
+        request_content = kwargs['request_content']
+        response = kwargs['response']
+        parameter = kwargs['parameter']
+        pre_value = kwargs['pre_value']
+        final_value = kwargs['final_value']
+        assert_type = kwargs['assert_type']
+        run_id = kwargs['run_id']
+        dingding_robot_token = kwargs['dingding_robot_token']
+        Data = {
+            "msgtype": "markdown",
+            "markdown": {
+                "title": "智测云API监控异常告警",
+                "text": f"\n > #### 任务: {taskname}" \
+                        + f"\n > #### 接口: {apiname}" \
+                        + f"\n > #### URL: {url}" \
+                        + f"\n > #### 用例: {casename}" \
+                        + f"\n > #### 请求内容: {request_content}" \
+                        + f"\n > #### 返回内容: {response}" \
+                        + f"\n > #### 校验参数: {parameter}" \
+                        + f"\n > #### 预期值: {pre_value}" \
+                        + f"\n > #### 断言: {assert_type}" \
+                        + f"\n > #### 实际值: {final_value}" \
+                        + f"\n > #### [查看详情](http://0.0.0.0:5656/api_test/automation/{taskname}/{apiname}/result/{run_id})"
+            },
+            "at": {
+                "atMobiles": ["13524352709"],
+                "isAtAll": False
+            }
+        }
+        if ding_switch == 'true':
+            cls.dingding_robot(Data,dingding_robot_token)

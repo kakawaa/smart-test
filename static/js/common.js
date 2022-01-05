@@ -83,7 +83,7 @@ function isJSON(str) {
 /**
  * 建表
  */
-function maketable({Table=null,pageLength=10,paging=true,lengthChange=true,searching=true,columns=null,data=null}) {
+function maketable({Table=null,pageLength=20,paging=true,lengthChange=true,searching=true,columns=null,data=null}) {
 	let table = $(Table).DataTable({
         "destroy": true,
         "pageLength": pageLength,

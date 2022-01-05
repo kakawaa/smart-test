@@ -20,6 +20,7 @@ class APM_TEST(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def test_page(cls,request):
         """APM测试页"""
         if request.user.username:
@@ -28,6 +29,7 @@ class APM_TEST(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/apm/apm_test.html',locals())
 
 
@@ -35,6 +37,7 @@ class APM_REPORT(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def report_home_page(cls,request):
         """云端报告主页"""
         if request.user.username:
@@ -43,4 +46,5 @@ class APM_REPORT(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/apm/apm_report.html',locals())

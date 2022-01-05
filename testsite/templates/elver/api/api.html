@@ -26,52 +26,62 @@
 
 {% block api_tab_content %}
 <div class="tab-pane active show">
-    <div class="card">
-        <div class="card-header">
-            <div class="input-group" style="width: 20%">
-                <div class="input-group-text">项目</div>
-                <select class="select2-selection--single" data-placeholder="请选择项目">
-                    <option></option>
-                    <option>项目Aaaaaa</option>
-                </select>
-            </div>
-            <div class="input-group ml_15" style="width: 15%">
-                <div class="input-group-text">环境</div>
-                <select class="select2-selection--single" data-placeholder="请选择环境" >
-                    <option></option>
-                    <option>测试</option>
-                    <option>堡垒</option>
-                    <option>正式</option>
-                </select>
-            </div>
-            <div class="input-group ml_15" style="width: 15%">
-                <div class="input-group-text">功能</div>
-                <select class="select2-selection--single" data-placeholder="请选择功能"  >
-                    <option></option>
-                    <option>api_test</option>
-                </select>
-            </div>
-            <div class="input-group ml_15" style="width: 30%">
-                <div class="input-group-text">接口</div>
-                <select id="select_url" class="select2-selection--single" data-placeholder="请选择接口">
-                    <option></option>
-                    <option>/api_test/demo</option>
-                </select>
-            </div>
+    <div class="row mb-3">
+        <div class="input-group" style="width: 18%">
+            <div class="input-group-text">项目</div>
+            <select class="select2-selection--single" data-placeholder="请选择项目">
+                <option></option>
+                <option>项目Aaaaaa</option>
+            </select>
         </div>
-        <div class="card-body">
-            <div id="request_editor"></div>
-            <div class="col-md-6 col-xl-4 mt-3">
-                <button id="post" type="submit" class="btn btn-primary">请求</button>
-                <button id="decode" type="submit" class="btn btn-danger">解密</button>
-                <button id="compare" type="submit" class="btn btn-info">比对</button>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="response mt-3">
+        <div class="input-group" style="width: 18%">
+            <div class="input-group-text">模块</div>
+            <select class="select2-selection--single" data-placeholder="请选择模块">
+                <option></option>
+                <option>api_test</option>
+            </select>
+        </div>
+        <div class="input-group" style="width: 18%">
+            <div class="input-group-text">环境</div>
+            <select class="select2-selection--single" data-placeholder="请选择环境">
+                <option></option>
+                <option>测试</option>
+                <option>堡垒</option>
+                <option>正式</option>
+            </select>
+        </div>
+
+        <div class="input-group" style="width: 30%">
+            <div class="input-group-text">接口</div>
+            <select id="select_url" class="select2-selection--single" data-placeholder="请选择接口">
+                <option></option>
+                <option>/api_test/demo</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <a  href="/doc/api_test" class="btn btn-default">
+                <svg t="1641116255969" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="37344" width="200" height="200"><path d="M499.677867 694.6816a73.1136 73.1136 0 1 0 73.181866-73.181867 73.1136 73.1136 0 0 0-73.181866 73.181867zM950.8864 1024H73.1136A73.250133 73.250133 0 0 1 0 950.8864V614.4a34.133333 34.133333 0 0 1 68.266667 0v341.333333h887.466666V68.266667H68.266667v102.4a34.133333 34.133333 0 0 1-68.266667 0V73.1136A73.250133 73.250133 0 0 1 73.1136 0h877.7728A73.250133 73.250133 0 0 1 1024 73.1136v877.7728A73.250133 73.250133 0 0 1 950.8864 1024zM569.344 560.128a36.625067 36.625067 0 0 1-36.5568-36.5568v-11.946667a91.4432 91.4432 0 0 1 49.2544-82.090666 92.398933 92.398933 0 0 0 48.503467-72.874667c-3.9936-39.799467-24.132267-58.026667-69.905067-60.416-55.227733-2.491733-83.319467 17.646933-94.276267 67.3792a36.5568 36.5568 0 0 1-71.3728-15.6672 150.664533 150.664533 0 0 1 169.3696-124.586667 133.7344 133.7344 0 0 1 139.298134 129.058134 161.416533 161.416533 0 0 1-80.349867 137.796266 32.631467 32.631467 0 0 0-17.408 19.6608v14.165334a36.522667 36.522667 0 0 1-36.5568 36.078933zM238.933333 341.333333H34.133333a34.133333 34.133333 0 0 1 0-68.266666h204.8a34.133333 34.133333 0 0 1 0 68.266666z m0 170.666667H34.133333a34.133333 34.133333 0 0 1 0-68.266667h204.8a34.133333 34.133333 0 0 1 0 68.266667z" fill="#FF4B4B" p-id="37345"></path></svg>
+                帮助文档
+            </a>
+        </div>
+    </div>
+
+    <div class="dropdown-divider"></div>
+    <div id="request_editor" style="width: 60%"></div>
+
+    <div class="col-md-6 col-xl-4 mt-3">
+        <button id="post" type="submit" class="btn btn-primary">请求</button>
+        <button id="decode" type="submit" class="btn btn-danger">解密</button>
+        <button id="compare" type="submit" class="btn btn-info">比对</button>
+    </div>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="response mt-3">
                 code：<label style="color: red" id="code_txt">503</label>
                 <pre style="display: block;border: none;background-color: white" id="response"></pre>
             </div>
-            <div style="display: none" class="compare_re mt-3">
+    <div style="display: none" class="compare_re mt-3">
                 <div id="containerRight" style="margin-right: 20px;width: 47%">
                     请求结果<label style="color: #73a707"><strong>（测试环境）</strong></label>
                     <div class="dropdown-divider"></div>
@@ -81,8 +91,6 @@
                     <div class="dropdown-divider"></div>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 {% endblock %}
 
@@ -117,7 +125,7 @@
     $('#post').on('click', function () {
         $('.response').show()
         $('.compare_re').hide()
-        const host = 'http://47.106.194.167:5656'
+        const host = 'http://0.0.0.0:5656'
         //const host = 'http://0.0.0.0:5656'
         let url = $('#select_url').val()
         console.log(url)

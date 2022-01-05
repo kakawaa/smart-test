@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 import os
 import re
 from django.views import View
+from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.contrib import auth
 import json
@@ -31,6 +32,7 @@ class API_POST(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/api/api.html',locals())
 
 
@@ -58,6 +60,9 @@ class API_POST(View):
 class API_TASK(View):
 
     script_dir = '/home1/www/tomcat/apache-tomcat-9.0.27/webapps/examples/elver/api/script/'
+    # script_dir = '/home2/jenkins/smart-test/api/script/'
+
+
     # BASE_DIR = os.path.dirname(os.getcwd())
     # script_dir = os.path.join(BASE_DIR, 'elver/testsite/script/')
 
@@ -72,9 +77,11 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
-        tasks = models.AutomationTask.objects.all().order_by('-id')
-        task_names = models.AutomationTask.objects.values('taskname').distinct()
-        task_num = models.AutomationTaskContent.objects.all().count()
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
+        tasks = models.AutomationTask.objects.filter(task_user__contains=username).order_by('-id')
+        task_names = models.AutomationTask.objects.filter(task_user__contains=username).values('taskname').distinct()
+        task_num = models.AutomationTask.objects.filter(task_user__contains=username).count()
+        running_task_num = models.AutomationTaskContent.objects.filter(status='执行中').count()
         return render(request, 'elver/api/api_task.html',locals())
 
     @classmethod
@@ -89,6 +96,16 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
+        timer_switch = models.AutomationTask.objects.filter(taskname=taskname).values("timer_switch").last()['timer_switch']
+        timer_value = models.AutomationTask.objects.filter(taskname=taskname).values("timer_value").last()[
+            'timer_value']
+        ding_switch = models.AutomationTask.objects.filter(taskname=taskname).values("ding_switch").last()[
+            'ding_switch']
+        ding_token = models.AutomationTask.objects.filter(taskname=taskname).values("ding_token").last()[
+            'ding_token']
+        task_users = models.AutomationTaskUser.objects.filter(taskname=taskname).order_by('id')
+        users = models.User.objects.all().values('username').distinct()
         return render(request, 'elver/api/api_task_more.html', locals())
 
     @classmethod
@@ -103,9 +120,15 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         apis = models.AutomationTaskContent.objects.filter(taskname=taskname).order_by('-id')
         api_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
-        last_run_id = models.AutomationTaskResult.objects.filter(taskname=taskname).values("run_id").last()['run_id']
+        task_result_num =  models.AutomationTaskResult.objects.filter(taskname=taskname).count()
+        running_task_num = models.AutomationTaskContent.objects.filter(taskname=taskname,status='执行中').count()
+        if task_result_num > 0:
+            last_run_id = models.AutomationTaskResult.objects.filter(taskname=taskname).values("run_id").last()['run_id']
+        else:
+            last_run_id = 'NA'
         api_names = models.AutomationTaskContent.objects.filter(taskname=taskname).values('apiname').distinct()
         return render(request, 'elver/api/api_task_content.html', locals())
 
@@ -123,6 +146,7 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         report_num = models.AutomationTaskResult.objects.filter(taskname=taskname,apiname=apiname,run_id=run_id).count()
         results = models.AutomationTaskResult.objects.filter(taskname=taskname,apiname=apiname,run_id=run_id).order_by('id')
         return render(request, 'elver/api/api_task_content_result.html', locals())
@@ -140,13 +164,15 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         report_num = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id).count()
-        run_ids = models.AutomationTaskResult.objects.values('run_id').distinct()
-        runner = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id).values("runner").first()['runner']
-        ctime = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id).values("ctime").first()['ctime']
-        results = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id).order_by('id')
-        success_num = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id,status='成功').count()
-        fail_num = report_num - success_num
+        if report_num > 0:
+            run_ids = models.AutomationTaskResult.objects.filter(taskname=taskname).values('run_id').distinct()
+            runner = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id).values("runner").first()['runner']
+            ctime = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id).values("ctime").first()['ctime']
+            results = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id).order_by('-id')
+            success_num = models.AutomationTaskResult.objects.filter(taskname=taskname,run_id=run_id,status='成功').count()
+            fail_num = report_num - success_num
         return render(request, 'elver/api/api_task_report.html', locals())
 
     @classmethod
@@ -162,6 +188,7 @@ class API_TASK(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         cases = models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname).order_by('id')
         case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname).count()
         if case_num > 0:
@@ -186,10 +213,12 @@ class API_TASK(View):
     def create_task_api(cls, request):
         """创建任务接口"""
         taskname = common.request_method(request, "taskname")
-        username = request.session['username']
+        owner = common.request_method(request, "owner")
         task_num = models.AutomationTask.objects.filter(taskname=taskname).count()
         if task_num == 0:
-            models.AutomationTask(taskname=taskname,owner=username).save()
+            models.AutomationTask(taskname=taskname,owner=owner,task_user=owner).save()
+            avatar = models.User.objects.filter(username=owner).values("avatar").first()['avatar']
+            models.AutomationTaskUser(taskname=taskname, username=owner, role='管理员', avatar=avatar).save()
             result = {'status': 1, 'msg': '创建任务成功'}
         else:
             result = {'status': 0, 'msg': '该任务已存在'}
@@ -227,6 +256,36 @@ class API_TASK(View):
 
     @classmethod
     @method_decorator(Decorators.catch_except)
+    def edit_task_api(cls, request):
+        """编辑任务信息接口"""
+        taskname = common.request_method(request,"taskname")
+        new_taskname = common.request_method(request,"new_taskname")
+        timer_switch = common.request_method(request, "timer_switch")
+        timer_value = common.request_method(request, "timer_value")
+        ding_switch = common.request_method(request, "ding_switch")
+        ding_token = common.request_method(request, "ding_token")
+        try:
+            models.AutomationTask.objects.filter(taskname=taskname).update(timer_value=timer_value, timer_switch=timer_switch,
+                                                                           ding_token=ding_token,ding_switch=ding_switch)
+            if taskname != new_taskname:
+                task_num = models.AutomationTask.objects.filter(taskname=new_taskname).count()
+                if task_num == 0 :
+                    models.AutomationTask.objects.filter(taskname=taskname).update(taskname=new_taskname)
+                    models.AutomationTaskContent.objects.filter(taskname=taskname).update(taskname=new_taskname)
+                    models.AutomationTaskCase.objects.filter(taskname=taskname).update(taskname=new_taskname)
+                    models.AutomationTaskCaseAssert.objects.filter(taskname=taskname).update(taskname=new_taskname)
+                    models.AutomationTaskResult.objects.filter(taskname=taskname).update(taskname=new_taskname)
+                    result = {'status': 1, 'msg': '更新成功！'}
+                else:
+                    result = {'status': 0, 'msg': '该任务名称已经被使用'}
+            else:
+                result = {'status': 1, 'msg': '更新成功！'}
+        except Exception as e:
+            result = {'status': 0, 'msg': str(e)}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    @method_decorator(Decorators.catch_except)
     def get_newcase_api(cls, request):
         """获取api最新用例名称接口"""
         taskname = common.request_method(request, "taskname")
@@ -248,7 +307,6 @@ class API_TASK(View):
         """执行任务接口"""
         taskname = common.request_method(request, "taskname")
         new_status = common.request_method(request, "new_status")
-        username = request.session['username']
         try:
             models.AutomationTask.objects.filter(taskname=taskname).update(status=new_status)
             result = {'status': 1, 'msg': '开始执行！'}
@@ -261,14 +319,15 @@ class API_TASK(View):
     def delete_task_api(cls, request):
         """删除任务接口"""
         taskname = common.request_method(request, "taskname")
-        username = request.session['username']
-        owner = models.AutomationTask.objects.filter(taskname=taskname).values("owner").last()['owner']
+        owner = common.request_method(request, "owner")
+        task_owner = models.AutomationTask.objects.filter(taskname=taskname).values("owner").last()['owner']
         api_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
-        if owner == username and api_num == 0:
+        if owner == task_owner and api_num == 0:
             models.AutomationTask.objects.filter(taskname=taskname).delete()
+            models.AutomationTaskUser.objects.filter(taskname=taskname).delete()
             result = {'status': 1, 'msg': '删除成功！'}
         else:
-            if owner != username:
+            if owner != task_owner:
                 result = {'status': 0, 'msg': '不是OWNER,无法操作!'}
             else:
                 result = {'status': 0, 'msg': '该任务下有接口数>0'}
@@ -287,6 +346,8 @@ class API_TASK(View):
             if api_num == 0:
                 apiname = apiname.replace('/','_').replace(' ','')
                 models.AutomationTaskContent(taskname=taskname, apiname=apiname,url=url).save()
+                sum_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
+                models.AutomationTask.objects.filter(taskname=taskname).update(sum_num=sum_num)
                 result = {'status': 1, 'msg': '创建接口成功'}
             else:
                 result = {'status': 0, 'msg': '该接口已存在'}
@@ -321,15 +382,61 @@ class API_TASK(View):
 
     @classmethod
     @method_decorator(Decorators.catch_except)
-    def set_task_content_status_api(cls, request):
+    def get_online_apiname_api(cls, request):
+        """获取任务所有在线内容接口"""
+        taskname = common.request_method(request, "taskname")
+        if taskname:
+            apiinfos = models.AutomationTaskContent.objects.filter(Q(taskname=taskname) & ~Q(status='下线'))
+            apidata_list = [apiinfo.apiname for apiinfo in apiinfos]
+            result = {'status': 1, 'msg': 'success', 'data': apidata_list}
+        else:
+            result = {'status': 0, 'msg': 'taskname is empty'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    @method_decorator(Decorators.catch_except)
+    def get_timer_task_api(cls, request):
+        """获取所有定时任务"""
+        timer_value = common.request_method(request, "timer_value")
+        tasknames = models.AutomationTask.objects.filter(timer_switch='true',timer_value=timer_value).values('taskname').distinct()
+        taskname_list = [taskname['taskname'] for taskname in tasknames]
+        if len(taskname_list) > 0:
+            result = {'status': 1, 'msg': 'success', 'data': taskname_list}
+        else:
+            result = {'status': 0, 'msg': 'taskname is empty'}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    @method_decorator(Decorators.catch_except)
+    def set_apiname_status_api(cls, request):
         """更新任务api状态接口"""
-        id = common.request_method(request, "id")
+        taskname = common.request_method(request, "taskname")
         new_status = common.request_method(request, "new_status")
-        username = request.session['username']
         ctime = time.strftime("%Y-%m-%d %H:%M", time.localtime())
         try:
-            models.AutomationTaskContent.objects.filter(id=id).update(status=new_status,ctime=ctime)
+            apiinfos = models.AutomationTaskContent.objects.filter(Q(taskname=taskname) & ~Q(status='下线'))
+            apidata_list = [apiinfo.apiname for apiinfo in apiinfos]
+            print(apidata_list)
+            for i in range(len(apidata_list)):
+                models.AutomationTaskContent.objects.filter(taskname=taskname,apiname=apidata_list[i]).update(status=new_status,ctime=ctime)
+            models.AutomationTask.objects.filter(taskname=taskname).update(status=new_status)
             result = {'status': 1, 'msg': '更新成功！'}
+        except Exception as e:
+            result = {'status': 0, 'msg': str(e)}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    @method_decorator(Decorators.catch_except)
+    def run_jenkins_job_api(cls, request):
+        """执行jenkins任务-run_task_all_apiname"""
+        jobname = common.request_method(request, "jobname")
+        taskname = common.request_method(request, "taskname")
+        owner = common.request_method(request, "owner")
+        run_id = common.request_method(request, "run_id")
+        parameter = {'taskname':taskname,'owner':owner,'run_id':run_id}
+        try:
+            common.build_jenkins_job(jobname=jobname, parameter=parameter)
+            result = {'status': 1, 'msg': 'success'}
         except Exception as e:
             result = {'status': 0, 'msg': str(e)}
         return HttpResponse(json.dumps(result), content_type="application/json")
@@ -338,18 +445,21 @@ class API_TASK(View):
     @method_decorator(Decorators.catch_except)
     def run_task_content_api(cls, request):
         """执行任务用例接口"""
-        id = common.request_method(request, "id")
         taskname = common.request_method(request, "taskname")
         apiname = common.request_method(request, "apiname")
         owner = common.request_method(request, "owner")
+        run_id = common.request_method(request, "run_id")
         case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname).count()
+        ding_token = models.AutomationTask.objects.filter(taskname=taskname).values("ding_token").first()['ding_token']
+        ding_switch = models.AutomationTask.objects.filter(taskname=taskname).values("ding_switch").first()['ding_switch']
         ctime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        run_id = int(round(time.time() * 1000))
+
         if case_num > 0:
             try:
                 status_flage = '成功'
                 url = \
                 models.AutomationTaskContent.objects.filter(taskname=taskname, apiname=apiname).values("url").first()['url']
+
                 case_datas = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname)
                 case_dict_list = [
                     {
@@ -378,7 +488,15 @@ class API_TASK(View):
                                                            parameter='code',
                                                            assert_type='==', value='200')
                     status = ('失败', '成功')[code_result_data['pass']]
-                    if code_result_data['pass'] is False: status_flage = '失败'
+                    if code_result_data['pass'] is False:
+                        status_flage = '失败'
+                        common.send_api_error_msg(taskname=taskname, apiname=apiname, url=url,ding_switch=ding_switch,
+                                                  casename=case_dict_list[i]['casename'],
+                                                  request_content=request_content, response='none', parameter='code',
+                                                  pre_value='200', assert_type='==',
+                                                  final_value=code_result_data['final'],
+                                                  dingding_robot_token=ding_token,run_id=run_id)
+
                     models.AutomationTaskResult(taskname=taskname, apiname=apiname,
                                                 casename=case_dict_list[i]['casename'],
                                                 parameter='code', assert_type='==', pre_value='200',
@@ -409,7 +527,16 @@ class API_TASK(View):
                                                                 value=assert_dict_list[j]['value'])
 
                             status = ('失败', '成功')[other_result_data['pass']]
-                            if other_result_data['pass'] is False: status_flage = '失败'
+                            if other_result_data['pass'] is False:
+                                status_flage = '失败'
+                                common.send_api_error_msg(taskname=taskname, apiname=apiname, url=url,ding_switch=ding_switch,
+                                                          casename=assert_dict_list[j]['casename'],
+                                                          request_content=request_content, response=other_result_data['response'],
+                                                          parameter=assert_dict_list[j]['parameter'],
+                                                          pre_value=assert_dict_list[j]['value'], assert_type=assert_dict_list[j]['assert_type'],
+                                                          final_value=other_result_data['final'],
+                                                          dingding_robot_token=ding_token,run_id=run_id)
+
                             models.AutomationTaskResult(taskname=taskname, apiname=apiname,
                                                         casename=assert_dict_list[j]['casename'],
                                                         parameter=assert_dict_list[j]['parameter'],
@@ -422,6 +549,16 @@ class API_TASK(View):
 
                         except Exception as e:
                             status_flage = '失败'
+                            common.send_api_error_msg(taskname=taskname, apiname=apiname, url=url,ding_switch=ding_switch,
+                                                      casename=assert_dict_list[j]['casename'],
+                                                      request_content=request_content,
+                                                      response=f'用例异常:{str(e)}',
+                                                      parameter=assert_dict_list[j]['parameter'],
+                                                      pre_value=assert_dict_list[j]['value'],
+                                                      assert_type=assert_dict_list[j]['assert_type'],
+                                                      final_value=f'用例异常:{str(e)}',
+                                                      dingding_robot_token=ding_token,run_id=run_id)
+
                             models.AutomationTaskResult(taskname=taskname, apiname=apiname,
                                                         casename=assert_dict_list[j]['casename'],
                                                         parameter=assert_dict_list[j]['parameter'],
@@ -432,9 +569,9 @@ class API_TASK(View):
                                                         response='none',
                                                         ctime=ctime, run_id=run_id,error=str(e)).save()
 
-                models.AutomationTaskContent.objects.filter(id=id).update(status=status_flage, ctime=ctime,run_id=run_id)
+                models.AutomationTaskContent.objects.filter(taskname=taskname,apiname=apiname).update(status=status_flage, ctime=ctime,run_id=run_id)
 
-                result = {'status': 1, 'msg': '执行成功！'}
+                result = {'status': 1, 'msg': 'success','result':status_flage}
 
             except Exception as e:
                 result = {'status': 0, 'msg': f'{apiname}执行异常：{str(e)}'}
@@ -449,10 +586,11 @@ class API_TASK(View):
         id = common.request_method(request, "id")
         taskname = common.request_method(request, "taskname")
         apiname = common.request_method(request, "apiname")
-        username = request.session['username']
         models.AutomationTaskContent.objects.filter(id=id).delete()
         models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname).delete()
         models.AutomationTaskCaseAssert.objects.filter(taskname=taskname,apiname=apiname).delete()
+        sum_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
+        models.AutomationTask.objects.filter(taskname=taskname).update(sum_num=sum_num)
         result = {'status': 1, 'msg': '删除成功！'}
         return HttpResponse(json.dumps(result), content_type="application/json")
 
@@ -530,7 +668,6 @@ class API_TASK(View):
         taskname = common.request_method(request, "taskname")
         apiname = common.request_method(request, "apiname")
         casename = common.request_method(request, "casename")
-        username = request.session['username']
         models.AutomationTaskCase.objects.filter(taskname=taskname,apiname=apiname,casename=casename).delete()
         models.AutomationTaskCaseAssert.objects.filter(taskname=taskname,apiname=apiname,casename=casename).delete()
         case_num = models.AutomationTaskCase.objects.filter(taskname=taskname, apiname=apiname).count()
@@ -558,7 +695,6 @@ class API_TASK(View):
         value_id = f'value_{active_id}'
         debug_id = f'debug_{active_id}'
         del_id = f'del_{active_id}'
-        username = request.session['username']
         try:
             models.AutomationTaskCaseAssert(taskname=taskname, apiname=apiname,casename=casename,
             assert_type=assert_type,parameter=parameter,value=value,assert_type_id=assert_type_id,
@@ -573,7 +709,6 @@ class API_TASK(View):
     def delete_case_assert_api(cls, request):
         """删除用例断言接口"""
         assert_id = common.request_method(request, "assert_id")
-        username = request.session['username']
         try:
             models.AutomationTaskCaseAssert.objects.filter(assert_id=assert_id).delete()
             result = {'status': 1, 'msg': '删除成功！'}
@@ -628,7 +763,58 @@ class API_TASK(View):
                 result = {'status': 1, 'msg': '调试通过！','data':script_result[0]}    
         except Exception as e:
             result = {'status': 0, 'msg': str(e)}    
-        return HttpResponse(json.dumps(result), content_type="application/json")    
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    @method_decorator(Decorators.catch_except)
+    def add_task_user_api(cls, request):
+        """添加任务成员接口"""
+        taskname = common.request_method(request, "taskname")
+        username = common.request_method(request, "username")
+        owner = common.request_method(request, "owner")
+        role = models.AutomationTaskUser.objects.filter(taskname=taskname,username=owner).values("role").first()['role']
+        try:
+            if role == '管理员':
+                user_num = models.AutomationTaskUser.objects.filter(taskname=taskname, username=username).count()
+                if user_num > 0:
+                    result = {'status': 0, 'msg': '该成员已存在'}
+                else:
+                    avatar = models.User.objects.filter(username=username).values("avatar").first()['avatar']
+                    models.AutomationTaskUser(taskname=taskname,username=username,role='成员',avatar=avatar).save()
+                    old_task_user = \
+                    models.AutomationTask.objects.filter(taskname=taskname).values("task_user").first()[
+                        'task_user']
+                    new_task_user = old_task_user+';'+username
+                    models.AutomationTask.objects.filter(taskname=taskname).update(task_user=new_task_user)
+                    result = {'status': 1, 'msg': '添加成功'}
+            else:
+                result = {'status': 0, 'msg': '不是管理员，没有权限'}
+        except Exception as e:
+            result = {'status': 0, 'msg': str(e)}
+        return HttpResponse(json.dumps(result), content_type="application/json")
+
+    @classmethod
+    @method_decorator(Decorators.catch_except)
+    def remove_task_user_api(cls, request):
+        """移除任务成员接口"""
+        taskname = common.request_method(request, "taskname")
+        username = common.request_method(request, "username")
+        owner = common.request_method(request, "owner")
+        role = models.AutomationTaskUser.objects.filter(taskname=taskname,username=owner).values("role").first()['role']
+        try:
+            if role == '管理员':
+                models.AutomationTaskUser.objects.filter(taskname=taskname,username=username).delete()
+                old_task_user = \
+                    models.AutomationTask.objects.filter(taskname=taskname).values("task_user").first()[
+                        'task_user']
+                new_task_user = old_task_user.replace(f';{username}','')
+                models.AutomationTask.objects.filter(taskname=taskname).update(task_user=new_task_user)
+                result = {'status': 1, 'msg': '删除成功'}
+            else:
+                result = {'status': 0, 'msg': '不是管理员，没有权限'}
+        except Exception as e:
+            result = {'status': 0, 'msg': str(e)}
+        return HttpResponse(json.dumps(result), content_type="application/json")
 
 class API_STRESS_TEST(View):
 

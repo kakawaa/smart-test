@@ -20,6 +20,7 @@ class MONITOR(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def server_monitor_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -27,12 +28,14 @@ class MONITOR(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/server/server.html',locals())
 
 class LOG(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def server_log_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -40,5 +43,6 @@ class LOG(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/server/log.html',locals())
 

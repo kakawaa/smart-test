@@ -18,6 +18,7 @@ class Timeline(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def timeline_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -25,4 +26,5 @@ class Timeline(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/other/timeline.html',locals())

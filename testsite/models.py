@@ -41,7 +41,22 @@ class AutomationTask(models.Model):
     status = models.TextField(default='offline')
     timer_type = models.TextField(null=True)
     timer_value = models.TextField(null=True)
+    timer_switch = models.TextField(default='',null=True)
+    ding_token = models.TextField(default='',null=True)
+    ding_switch = models.TextField(default='',null=True)
     owner = models.TextField(null=True)
+    task_user = models.TextField(default='')
+    ctime = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return ' %s' % ( self.taskname)
+
+class AutomationTaskUser(models.Model):
+    """API自动化任务用户表"""
+    id = models.AutoField(primary_key=True)
+    taskname = models.CharField(max_length=64)
+    username = models.CharField(max_length=64)
+    avatar = models.TextField(null=True)
+    role = models.CharField(max_length=64)
     ctime = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return ' %s' % ( self.taskname)

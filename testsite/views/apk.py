@@ -20,6 +20,7 @@ class INFO(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def apk_info_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -27,9 +28,11 @@ class INFO(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/apk/apk_info.html',locals())
 
     @classmethod
+    @method_decorator(Decorators.catch_except)
     def get_apk_info_api(cls,request):
         """获取apk信息api"""
         project = common.request_method(request, "project")
@@ -43,6 +46,7 @@ class VIRUS_SCAN(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def virus_scan_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -50,12 +54,14 @@ class VIRUS_SCAN(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/apk/virus_scan.html',locals())
 
 class REINFORCE(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def reinforce_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -63,4 +69,5 @@ class REINFORCE(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/apk/reinforce.html',locals())

@@ -59,3 +59,6 @@
     cursor: pointer;
     color:red;
 }
+.strong-text{
+    font-weight: bolder;
+}

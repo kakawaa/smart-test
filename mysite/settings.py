@@ -133,10 +133,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'elver',
-        'USER': 'test',
-        'PASSWORD': 'testVidmate',
-        'HOST': '47.106.194.167',
+        'NAME': 'smart-test', #数据库
+        'USER': 'username', #用户名
+        'PASSWORD': 'password', #密码
+        'HOST': 'xx.xx.xx.xx', #装mysql的机器
         'PORT': '3306',
     }
 }

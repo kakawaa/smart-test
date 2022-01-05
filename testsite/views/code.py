@@ -20,6 +20,7 @@ class Analysis(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def code_analysis_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -27,12 +28,14 @@ class Analysis(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/code/analysis.html',locals())
 
 class Coverage(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def code_coverage_page(cls,request):
         if request.user.username:
             user_type = 'github'
@@ -40,4 +43,5 @@ class Coverage(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
         return render(request, 'elver/code/coverage.html',locals())
