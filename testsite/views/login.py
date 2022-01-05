@@ -89,8 +89,8 @@ class Login(View):
         """二维码认证接口"""
         if request.method == "GET":
             code = request.GET.get('code', )
-            appId = 'dingoabey3yfj0iyxvkvn3'
-            appSecret = 'rmdjih3UDXXqPwJ7q1VpnGKL2P_wRNaxnAzgszwH8D1JVxWCBnM0hF9BqCCYIrhI'
+            appId = 'xxx'
+            appSecret = 'xxx'
 
             # 获取token
             token = requests.get(
