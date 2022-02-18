@@ -120,7 +120,7 @@
       var rng = context.invoke('editor.createRange');
       var visible = false;
 
-      if (rng.isOnData()) {
+      if (rng.xxxxData()) {
         var $data = $(rng.sc).closest('data.ext-databasic');
 
         if ($data.length) {
@@ -153,7 +153,7 @@
     self.getInfo = function() {
       var rng = context.invoke('editor.createRange');
 
-      if (rng.isOnData()) {
+      if (rng.xxxxData()) {
         var $data = $(rng.sc).closest('data.ext-databasic');
 
         if ($data.length) {

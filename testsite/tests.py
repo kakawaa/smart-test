@@ -43,4 +43,7 @@ if __name__ == '__main__':
     # file_dir = os.path.join(os.path.split(os.path.realpath(__file__))[0], f"file/test.apk")
     # print(get_apk_info(file_dir))
     # print(get_apk_info.__name__)
-    print(compare('dd', '<', '10'))
+    # print(compare('dd', '<', '10'))
+    path1 = os.path.join(os.path.split(os.path.realpath(__file__))[0], f"file")
+    path2 = os.path.join(os.path.split(os.path.realpath(__file__))[0], f"file1")
+    os.rename(path1,path2)

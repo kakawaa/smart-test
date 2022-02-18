@@ -129,8 +129,8 @@ $(function () {
         }
     })
 
-    var login_api_url = encodeURIComponent('http://0.0.0.0:5656/scan_login_api');
-    var goto = encodeURIComponent('https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=xxxx&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=' + login_api_url)
+    var login_api_url = encodeURIComponent('http://47.106.194.167:5656/scan_login_api');
+    var goto = encodeURIComponent('https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=dingoabey3yfj0iyxvkvn3&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=' + login_api_url)
 
     var obj = DDLogin({
         id: "login_container",
@@ -145,7 +145,7 @@ $(function () {
         if (origin == "https://login.dingtalk.com") {
             var loginTmpCode = event.data;
             console.log("loginTmpCode", loginTmpCode);
-            var url2 = "https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=xxxxx" +
+            var url2 = "https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=dingoabey3yfj0iyxvkvn3" +
                 "&response_type=code&scope=snsapi_login_api&state=STATE&redirect_uri=" + login_api_url + "&loginTmpCode=" + loginTmpCode;
             $.ajax({
                 url: "/scan_login/",

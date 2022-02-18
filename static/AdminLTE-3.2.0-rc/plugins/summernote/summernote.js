@@ -2680,17 +2680,17 @@ var range_WrappedRange = /*#__PURE__*/function () {
     this.sc = sc;
     this.so = so;
     this.ec = ec;
-    this.eo = eo; // isOnEditable: judge whether range is on editable or not
+    this.eo = eo; // xxxxEditable: judge whether range is on editable or not
 
-    this.isOnEditable = this.makeIsOn(dom.isEditable); // isOnList: judge whether range is on list node or not
+    this.xxxxEditable = this.makexxxx(dom.isEditable); // xxxxList: judge whether range is on list node or not
 
-    this.isOnList = this.makeIsOn(dom.isList); // isOnAnchor: judge whether range is on anchor node or not
+    this.xxxxList = this.makexxxx(dom.isList); // xxxxAnchor: judge whether range is on anchor node or not
 
-    this.isOnAnchor = this.makeIsOn(dom.isAnchor); // isOnCell: judge whether range is on cell node or not
+    this.xxxxAnchor = this.makexxxx(dom.isAnchor); // xxxxCell: judge whether range is on cell node or not
 
-    this.isOnCell = this.makeIsOn(dom.isCell); // isOnData: judge whether range is on data node or not
+    this.xxxxCell = this.makexxxx(dom.isCell); // xxxxData: judge whether range is on data node or not
 
-    this.isOnData = this.makeIsOn(dom.isData);
+    this.xxxxData = this.makexxxx(dom.isData);
   } // nativeRange: get nativeRange from sc, so, ec, eo
 
 
@@ -3017,12 +3017,12 @@ var range_WrappedRange = /*#__PURE__*/function () {
       return new WrappedRange(point.node, point.offset, point.node, point.offset).normalize();
     }
     /**
-     * makeIsOn: return isOn(pred) function
+     * makexxxx: return xxxx(pred) function
      */
 
   }, {
-    key: "makeIsOn",
-    value: function makeIsOn(pred) {
+    key: "makexxxx",
+    value: function makexxxx(pred) {
       return function () {
         var ancestor = dom.ancestor(this.sc, pred);
         return !!ancestor && ancestor === dom.ancestor(this.ec, pred);
@@ -3674,7 +3674,7 @@ var History_History = /*#__PURE__*/function () {
       };
       return {
         contents: this.$editable.html(),
-        bookmark: rng && rng.isOnEditable() ? rng.bookmark(this.editable) : emptyBookmark
+        bookmark: rng && rng.xxxxEditable() ? rng.bookmark(this.editable) : emptyBookmark
       };
     }
   }, {
@@ -3954,7 +3954,7 @@ var Style_Style = /*#__PURE__*/function () {
       // list-style-type to list-style(unordered, ordered)
 
 
-      if (!rng.isOnList()) {
+      if (!rng.xxxxList()) {
         styleInfo['list-style'] = 'none';
       } else {
         var orderedTypes = ['circle', 'disc', 'disc-leading-zero', 'square'];
@@ -3971,7 +3971,7 @@ var Style_Style = /*#__PURE__*/function () {
         styleInfo['line-height'] = lineHeight.toFixed(1);
       }
 
-      styleInfo.anchor = rng.isOnAnchor() && dom.ancestor(rng.sc, dom.isAnchor);
+      styleInfo.anchor = rng.xxxxAnchor() && dom.ancestor(rng.sc, dom.isAnchor);
       styleInfo.ancestors = dom.listAncestor(rng.sc, dom.isEditable);
       styleInfo.range = rng;
       return styleInfo;
@@ -5884,7 +5884,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function tab() {
       var rng = this.getLastRange();
 
-      if (rng.isCollapsed() && rng.isOnCell()) {
+      if (rng.isCollapsed() && rng.xxxxCell()) {
         this.table.tab(rng);
       } else {
         if (this.options.tabSize === 0) {
@@ -5907,7 +5907,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function untab() {
       var rng = this.getLastRange();
 
-      if (rng.isCollapsed() && rng.isOnCell()) {
+      if (rng.isCollapsed() && rng.xxxxCell()) {
         this.table.tab(rng, true);
       } else {
         if (this.options.tabSize === 0) {
@@ -6015,7 +6015,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function getSelectedText() {
       var rng = this.getLastRange(); // if range on anchor, expand range with anchor
 
-      if (rng.isOnAnchor()) {
+      if (rng.xxxxAnchor()) {
         rng = range.createFromNode(dom.ancestor(rng.sc, dom.isAnchor));
       }
 
@@ -6091,7 +6091,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function unlink() {
       var rng = this.getLastRange();
 
-      if (rng.isOnAnchor()) {
+      if (rng.xxxxAnchor()) {
         var anchor = dom.ancestor(rng.sc, dom.isAnchor);
         rng = range.createFromNode(anchor);
         rng.select();
@@ -6135,7 +6135,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function addRow(position) {
       var rng = this.getLastRange(this.$editable);
 
-      if (rng.isCollapsed() && rng.isOnCell()) {
+      if (rng.isCollapsed() && rng.xxxxCell()) {
         this.beforeCommand();
         this.table.addRow(rng, position);
         this.afterCommand();
@@ -6146,7 +6146,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function addCol(position) {
       var rng = this.getLastRange(this.$editable);
 
-      if (rng.isCollapsed() && rng.isOnCell()) {
+      if (rng.isCollapsed() && rng.xxxxCell()) {
         this.beforeCommand();
         this.table.addCol(rng, position);
         this.afterCommand();
@@ -6157,7 +6157,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function deleteRow() {
       var rng = this.getLastRange(this.$editable);
 
-      if (rng.isCollapsed() && rng.isOnCell()) {
+      if (rng.isCollapsed() && rng.xxxxCell()) {
         this.beforeCommand();
         this.table.deleteRow(rng);
         this.afterCommand();
@@ -6168,7 +6168,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function deleteCol() {
       var rng = this.getLastRange(this.$editable);
 
-      if (rng.isCollapsed() && rng.isOnCell()) {
+      if (rng.isCollapsed() && rng.xxxxCell()) {
         this.beforeCommand();
         this.table.deleteCol(rng);
         this.afterCommand();
@@ -6179,7 +6179,7 @@ var Editor_Editor = /*#__PURE__*/function () {
     value: function deleteTable() {
       var rng = this.getLastRange(this.$editable);
 
-      if (rng.isCollapsed() && rng.isOnCell()) {
+      if (rng.isCollapsed() && rng.xxxxCell()) {
         this.beforeCommand();
         this.table.deleteTable(rng);
         this.afterCommand();
@@ -8598,7 +8598,7 @@ var LinkPopover_LinkPopover = /*#__PURE__*/function () {
 
       var rng = this.context.invoke('editor.getLastRange');
 
-      if (rng.isCollapsed() && rng.isOnAnchor()) {
+      if (rng.isCollapsed() && rng.xxxxAnchor()) {
         var anchor = dom.ancestor(rng.sc, dom.isAnchor);
         var href = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(anchor).attr('href');
         this.$popover.find('a').attr('href', href).text(href);

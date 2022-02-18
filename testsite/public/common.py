@@ -112,22 +112,21 @@ class common(object):
 
 
     @classmethod
-    def decode_file(cls,value, path, file_type):
+    def decode_file(cls,value,file_path,directory,file_name):
         """bs64解密保存文件"""
         if (len(value) % 4 == 1):
             value += "=="
         elif (len(value) % 4 == 2):
             value += "="
         bs = base64.b64decode(value)
-        fh = open(path + '/'+str(time.strftime("%Y%m%d%H%M%S", time.localtime())) + "." + file_type, "wb")
-        fh.write(bs)
-        fh.close()
-        filepath = f'http://0.0.0.0:8181/ti/{file_type}/{str(time.strftime("%Y%m%d%H%M%S", time.localtime()))}.{file_type}'
-        filename = time.strftime("%Y%m%d%H%M%S", time.localtime()) + "." + file_type
-        if file_type.__contains__('json'):
-            os.chdir(path)
-            cls.putcmd(f'python3 statistics.py {filename}')
-        return filepath,filename
+        # fh = open(f'{path}/{stime}.{file_type}', "wb")
+        # fh.write(bs)
+        # fh.close()
+        with open(f'{file_path}/{directory}/{file_name}', 'wb+') as destination:
+            # for chunk in bs.chunks():
+            destination.write(bs)
+        filepath = f'http://47.106.194.167:8181/stest/file/{directory}/{file_name}'
+        return filepath
 
 
     @classmethod
@@ -138,10 +137,9 @@ class common(object):
         return cursor,db
 
     @classmethod
-    def get_apk_info(cls):
+    def get_apk_info(cls,apk_path):
         """获取apk信息"""
         apk_info = {}
-        apk_path = os.path.join(os.path.split(os.path.realpath(__file__))[0], f"../file/test.apk")
         androguard = APK(apk_path)
         if androguard.is_valid_APK():
             # apk_info.append(get_file_md5(apk_path))
@@ -233,7 +231,7 @@ class common(object):
     @classmethod
     def build_jenkins_job(cls,jobname,parameter:dict):
         """构建jenkins任务"""
-        server = jenkins.Jenkins('http://0.0.0.0:8081/', username='chenhq', password='chq175246')
+        server = jenkins.Jenkins('http://47.106.194.167:8081/', username='chenhq', password='chq175246')
         server.build_job(jobname,parameter)
 
     @classmethod
@@ -273,7 +271,7 @@ class common(object):
                         + f"\n > #### 预期值: {pre_value}" \
                         + f"\n > #### 断言: {assert_type}" \
                         + f"\n > #### 实际值: {final_value}" \
-                        + f"\n > #### [查看详情](http://0.0.0.0:5656/api_test/automation/{taskname}/{apiname}/result/{run_id})"
+                        + f"\n > #### [查看详情](http://47.106.194.167:5656/api_test/automation/{taskname}/{apiname}/result/{run_id})"
             },
             "at": {
                 "atMobiles": ["13524352709"],
@@ -282,3 +280,25 @@ class common(object):
         }
         if ding_switch == 'true':
             cls.dingding_robot(Data,dingding_robot_token)
+    
+
+    @classmethod
+    def add_user_log(cls,username, **kwargs):
+        """记录用户操作日志"""
+        avatar = kwargs['avatar']
+        page = kwargs['page']
+        action = kwargs['action']
+        content = kwargs['content']
+        models.Log.objects.create(username=username,avatar=avatar,page=page,action=action,content=content)
+
+    @classmethod
+    def replace_name(cls,name):
+        """去除文件名特殊字符"""
+        return str(name).replace(' ', '').replace('/', '').replace('&', '').strip()
+
+    @classmethod
+    def save_upload_file(cls, file_path,file_obj):
+        """保存上传文件"""
+        with open(file_path, 'wb+') as f:
+            for chunk in file_obj.chunks():
+                f.write(chunk)

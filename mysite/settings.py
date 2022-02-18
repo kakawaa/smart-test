@@ -24,7 +24,7 @@ SECRET_KEY = '$*2t=(aw)n9ko5#@0b3+d1wefn)b9og@vr0=)b$0flj@+dhp5j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000
+DATA_UPLOAD_MAX_MEMORY_SIZE = 2147483648
 ALLOWED_HOSTS = ['*']
 #RUNSERVERPLUS_SERVER_ADDRESS_PORT = '0.0.0.0:8887'
 
@@ -110,8 +110,8 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 # 填写Github中获取到的KEY和SECRET
-SOCIAL_AUTH_GITHUB_KEY = '77c1864d5fd62b3fb8f1'
-SOCIAL_AUTH_GITHUB_SECRET = '1e783604039effd72a0923660aff498eec47819f'
+SOCIAL_AUTH_GITHUB_KEY = 'xxxxxxx'
+SOCIAL_AUTH_GITHUB_SECRET = 'xxxxx'
 SOCIAL_AUTH_GITHUB_USE_OPENID_AS_USERNAME = True
 
 # 登陆成功后的回调路由
@@ -133,13 +133,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smart-test', #数据库
-        'USER': 'username', #用户名
-        'PASSWORD': 'password', #密码
-        'HOST': 'xx.xx.xx.xx', #装mysql的机器
+        'NAME': 'smart-test',
+        'USER': 'test',
+        'PASSWORD': '**********',
+        'HOST': 'xx.xx.xx.xx',
         'PORT': '3306',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

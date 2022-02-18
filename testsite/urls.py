@@ -12,8 +12,7 @@ from testsite.views import doc
 from testsite.views import apm
 from testsite.views import code
 from testsite.views import app
-
-
+from testsite.views import file
 
 app_name = 'testsite'
 urlpatterns = [
@@ -41,8 +40,13 @@ urlpatterns = [
     path('builder/job/<jobname>/<item>', builder.Builder.builder_step_page, name='builder_step_page'),
 
     ######【APK - 信息列表】
-    path('apk/info', apk.INFO.apk_info_page, name='apk_info_page'),
+    path('apk/info/page=<page>', apk.INFO.apk_info_page, name='apk_info_page'),
     path('get_apk_info_api/', apk.INFO.get_apk_info_api, name='get_apk_info_api'),
+    path('apk/api/create_apk_info', apk.INFO.create_apk_info_api, name='create_apk_info_api'),
+    path('apk/api/upload_apk', apk.INFO.upload_apk_api, name='upload_apk_api'),
+    path('apk/api/edit_apk_info', apk.INFO.edit_apk_info_api, name='edit_apk_info_api'),
+    path('apk/api/delete_apk_info', apk.INFO.delete_apk_info_api, name='delete_apk_info_api'),
+
     ######【APK - 漏洞扫描】
     path('apk/virus_scan', apk.VIRUS_SCAN.virus_scan_page, name='virus_scan_page'),
     ######【APK - 加固】
@@ -88,6 +92,7 @@ urlpatterns = [
 
     ######【API TEST - 压力测试】
     path('api_test/stress', api.API_STRESS_TEST.stress_test_page, name='stress_test_page'),
+    path('api_test/stress/plan', api.API_STRESS_TEST.create_plan_page, name='create_plan_page'),
 
     ######【SERVER - 服务监控】
     path('server/monitor', server.MONITOR.server_monitor_page, name='server_monitor_page'),
@@ -109,10 +114,18 @@ urlpatterns = [
     ######【CODE - 代码覆盖率】
     path('code/coverage', code.Coverage.code_coverage_page, name='code_coverage_page'),
 
-    ######【APP】
+    ######【APP - 客户端】
     path('app/feedback', app.FeedBack.feedback_page, name='feedback_page'),
     path('app/action', app.Action.action_log_page, name='action_log_page'),
     path('app/log', app.APP_LOG.app_log_page, name='app_log_page'),
     path('app/crash', app.Crash.crash_log_page, name='crash_log_page'),
 
+    ######【FILE - 文件管理】
+    path('file/manage/directory', file.File.directory_page, name='directory_page'),
+    path('file/manage/directory/<directory>', file.File.file_page, name='file_page'),
+    path('file/api/create_directory', file.File.create_directory_api, name='create_directory_api'),
+    path('file/api/edit_directory', file.File.edit_directory_api, name='edit_directory_api'),
+    path('file/api/delete_directory', file.File.delete_directory_api, name='delete_directory_api'),
+    path('file/api/upload_file', file.File.upload_file_api, name='upload_file_api'),
+    path('file/api/delete_directory_file', file.File.delete_directory_file_api, name='delete_directory_file_api'),
 ]

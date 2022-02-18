@@ -89,7 +89,7 @@ CodeMirror.defineMode("oz", function (conf) {
       return 'keyword';
     }
 
-    // Eat the next char for next comparisons
+    // Eat the next char for next comparxxxxs
     var ch = stream.next();
 
     // Strings

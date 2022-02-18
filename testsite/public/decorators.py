@@ -22,9 +22,10 @@ class Decorators(object):
     def fun_log(cls,function):
         """记录日志装饰器"""
         @wraps(function)
-        def wrap(*arg, **kwargs):
-            logger.info(f'call fun {function.__doc__}')
-            return function(*arg, **kwargs)
+        def wrap(request,*arg, **kwargs):
+            func = function(request,*arg, **kwargs)
+            logger.info(f'call fun {function.__name__}')
+            return  func
         return wrap
 
     @classmethod

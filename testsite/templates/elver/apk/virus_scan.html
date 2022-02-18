@@ -5,7 +5,7 @@
 
 {% block apk_tab %}
 <li class="nav-item">
-    <a  class="nav-link" onclick="tab_click('info')" data-bs-toggle="tab"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+    <a  class="nav-link" onclick="tab_click('info/page=1')" data-bs-toggle="tab"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
         <svg t="1636280479390" class="icon me-2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="21384" width="200" height="200"><path d="M266.24 450.56a40.96 40.96 0 0 1 0-81.92h286.72a40.96 40.96 0 0 1 0 81.92H266.24z m485.13024 0a40.96 40.96 0 1 1 40.96-40.96 40.96 40.96 0 0 1-40.96 40.96zM757.76 655.36H266.24a40.96 40.96 0 0 1 0-81.92h491.52a40.96 40.96 0 0 1 0 81.92z m225.28 40.96a40.96 40.96 0 0 1-40.96-40.96V286.72a122.88 122.88 0 0 0-122.88-122.88H204.8a122.88 122.88 0 0 0-122.88 122.88v450.56a122.88 122.88 0 0 0 122.88 122.88h737.28a40.96 40.96 0 0 1 0 81.92H204.8A204.8 204.8 0 0 1 0 737.28V286.72A204.8 204.8 0 0 1 204.8 81.92h614.4a204.8 204.8 0 0 1 204.8 204.8v368.64a40.96 40.96 0 0 1-40.96 40.96z" p-id="21385"></path></svg>
         信息列表
     </a>
@@ -27,10 +27,13 @@
 {% block apk_tab_content %}
 <div class="tab-pane active">
     <div class="empty">
-        <div class="empty-img"></div>
-        <p class="empty-title">No results found</p>
+
+        <div class="empty-img">
+            <img src="/static/image/scan.png">
+
+        </div>
         <p class="empty-subtitle text-muted">
-            Try adjusting your search or filter to find what you're looking for.
+            请选择平台APK或者上传APK文件进行漏洞扫描分析
         </p>
         <div class="empty-action">
             <button  class="btn btn-primary" style="margin-right: 20px">

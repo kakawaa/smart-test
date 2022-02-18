@@ -24,6 +24,7 @@ class API_POST(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def post_page(cls,request):
         """手工测试主页"""
         if request.user.username:
@@ -33,6 +34,7 @@ class API_POST(View):
             user_type = 'elver'
             username = request.session['username']
             avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
+            common.add_user_log(username=username,avatar=avatar,page='手工测试主页',action='查看',content='')    
         return render(request, 'elver/api/api.html',locals())
 
 
@@ -342,15 +344,19 @@ class API_TASK(View):
         url = common.request_method(request, "url")
         username = request.session['username']
         if apiname and url:
-            api_num = models.AutomationTaskContent.objects.filter(taskname=taskname,apiname=apiname).count()
-            if api_num == 0:
-                apiname = apiname.replace('/','_').replace(' ','')
-                models.AutomationTaskContent(taskname=taskname, apiname=apiname,url=url).save()
-                sum_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
-                models.AutomationTask.objects.filter(taskname=taskname).update(sum_num=sum_num)
-                result = {'status': 1, 'msg': '创建接口成功'}
+            if str(url).startswith('http'):
+                api_num = models.AutomationTaskContent.objects.filter(taskname=taskname,apiname=apiname).count()
+                if api_num == 0:
+                    apiname = apiname.replace('/','_').replace(' ','')
+                    models.AutomationTaskContent(taskname=taskname, apiname=apiname,url=url).save()
+                    sum_num = models.AutomationTaskContent.objects.filter(taskname=taskname).count()
+                    models.AutomationTask.objects.filter(taskname=taskname).update(sum_num=sum_num)
+                    result = {'status': 1, 'msg': '创建接口成功'}
+
+                else:
+                    result = {'status': 0, 'msg': '该接口已存在'}
             else:
-                result = {'status': 0, 'msg': '该接口已存在'}
+                result = {'status': 0, 'msg': '接口URL开头不是http'}        
         else:
             result = {'status': 0, 'msg': '接口名称和地址不能为空'}       
         return HttpResponse(json.dumps(result), content_type="application/json")
@@ -367,16 +373,18 @@ class API_TASK(View):
         ctime = time.strftime("%Y-%m-%d %H:%M", time.localtime())
         #todo:更改apiname要同步修改用例和断言表
         try:
-            if new_apiname:
-                new_apiname = new_apiname.replace('/','_').replace(' ','')
-                models.AutomationTaskContent.objects.filter(id=id).update(apiname=new_apiname, url=new_url,ctime=ctime)
-                models.AutomationTaskCase.objects.filter(apiname=old_apiname).update(apiname=new_apiname)
-                models.AutomationTaskCaseAssert.objects.filter(apiname=old_apiname).update(apiname=new_apiname)
-                result = {'status': 1, 'msg': '更新成功！'}
+            if str(new_url).startswith('http'):
+                if new_apiname:
+                    new_apiname = new_apiname.replace('/','_').replace(' ','')
+                    models.AutomationTaskContent.objects.filter(id=id).update(apiname=new_apiname, url=new_url,ctime=ctime)
+                    models.AutomationTaskCase.objects.filter(apiname=old_apiname).update(apiname=new_apiname)
+                    models.AutomationTaskCaseAssert.objects.filter(apiname=old_apiname).update(apiname=new_apiname)
+                    result = {'status': 1, 'msg': '更新成功！'}
+                else:
+                    result = {'status': 0, 'msg': '接口名称不能为空'}   
             else:
-                result = {'status': 0, 'msg': '接口名称不能为空'}    
+                result = {'status': 0, 'msg': '接口URL开头不是http'}       
         except Exception as e:
-            print(e)
             result = {'status': 0, 'msg':str(e)}
         return HttpResponse(json.dumps(result), content_type="application/json")
 
@@ -820,6 +828,7 @@ class API_STRESS_TEST(View):
 
     @classmethod
     @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
     def stress_test_page(cls,request):
         """压力测试主页"""
         if request.user.username:
@@ -828,4 +837,25 @@ class API_STRESS_TEST(View):
         else:
             user_type = 'elver'
             username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
+        task_num = models.StressTestTask.objects.all().count()
+        tasks = models.StressTestTask.objects.all().order_by('-id')
+        task_names = models.StressTestTask.objects.all().values('taskname').distinct()
         return render(request, 'elver/api/api_stress_test.html',locals())
+
+    @classmethod
+    @method_decorator(Decorators.check_login)
+    @method_decorator(Decorators.catch_except)
+    def create_plan_page(cls, request):
+        """创建测试计划页面"""
+        if request.user.username:
+            user_type = 'github'
+            username = request.user.username
+        else:
+            user_type = 'elver'
+            username = request.session['username']
+            avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
+        task_num = models.StressTestTask.objects.all().count()
+        tasks = models.StressTestTask.objects.all().order_by('-id')
+        task_names = models.StressTestTask.objects.all().values('taskname').distinct()
+        return render(request, 'elver/api/api_stress_plan.html', locals())

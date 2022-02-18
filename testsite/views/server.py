@@ -44,5 +44,6 @@ class LOG(View):
             user_type = 'elver'
             username = request.session['username']
             avatar = models.User.objects.filter(username=username).values("avatar").last()['avatar']
+        value = '[svchub@xxxxxxx.com] msg=/sms/send/game/tpsher?__xxxx_service__=&SYS_REMOTE_ADDR=xx.xx.xx.xx&sender=TPSHER&phone=919328710366&code=5813 EOF'    
         return render(request, 'elver/server/log.html',locals())
 

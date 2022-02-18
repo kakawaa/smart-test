@@ -4359,7 +4359,7 @@ fixed.replace = function(search, replacement) {
                 // - `$10` is an error if less than 10 capturing groups. Use `${1}0` instead.
                 // - `$01` is `$1` if at least one capturing group, else it's an error.
                 // - `$0` (not followed by 1-9) and `$00` are the entire match.
-                // Native behavior, for comparison:
+                // Native behavior, for comparxxxx:
                 // - Backrefs end after 1 or 2 digits. Cannot reference capturing group 100+.
                 // - `$1` is a literal `$1` if no capturing groups.
                 // - `$10` is `$1` followed by a literal `0` if less than 10 capturing groups.

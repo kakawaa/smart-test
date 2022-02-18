@@ -8,10 +8,7 @@
     <title >{% block title %}base{% endblock %}</title>
     <link rel="icon" href="/static/image/elver.png">
     <!-- Tabler -->
-    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler-flags.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler-payments.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/css/tabler-vendors.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tabler/core@latest/dist/css/tabler.min.css">
     <link href="/static/tabler/dist/css/demo.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
     <!-- Select2-->
@@ -30,7 +27,8 @@
     <link rel="stylesheet" href="/static/AdminLTE-3.2.0-rc/plugins/codemirror/codemirror.css">
     <link rel="stylesheet" href="/static/AdminLTE-3.2.0-rc/plugins/codemirror/theme/monokai.css">
     <!-- DataTables -->
-    <link rel="stylesheet" href="/static/AdminLTE-3.2.0-rc/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.semanticui.min.css">
     <!-- Elver CSS files -->
     <link href="/static/css/common.css" rel="stylesheet"/>
     {% block style %}{% endblock %}
@@ -48,6 +46,12 @@
                 </a>
             </h1>
             <div class="navbar-nav flex-row order-md-last">
+<!--                <a href="?theme=dark" class="nav-link px-1 hide-theme-dark" style="margin-right: 10px;" title="Enable dark mode" data-bs-toggle="tooltip" data-bs-placement="bottom">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>-->
+<!--                </a>-->
+<!--                <a href="?theme=light" class="nav-link px-1 hide-theme-light mr-2" style="margin-right: 10px;" title="Enable light mode" data-bs-toggle="tooltip" data-bs-placement="bottom">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="4" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>-->
+<!--                </a>-->
                 <div class="nav-item dropdown d-none d-md-flex me-3">
                     <a href="/timeline/" id="timeline_tab">
                         <svg t="1641089148757" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7216" width="200" height="200"><path d="M849.170732 0c97.404878 0 174.829268 77.42439 174.829268 174.829268v674.341464c0 97.404878-77.42439 174.829268-174.829268 174.829268H174.829268c-97.404878 0-174.829268-77.42439-174.829268-174.829268V174.829268c0-97.404878 77.42439-174.829268 174.829268-174.829268h674.341464zM499.512195 252.253659C349.658537 252.253659 227.278049 374.634146 227.278049 524.487805S349.658537 796.721951 499.512195 796.721951c137.365854 0 252.253659-102.4 269.736585-239.765853l-62.439024-7.492683v4.995122c-14.985366 102.4-102.4 177.326829-204.8 177.326829-114.887805 0-207.297561-92.409756-207.297561-207.297561s92.409756-207.297561 207.297561-207.297561c59.941463 0 117.385366 27.473171 157.346342 72.429268L621.892683 424.585366l147.356097 34.965854-34.965853-147.356098-32.468293 32.468293c-49.95122-57.443902-124.878049-92.409756-202.302439-92.409756z m32.468293 127.375609h-64.936586v177.32683l127.37561 72.429268 32.468293-54.946342-94.907317-54.946341v-139.863415z" fill="#CA63E4" p-id="7217"></path></svg>
@@ -70,7 +74,7 @@
                         <svg t="1635327985340" class="icon" viewBox="0 0 1049 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1198" width="200" height="200"><path d="M524.979332 0C234.676191 0 0 234.676191 0 524.979332c0 232.068678 150.366597 428.501342 358.967656 498.035028 26.075132 5.215026 35.636014-11.299224 35.636014-25.205961 0-12.168395-0.869171-53.888607-0.869171-97.347161-146.020741 31.290159-176.441729-62.580318-176.441729-62.580318-23.467619-60.841976-58.234462-76.487055-58.234463-76.487055-47.804409-32.15933 3.476684-32.15933 3.476685-32.15933 53.019436 3.476684 80.83291 53.888607 80.83291 53.888607 46.935238 79.963739 122.553122 57.365291 152.97411 43.458554 4.345855-33.897672 18.252593-57.365291 33.028501-70.402857-116.468925-12.168395-239.022047-57.365291-239.022047-259.012982 0-57.365291 20.860106-104.300529 53.888607-140.805715-5.215026-13.037566-23.467619-66.926173 5.215027-139.067372 0 0 44.327725-13.906737 144.282399 53.888607 41.720212-11.299224 86.917108-17.383422 131.244833-17.383422s89.524621 6.084198 131.244833 17.383422C756.178839 203.386032 800.506564 217.29277 800.506564 217.29277c28.682646 72.1412 10.430053 126.029806 5.215026 139.067372 33.897672 36.505185 53.888607 83.440424 53.888607 140.805715 0 201.64769-122.553122 245.975415-239.891218 259.012982 19.121764 16.514251 35.636014 47.804409 35.636015 97.347161 0 70.402857-0.869171 126.898978-0.869172 144.282399 0 13.906737 9.560882 30.420988 35.636015 25.205961 208.601059-69.533686 358.967656-265.96635 358.967655-498.035028C1049.958663 234.676191 814.413301 0 524.979332 0z" fill="#191717" p-id="1199"></path><path d="M199.040177 753.571326c-0.869171 2.607513-5.215026 3.476684-8.691711 1.738342s-6.084198-5.215026-4.345855-7.82254c0.869171-2.607513 5.215026-3.476684 8.691711-1.738342s5.215026 5.215026 4.345855 7.82254z m-6.953369-4.345856M219.900283 777.038945c-2.607513 2.607513-7.82254 0.869171-10.430053-2.607514-3.476684-3.476684-4.345855-8.691711-1.738342-11.299224 2.607513-2.607513 6.953369-0.869171 10.430053 2.607514 3.476684 4.345855 4.345855 9.560882 1.738342 11.299224z m-5.215026-5.215027M240.760389 807.459932c-3.476684 2.607513-8.691711 0-11.299224-4.345855-3.476684-4.345855-3.476684-10.430053 0-12.168395 3.476684-2.607513 8.691711 0 11.299224 4.345855 3.476684 4.345855 3.476684 9.560882 0 12.168395z m0 0M269.443034 837.011749c-2.607513 3.476684-8.691711 2.607513-13.906737-1.738342-4.345855-4.345855-6.084198-10.430053-2.607513-13.037566 2.607513-3.476684 8.691711-2.607513 13.906737 1.738342 4.345855 3.476684 5.215026 9.560882 2.607513 13.037566z m0 0M308.555733 853.526c-0.869171 4.345855-6.953369 6.084198-13.037566 4.345855-6.084198-1.738342-9.560882-6.953369-8.691711-10.430053 0.869171-4.345855 6.953369-6.084198 13.037566-4.345855 6.084198 1.738342 9.560882 6.084198 8.691711 10.430053z m0 0M351.145116 857.002684c0 4.345855-5.215026 7.82254-11.299224 7.82254-6.084198 0-11.299224-3.476684-11.299224-7.82254s5.215026-7.82254 11.299224-7.82254c6.084198 0 11.299224 3.476684 11.299224 7.82254z m0 0M391.126986 850.049315c0.869171 4.345855-3.476684 8.691711-9.560882 9.560882-6.084198 0.869171-11.299224-1.738342-12.168395-6.084197-0.869171-4.345855 3.476684-8.691711 9.560881-9.560882 6.084198-0.869171 11.299224 1.738342 12.168396 6.084197z m0 0" fill="#191717" p-id="1200"></path></svg>
                         {% else %}
                         {% if avatar %}
-                        <span class="avatar avatar-sm" style="background-image: url('{{ avatar }}');border: none;background-color: white;width: 35px;border-radius: 100%"></span>
+                        <span class="avatar avatar-sm" style="background-image: url('{{ avatar }}');border: none;background-color: white;border-radius: 100%"></span>
                         {% else %}
                         <span class="avatar avatar-sm" style="background-image: url(/static/image/avatar.png);border: none;background-color: white;width: 35px;border-radius: 100%"></span>
                         {% endif %}
@@ -110,7 +114,7 @@
                             </a>
                         </li>
                         <li class="nav-item" id="apk_tab">
-                            <a class="nav-link" href="/apk/info" >
+                            <a class="nav-link" href="/apk/info/page=1" >
                                 <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                                     <svg t="1635059906963" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="70642" width="200" height="200"><path d="M720.149333 0L981.333333 257.066667v665.813333A101.12 101.12 0 0 1 880.213333 1024H143.786667A101.12 101.12 0 0 1 42.666667 922.88V101.12A101.12 101.12 0 0 1 143.786667 0h576.362666zM299.008 502.336H246.826667L151.68 746.666667h52.309333l20.181334-55.509334h97.664l21.333333 55.509334h53.674667l-97.834667-244.330667z m203.157333 0h-79.146666V746.666667h49.322666v-92.16h32.149334c33.493333 0 33.493333 0 51.178666-3.498667 13.013333-2.837333 13.013333-2.837333 25.6-11.584 12.565333-8.746667 12.565333-8.746667 20.736-24.106667 8.170667-15.317333 8.170667-15.317333 8.170667-37.824 0-29.162667 0-29.162667-14.186667-47.573333-14.165333-18.410667-14.165333-18.410667-35.157333-23.914667-12.757333-3.413333-12.757333-3.413333-52.8-3.648l-5.866667-0.021333z m198.506667 0H651.306667V746.666667h49.344v-73.813334l40-40.853333L807.829333 746.666667h63.829334l-97.002667-149.162667 92.010667-95.168h-66.346667l-99.648 108.501333v-108.501333z m-428.330667 57.002667l33.664 90.666666H239.338667l33.002666-90.666666z m223.829334-15.68c26.666667 0 26.666667 0 35.498666 1.664 11.989333 2.176 11.989333 2.176 19.84 10.837333 7.829333 8.682667 7.829333 8.682667 7.829334 22.016 0 10.816 0 10.816-5.589334 18.986667s-5.589333 8.170667-15.424 12.010666c-9.813333 3.84-9.813333 3.84-38.997333 3.84h-26.986667v-69.333333h23.829334z" fill="#4BB86A" p-id="70643"></path><path d="M776.277333 257.066667c-30.570667 0-55.381333-25.173333-55.381333-56.170667L720.96 0 981.333333 257.066667h-205.056z" fill="#94D9B9" p-id="70644"></path></svg>
                                 </span>
@@ -169,6 +173,16 @@
                                 </span>
                             </a>
                         </li>
+                        <li class="nav-item" id="file_tab">
+                            <a class="nav-link" href="/file/manage/directory" >
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <svg t="1641453927397" class="icon" viewBox="0 0 1233 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15933" width="200" height="200"><path d="M408.250182 0c26.530909 0 44.357818 8.610909 62.114909 25.972364l177.408 225.722181c8.843636 26.065455 35.560727 34.769455 53.294545 34.769455H1153.629091c44.381091 0 79.848727 34.676364 79.848727 86.714182v564.107636C1233.454545 980.689455 1197.986909 1024 1153.605818 1024H79.848727C35.560727 1024 0 989.323636 0 937.285818V86.714182C0 43.310545 35.560727 0 79.848727 0h328.378182z m337.221818 720.197818H186.321455c-26.554182 0-44.381091 17.338182-44.381091 43.403637s17.826909 43.403636 44.381091 43.403636h550.190545c26.647273 0 44.381091-17.338182 44.381091-43.403636s-17.733818-43.403636-35.467636-43.403637z m221.789091 0h-35.467636c-26.647273 0-44.381091 17.338182-44.381091 43.403637s17.640727 43.403636 44.381091 43.403636h35.467636c26.647273 0 44.381091-17.338182 44.381091-43.403636s-17.733818-43.403636-44.381091-43.403637z m168.517818-676.887273c17.826909 0 26.740364 17.431273 26.740364 34.769455V182.225455c0 17.268364-8.913455 34.676364-26.647273 34.676363H701.067636c-8.820364 0-17.733818 0-17.733818-8.610909L603.415273 95.418182c-17.664-17.338182-8.843636-52.107636 17.803636-52.107637h514.56z" fill="#4F6EFE" p-id="15934"></path></svg>
+                                </span>
+                                <span class="nav-link-title strong-text">
+                                    FILE
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -219,7 +233,8 @@
 <script src="/static/tabler/dist/libs/choices.js/public/assets/scripts/choices.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <!-- Tabler Core -->
-<script src="https://unpkg.com/@tabler/core@1.0.0-beta5/dist/js/tabler.min.js"></script>
+<script src="https://unpkg.com/@tabler/core@latest/dist/js/tabler.min.js"></script>
+<script src="/static/tabler/dist/js/demo.min.js"></script>
 <!-- Select2-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- JsonViewer-->
@@ -242,8 +257,10 @@
 <!-- Sweetalert2 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- DataTables -->
-<script src="/static/AdminLTE-3.2.0-rc/plugins/datatables/jquery.dataTables.js"></script>
-<script src="/static/AdminLTE-3.2.0-rc/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<!-- Qrode -->
+<script src="/static/qrcodejs-1.0.0/qrcode.min.js"></script>
+
 <!-- Common-->
 <script src="/static/js/common.js"></script>
 <!-- 模块切换高亮 -->

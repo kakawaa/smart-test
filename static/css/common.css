@@ -62,3 +62,15 @@
 .strong-text{
     font-weight: bolder;
 }
+.page-item{
+    cursor: pointer;
+}
+
+.table-active{
+    cursor: pointer;
+    color: blue;
+}
+
+.table-active:hover{
+    color:red;
+}

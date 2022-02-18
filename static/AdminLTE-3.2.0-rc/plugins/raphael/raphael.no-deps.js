@@ -6328,7 +6328,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
      * Adds scale by given amount relative to given point to the list of
      * transformations of the element.
      > Parameters
-     - sx (number) horisontal scale amount
+     - sx (number) horxxxxtal scale amount
      - sy (number) vertical scale amount
      - cx (number) #optional x coordinate of the centre of scale
      - cy (number) #optional y coordinate of the centre of scale
@@ -6363,7 +6363,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
      * Deprecated! Use @Element.transform instead.
      * Adds translation by given amount to the list of transformations of the element.
      > Parameters
-     - dx (number) horisontal shift
+     - dx (number) horxxxxtal shift
      - dy (number) vertical shift
      = (object) @Element
     \*/
@@ -6391,7 +6391,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
      * Each letter is a command. There are four commands: `t` is for translate, `r` is for rotate, `s` is for
      * scale and `m` is for matrix.
      *
-     * There are also alternative “absolute” translation, rotation and scale: `T`, `R` and `S`. They will not take previous transformation into account. For example, `...T100,0` will always move element 100 px horisontally, while `...t100,0` could move it vertically if there is `r90` before. Just compare results of `r90t100,0` and `r90T100,0`.
+     * There are also alternative “absolute” translation, rotation and scale: `T`, `R` and `S`. They will not take previous transformation into account. For example, `...T100,0` will always move element 100 px horxxxxtally, while `...t100,0` could move it vertically if there is `r90` before. Just compare results of `r90t100,0` and `r90T100,0`.
      *
      * So, the example line above could be read like “translate by 100, 100; rotate 30° around 100, 100; scale twice around 100, 100;
      * rotate 45° around centre; scale 1.5 times relative to centre”. As you can see rotate and scale commands have origin
@@ -6560,7 +6560,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
      o opacity (number)
      o path (string) SVG path string format
      o r (number) radius of the circle, ellipse or rounded corner on the rect
-     o rx (number) horisontal radius of the ellipse
+     o rx (number) horxxxxtal radius of the ellipse
      o ry (number) vertical radius of the ellipse
      o src (string) image URL, only works for @Element.image element
      o stroke (string) stroke colour

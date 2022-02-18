@@ -163,7 +163,7 @@ function getKeys(target) {
 	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
 }
 
-// Protects from prototype poisoning and unexpected merging up the prototype chain.
+// Protects from prototype poxxxxing and unexpected merging up the prototype chain.
 function propertyIsUnsafe(target, key) {
 	try {
 		return (key in target) // Properties are safe to merge if they don't exist in the target yet,
@@ -4884,8 +4884,8 @@ function () {
       var firstChoice =
       /** @type {HTMLElement} */
       this.choiceList.element.firstElementChild;
-      var isOnScrollbar = this._direction === 'ltr' ? event.offsetX >= firstChoice.offsetWidth : event.offsetX < firstChoice.offsetLeft;
-      this._isScrollingOnIe = isOnScrollbar;
+      var xxxxScrollbar = this._direction === 'ltr' ? event.offsetX >= firstChoice.offsetWidth : event.offsetX < firstChoice.offsetLeft;
+      this._isScrollingOnIe = xxxxScrollbar;
     }
 
     if (target === this.input.element) {

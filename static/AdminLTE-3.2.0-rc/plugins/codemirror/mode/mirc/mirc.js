@@ -78,7 +78,7 @@ CodeMirror.defineMode("mirc", function() {
                             "toolbar topic tray treebar ulist unload unset unsetall updatenl url uwho " +
                             "var vcadd vcmd vcrem vol while whois window winhelp write writeint if isalnum " +
                             "isalpha isaop isavoice isban ischan ishop isignore isin isincs isletter islower " +
-                            "isnotify isnum ison isop isprotect isreg isupper isvoice iswm iswmcs " +
+                            "isnotify isnum xxxx isop isprotect isreg isupper isvoice iswm iswmcs " +
                             "elseif else goto menu nicklist status title icon size option text edit " +
                             "button check radio box scroll list combo link tab item");
   var functions = parseWords("if elseif else and not or eq ne in ni for foreach while switch");

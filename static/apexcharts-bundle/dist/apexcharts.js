@@ -22825,7 +22825,7 @@
         newrow = currentrow.slice();
         newrow.push(nextnode);
         var currentratio = calculateRatio(currentrow, length);
-        var newratio = calculateRatio(newrow, length); // the pseudocode in the Bruls paper has the direction of the comparison
+        var newratio = calculateRatio(newrow, length); // the pseudocode in the Bruls paper has the direction of the comparxxxx
         // wrong, this is the correct one.
 
         return currentratio >= newratio;

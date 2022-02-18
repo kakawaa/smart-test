@@ -26,12 +26,224 @@
 
 {% block api_tab_content %}
 <div class="tab-pane active">
+    <div class="row mb-3" >
+        <div class="input-group" style="width: 25%">
+            <div class="input-group-text">测试计划</div>
+            <select id="filter_task" class="select2-selection--single" data-placeholder="请选择任务">
+                <option>全部</option>
+                {% for task_name in task_names %}
+                <option>{{ task_name.taskname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-auto">
+            <a href="/api_test/stress/plan" class="btn btn-default">
+                <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
+                测试计划
+            </a>
+            <a  class="btn btn-default" style="margin-left: 10px">
+                <svg t="1642573879897" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17925" width="300" height="300"><path d="M512 0c282.7776 0 512 229.2224 512 512 0 282.7776-229.2224 512-512 512C229.2224 1024 0 794.7776 0 512 0 229.2224 229.2224 0 512 0z m-5.9904 256c-16.554667 0-31.505067 9.079467-38.980267 24.029867l-53.384533 108.9024c-3.208533 6.417067-10.154667 11.2128-17.629867 12.288l-119.586133 17.6128a44.100267 44.100267 0 0 0-35.242667 29.9008 42.683733 42.683733 0 0 0 11.2128 44.8512l86.493867 83.8144c5.341867 5.341867 8.021333 12.8 6.946133 20.292266l-20.821333 119.586134c-2.133333 12.8 1.058133 25.634133 9.608533 35.242666 8.533333 9.608533 20.821333 15.479467 33.621334 15.479467 7.492267 0 13.892267-1.604267 20.309333-5.341867l107.298133-57.122133c2.679467-1.0752 6.946133-2.133333 10.683734-2.133333 4.266667 0 8.021333 1.058133 10.683733 2.6624l107.844267 56.593066c6.929067 3.754667 13.346133 5.341867 19.746133 5.341867 12.8 0 25.088-5.870933 33.109333-16.008533 8.533333-9.6256 11.741867-22.4256 9.608534-35.242667l-20.309334-119.057067c-1.058133-7.4752 1.0752-14.9504 6.9632-20.292266l85.947734-84.360534a43.52 43.52 0 0 0 10.683733-44.834133 44.3904 44.3904 0 0 0-35.242667-29.354667l-119.586133-17.629866a23.3984 23.3984 0 0 1-17.629867-12.288l-53.384533-108.9024A43.229867 43.229867 0 0 0 506.026667 256z m0 30.429867c4.795733 0 9.0624 2.133333 11.2128 6.946133l53.384533 108.373333c7.4752 16.0256 22.954667 26.692267 40.567467 29.354667l119.6032 17.629867a12.049067 12.049067 0 0 1 10.666667 8.533333c1.0752 5.341867 0 10.154667-3.191467 13.3632L652.288 555.52c-12.8 11.741867-18.688 30.429867-15.479467 47.5136l20.292267 119.057067a12.834133 12.834133 0 0 1-12.817067 14.9504c-1.604267 0-3.754667-0.546133-6.417066-1.604267l-106.769067-56.593067c-8.021333-4.266667-16.554667-6.417067-24.576-6.417066-9.045333 0-17.595733 2.1504-24.541867 6.417066l-107.861333 56.593067c-1.5872 0.529067-3.191467 1.058133-5.853867 1.058133a13.141333 13.141333 0 0 1-10.154666-4.795733 10.1376 10.1376 0 0 1-2.6624-9.608533l20.292266-119.057067c2.6624-17.629867-2.679467-35.242667-15.496533-47.5136l-86.4768-84.8896c-3.754667-3.754667-4.8128-8.021333-3.208533-12.817067v-0.529066a13.824 13.824 0 0 1 10.1376-8.5504l119.6032-17.6128c17.6128-2.679467 33.109333-13.892267 40.567466-29.354667l53.384534-107.861333c2.679467-4.795733 6.946133-7.4752 11.758933-7.4752z" fill="#FF9803" p-id="17926"></path></svg>
+                我的创建
+            </a>
+            <a  class="btn btn-default"  style="margin-left: 10px">
+                <svg t="1642589216794" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="50182" width="300" height="300"><path d="M447.5 960.3l-321-110v-642l321 82z" fill="#37BBEF" p-id="50183"></path><path d="M447.5 960.3l450-240v-600l-450 170z" fill="#2481BA" p-id="50184"></path><path d="M126.5 208.3l321 82 450-170-344.4-56.6z" fill="#3ED6FF" p-id="50185"></path><path d="M400.3 348.9v80l-239-60v-80l239 60z m-239 48.3l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z" fill="#D4F7FF" p-id="50186"></path><path d="M175.7 308.4v34l210.2 53v-34zM175.7 363.4l210.2 53v-13.3l-210.2-53z" fill="#113B42" p-id="50187"></path><path d="M447.5 894.1v-5.2l-174.4-55.3-1.2 4.8zM271.9 809.3L447.5 864v-5.3l-174.4-54.3zM271.9 780.1l175.6 53.7v-5.2l-174.4-53.4zM447.5 707.9l-174.4-49.3-1.2 4.8 175.6 49.7zM271.9 692.6l175.6 50.7v-5.2l-174.4-50.4zM271.9 750.9l175.6 52.7v-5.2l-174.4-52.3zM271.9 721.8l175.6 51.7v-5.3l-174.4-51.3z" fill="#0071BC" p-id="50188"></path><path d="M379.5 540.8c-9.4-3.4-17 1.6-17 11.2s7.6 20.1 17 23.2 17-1.9 17-11.2-7.6-19.8-17-23.2zM379.5 603.6c-3.9-1.2-7 1-7 4.9s3.1 8.1 7 9.3 7-1 7-4.9c0-3.9-3.1-8-7-9.3z" fill="#FFFFFF" p-id="50189"></path></svg>
+                配置机器
+            </a>
+        </div>
+    </div>
+    {% if task_num > 0 %}
+    <div class="card">
+        <table id="task_table" class="table card-table table-vcenter  datatable">
+            <thead>
+            <tr>
+                <th style="font-size: 13px;">测试计划</th>
+                <th style="font-size: 13px;">驱动器</th>
+                <th style="font-size: 13px;">模式</th>
+                <th style="font-size: 13px;">机器</th>
+                <th style="font-size: 13px;">性能报告</th>
+                <th style="font-size: 13px;">状态</th>
+                <th style="font-size: 13px;">创建人</th>
+                <th style="font-size: 13px;width: 13%;">更新时间</th>
+                <th style="width: 10%;"></th>
+            </tr>
+            </thead>
+            <tbody >
+            {% for task in tasks %}
+            <tr>
+                <td><a href="#">{{ task.taskname }}</a></td>
+                {% if task.tech == 'Locust' %}
+                <td>
+                    <div class="row">
+                        <div class="col-auto">
+                            <span class="avatar avatar-xs avatar-rounded" style="background-image: url(https://locust.io/static/img/favicon.ico)"></span>
+                            <label>Locust</label>
+                        </div>
+                    </div>
+                </td>
+                {% else %}
+                <td>
+                    <div class="row">
+                        <div class="col-auto">
+                            <svg t="1642649337584" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="58606" width="300" height="300"><path d="M153.6 256c6.4-6.4 19.2-6.4 32 0 0 0 192 172.8 422.4 217.6 160 32 320 44.8 409.6 51.2 0-25.6-25.6-32-102.4-70.4-44.8-19.2-115.2-64-192-108.8-44.8 38.4-108.8 64-121.6 64-12.8 6.4-19.2 0-25.6-12.8-6.4-12.8 0-19.2 12.8-25.6 0 0 32-12.8 64-32 12.8-6.4 25.6-12.8 32-19.2-19.2-12.8-38.4-19.2-57.6-32-25.6 12.8-51.2 25.6-76.8 32-44.8 19.2-83.2 25.6-89.6 25.6-12.8 0-19.2-6.4-25.6-12.8 0-12.8 6.4-19.2 12.8-25.6 0 0 70.4-19.2 128-44.8-32-12.8-57.6-25.6-83.2-38.4-115.2-38.4-268.8-51.2-358.4-12.8l-96-108.8c-6.4-6.4-19.2-6.4-25.6 0-6.4 6.4-6.4 19.2 0 25.6l96 108.8s-64 249.6 281.6 358.4c307.2 96 550.4 19.2 608-38.4-89.6-6.4-243.2-19.2-403.2-51.2-243.2-51.2-435.2-224-441.6-230.4-6.4 0-6.4-12.8 0-19.2z" fill="#C10652" p-id="58607"></path><path d="M224 876.8h-44.8l-19.2-44.8h-76.8l-12.8 44.8h-38.4l76.8-192h38.4l76.8 192z m-70.4-76.8l-25.6-70.4-25.6 70.4h51.2z m89.6-57.6h32v19.2l19.2-19.2c6.4-6.4 19.2-6.4 25.6-6.4 19.2 0 32 6.4 38.4 19.2s19.2 32 19.2 51.2c0 25.6-6.4 38.4-19.2 51.2-12.8 12.8-25.6 19.2-38.4 19.2-6.4 0-12.8 0-19.2-6.4-6.4 0-12.8-6.4-19.2-12.8v70.4h-38.4v-185.6z m38.4 64c0 12.8 0 25.6 6.4 32 6.4 6.4 12.8 12.8 25.6 12.8 6.4 0 12.8-6.4 19.2-12.8 6.4-6.4 6.4-19.2 6.4-32s0-25.6-6.4-32c-6.4-6.4-12.8-12.8-19.2-12.8-6.4 0-19.2 6.4-25.6 12.8-6.4 6.4-6.4 19.2-6.4 32z m153.6-25.6l-32-6.4c6.4-12.8 12.8-25.6 19.2-32 6.4-6.4 25.6-12.8 38.4-12.8 19.2 0 25.6 0 38.4 6.4 6.4 6.4 12.8 6.4 19.2 12.8 6.4 6.4 6.4 19.2 6.4 32v70.4c0 6.4 6.4 12.8 6.4 19.2h-38.4s0-6.4-6.4-12.8v-6.4c-6.4 6.4-12.8 12.8-19.2 12.8-6.4 0-12.8 6.4-25.6 6.4s-25.6-6.4-32-12.8c-6.4-6.4-12.8-19.2-12.8-32 0-6.4 0-12.8 6.4-19.2 6.4-6.4 6.4-12.8 12.8-12.8 6.4-6.4 19.2-6.4 32-6.4 19.2-6.4 32-6.4 38.4-6.4v-6.4c0-6.4 0-12.8-6.4-12.8s-12.8-6.4-19.2-6.4c-6.4 0-12.8 0-12.8 6.4s-6.4 12.8-12.8 19.2z m51.2 32c-6.4 0-12.8 6.4-25.6 6.4s-19.2 6.4-19.2 6.4c-6.4 6.4-6.4 6.4-6.4 12.8s0 12.8 6.4 12.8c6.4 6.4 6.4 6.4 12.8 6.4s12.8 0 19.2-6.4c6.4-6.4 6.4-6.4 6.4-12.8v-19.2c6.4 0 6.4-6.4 6.4-6.4z m192-32l-38.4 6.4c0-6.4-6.4-12.8-6.4-19.2-6.4-6.4-12.8-6.4-19.2-6.4-6.4 0-19.2 0-19.2 6.4-6.4 6.4-6.4 19.2-6.4 32 0 19.2 0 25.6 6.4 32 6.4 6.4 12.8 12.8 19.2 12.8 6.4 0 12.8 0 19.2-6.4 6.4-6.4 6.4-12.8 6.4-19.2l38.4 6.4c-6.4 19.2-12.8 32-19.2 38.4-12.8 6.4-25.6 12.8-44.8 12.8-19.2 0-38.4-6.4-51.2-19.2s-19.2-32-19.2-51.2c0-25.6 6.4-38.4 19.2-51.2 12.8-12.8 25.6-19.2 51.2-19.2 19.2 0 32 6.4 38.4 12.8 19.2 6.4 25.6 19.2 25.6 32z m64-96v70.4c12.8-12.8 25.6-19.2 44.8-19.2 6.4 0 19.2 0 25.6 6.4 6.4 0 12.8 6.4 12.8 12.8 6.4 6.4 6.4 12.8 6.4 19.2V883.2h-38.4v-76.8-25.6c0-6.4-6.4-6.4-6.4-6.4-6.4 0-6.4-6.4-12.8-6.4s-12.8 0-19.2 6.4c-6.4 0-6.4 6.4-12.8 12.8 0 6.4-6.4 12.8-6.4 25.6v70.4h-38.4v-192h44.8z m211.2 147.2l38.4 6.4c-6.4 12.8-12.8 25.6-19.2 32-12.8 6.4-25.6 12.8-38.4 12.8-25.6 0-44.8-6.4-51.2-25.6-6.4-12.8-12.8-25.6-12.8-51.2s6.4-38.4 19.2-51.2c12.8-12.8 25.6-19.2 44.8-19.2 19.2 0 38.4 6.4 51.2 19.2 12.8 12.8 19.2 32 19.2 64h-89.6c0 12.8 6.4 19.2 6.4 25.6 6.4 6.4 12.8 6.4 19.2 6.4 6.4 0 12.8 0 12.8-6.4-6.4 0 0-6.4 0-12.8z m0-32c0-12.8 0-19.2-6.4-25.6-6.4-6.4-12.8-6.4-19.2-6.4-6.4 0-12.8 0-19.2 6.4-6.4 6.4-6.4 12.8-6.4 25.6h51.2z" fill="#606060" p-id="58608"></path></svg>
+                            <label>Jmeter</label>
+                        </div>
+                    </div>
+                </td>
+                {% endif %}
+                <td>{{ task.model }}</td>
+
+                {% if task.machine != '未分配' %}
+                <td>
+                    <svg t="1642589216794" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="50182" width="300" height="300"><path d="M447.5 960.3l-321-110v-642l321 82z" fill="#37BBEF" p-id="50183"></path><path d="M447.5 960.3l450-240v-600l-450 170z" fill="#2481BA" p-id="50184"></path><path d="M126.5 208.3l321 82 450-170-344.4-56.6z" fill="#3ED6FF" p-id="50185"></path><path d="M400.3 348.9v80l-239-60v-80l239 60z m-239 48.3l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z" fill="#D4F7FF" p-id="50186"></path><path d="M175.7 308.4v34l210.2 53v-34zM175.7 363.4l210.2 53v-13.3l-210.2-53z" fill="#113B42" p-id="50187"></path><path d="M447.5 894.1v-5.2l-174.4-55.3-1.2 4.8zM271.9 809.3L447.5 864v-5.3l-174.4-54.3zM271.9 780.1l175.6 53.7v-5.2l-174.4-53.4zM447.5 707.9l-174.4-49.3-1.2 4.8 175.6 49.7zM271.9 692.6l175.6 50.7v-5.2l-174.4-50.4zM271.9 750.9l175.6 52.7v-5.2l-174.4-52.3zM271.9 721.8l175.6 51.7v-5.3l-174.4-51.3z" fill="#0071BC" p-id="50188"></path><path d="M379.5 540.8c-9.4-3.4-17 1.6-17 11.2s7.6 20.1 17 23.2 17-1.9 17-11.2-7.6-19.8-17-23.2zM379.5 603.6c-3.9-1.2-7 1-7 4.9s3.1 8.1 7 9.3 7-1 7-4.9c0-3.9-3.1-8-7-9.3z" fill="#FFFFFF" p-id="50189"></path></svg>
+                    <a class="active" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal-scrollable">{{ task.machine }}</a>
+                </td>
+                {% else %}
+                <td>
+                    {{ task.machine }}
+                </td>
+                {% endif %}
+                
+                {% if task.report_num == 0 %}
+                <td>{{ task.report_num }}</td>
+                {% else %}
+                <td><a href="#">{{ task.report_num }}</a></td>
+                {% endif %}
+
+                {% if task.status == '待执行' %}
+                <td><span class="badge">待执行</span></td>
+                {% elif task.status == '成功' %}
+                <td><span class="badge bg-success">成功</span></td>
+                {% elif task.status == '执行中' %}
+                <td><div class="loader2"></div></td>
+                {% else %}
+                <td><span class="badge bg-danger">失败</span></td>
+                {% endif %}
+                <td>{{ task.creater }}</td>
+                <td>{{ task.utime }}</td>
+                <td class="text-end">
+                    <div class="btn-list flex-nowrap">
+                        {% if task.status == '执行中' %}
+                        <a class="btn btn-white w-100 disabled">
+                            <svg t="1638001356313" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="73544" width="200" height="200"><path d="M511.488 511.488m-511.488 0a511.488 511.488 0 1 0 1022.976 0 511.488 511.488 0 1 0-1022.976 0Z" fill="#E0E2E1" p-id="73545"></path><path d="M766.464 560.64c27.136-18.944 34.304-56.32 15.36-83.456-4.096-6.144-9.216-11.264-15.36-15.36l-318.464-219.136c-27.136-18.944-65.024-11.776-83.456 15.36-6.656 10.24-10.752 22.016-10.752 34.304v438.272c0 33.28 27.136 60.416 59.904 60.416 12.288 0 24.064-3.584 34.304-10.752l318.464-219.648z" fill="#1AAA5E" p-id="73546"></path></svg>
+                            执行
+                        </a>
+                        {% else %}
+                        <a class="btn btn-white w-100">
+                            <svg t="1638001356313" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="73544" width="200" height="200"><path d="M511.488 511.488m-511.488 0a511.488 511.488 0 1 0 1022.976 0 511.488 511.488 0 1 0-1022.976 0Z" fill="#E0E2E1" p-id="73545"></path><path d="M766.464 560.64c27.136-18.944 34.304-56.32 15.36-83.456-4.096-6.144-9.216-11.264-15.36-15.36l-318.464-219.136c-27.136-18.944-65.024-11.776-83.456 15.36-6.656 10.24-10.752 22.016-10.752 34.304v438.272c0 33.28 27.136 60.416 59.904 60.416 12.288 0 24.064-3.584 34.304-10.752l318.464-219.648z" fill="#1AAA5E" p-id="73546"></path></svg>
+                            执行
+                        </a>
+                        {% endif %}
+                        <a id="btn_edit" data-bs-toggle="modal" data-bs-target="#modal-apkinfo" class="btn btn-white w-100">
+                            <svg t="1641465484999" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="22746" width="300" height="300"><path d="M0 512C0 229.248 229.248 0 512 0s512 229.248 512 512-229.248 512-512 512S0 794.752 0 512z" fill="#4A6DB1" p-id="22747"></path><path d="M671.018667 681.856H341.674667V348.672h174.421333v-39.253333H341.674667c-21.333333 0-38.741333 17.578667-38.741334 39.210666v333.226667c0 21.632 17.365333 39.210667 38.741334 39.210667h329.386666c21.376 0 38.741333-17.578667 38.741334-39.210667v-176.341333h-38.741334v176.341333h-0.042666z m47.274666-362.197333l-13.696-13.866667a9.6 9.6 0 0 0-13.738666 0l-232.234667 234.922667-11.989333 39.936 39.381333-12.245334 232.277333-234.88a9.984 9.984 0 0 0 0-13.866666z" fill="#FFFFFF" p-id="22748"></path></svg>
+                            编辑
+                        </a>
+                        <a id="btn_copy" data-bs-toggle="modal" data-bs-target="#modal-apkinfo" class="btn btn-white w-100">
+                            <svg t="1642588150644" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="44135" width="300" height="300"><path d="M743.936 0l214.592 219.456v512c0 80.384-64 146.24-142.336 146.24h-72.32c0 80.448-64 146.304-142.336 146.304H174.4C96.128 1024 32.064 958.144 32.064 877.696v-146.624c0-20.224 16.128-36.736 35.904-36.736 19.84 0 35.84 16.512 35.84 36.736v146.368c0 40.32 32 73.152 71.168 73.152h426.56c39.168 0 71.04-32.64 71.168-72.896H389.056c-78.336 0-142.336-65.856-142.336-146.304V219.584H174.976c-39.168 0-71.168 32.896-71.168 73.152v146.048c0 20.224-16 36.672-35.84 36.672a36.096 36.096 0 0 1-35.84-36.544V292.608c0-80.448 64.128-146.304 142.4-146.304h72.192c0-80.448 64-146.304 142.336-146.304h354.88zM671.424 72.448H388.032c-39.104 0-71.168 32.96-71.168 73.152v586.368c0 40.256 32 73.152 71.168 73.152h427.136c39.168 0 71.168-32.896 71.168-73.152V291.584h-72.448c-78.336 0-142.4-65.856-142.4-146.304V72.448zM80.768 536.384a48.768 48.768 0 1 1 0 97.536 48.768 48.768 0 0 1 0-97.536z m369.024 31.808l286.08 2.176c15.168 0.064 27.648 14.464 27.648 32 0 17.472-12.48 31.744-27.648 31.552l-286.08-2.176c-15.232-0.064-27.648-14.464-27.648-32 0-17.472 12.416-31.616 27.648-31.552z m0-129.28l286.08 2.112c15.168 0.064 27.648 14.464 27.648 32 0 17.472-12.48 31.616-27.648 31.552l-286.08-2.176c-15.232-0.064-27.648-14.464-27.648-32 0-17.472 12.416-31.616 27.648-31.552z m294.208-366.464h-0.192v73.536c0 40.192 32 73.152 71.168 73.152h71.04l-142.016-146.688z" fill="#0C66FF" p-id="44136"></path></svg>
+                            复制
+                        </a>
+                        <a id="btn_remove" data-bs-toggle="modal" data-bs-target="#modal-apkinfo" class="btn btn-white w-100">
+                            <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
+                            删除
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="card-footer d-flex align-items-center">
+            <ul class="pagination m-0 ms-auto">
+                {% if page_obj.has_previous %}
+                <li class="page-item mr-3" style="margin-right: 10px;">
+                    <a class="page-link"  tabindex="-1" aria-disabled="true" href="/apk/info/page={{ page_obj.previous_page_number }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+                        prev
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled" style="margin-right: 10px;">
+                    <a class="page-link"  tabindex="-1" aria-disabled="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>
+                        prev
+                    </a>
+                </li>
+                {% endif %}
+                {% if page_obj.paginator.num_pages < 11 %}
+                {% for num in page_obj.paginator.page_range %}
+                {% if num == page %}
+                <li class="page-item active"><a href="/apk/info/page={{ num }}" class="page-link" >{{ num }}</a></li>
+                {% else %}
+                <li class="page-item"><a href="/apk/info/page={{ num }}" class="page-link" >{{ num }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <li class="page-item"><a class="page-link" >1</a></li>
+                <li class="page-item active"><a class="page-link" >2</a></li>
+                <li class="page-item"><a class="page-link" >3</a></li>
+                <li class="page-item"><a class="page-link">...</a></li>
+                <li class="page-item"><a class="page-link" >{{ page_obj.paginator.num_pages }}</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li class="page-item" style="margin-left: 10px;">
+                    <a class="page-link" href="/apk/info/page={{ page_obj.next_page_number }}">
+                        next
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled" style="margin-left: 10px;">
+                    <a class="page-link" >
+                        next
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    {% else %}
     <div class="empty">
         <div class="empty-img"><img src="/static/tabler/static/illustrations/undraw_printing_invoices_5r4r.svg"></div>
         <p class="empty-title">No results found</p>
     </div>
+    {% endif %}
 </div>
+
+<div class="modal modal-blur fade" id="modal-scrollable" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <svg t="1642589216794" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="50182" width="300" height="300"><path d="M447.5 960.3l-321-110v-642l321 82z" fill="#37BBEF" p-id="50183"></path><path d="M447.5 960.3l450-240v-600l-450 170z" fill="#2481BA" p-id="50184"></path><path d="M126.5 208.3l321 82 450-170-344.4-56.6z" fill="#3ED6FF" p-id="50185"></path><path d="M400.3 348.9v80l-239-60v-80l239 60z m-239 48.3l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z" fill="#D4F7FF" p-id="50186"></path><path d="M175.7 308.4v34l210.2 53v-34zM175.7 363.4l210.2 53v-13.3l-210.2-53z" fill="#113B42" p-id="50187"></path><path d="M447.5 894.1v-5.2l-174.4-55.3-1.2 4.8zM271.9 809.3L447.5 864v-5.3l-174.4-54.3zM271.9 780.1l175.6 53.7v-5.2l-174.4-53.4zM447.5 707.9l-174.4-49.3-1.2 4.8 175.6 49.7zM271.9 692.6l175.6 50.7v-5.2l-174.4-50.4zM271.9 750.9l175.6 52.7v-5.2l-174.4-52.3zM271.9 721.8l175.6 51.7v-5.3l-174.4-51.3z" fill="#0071BC" p-id="50188"></path><path d="M379.5 540.8c-9.4-3.4-17 1.6-17 11.2s7.6 20.1 17 23.2 17-1.9 17-11.2-7.6-19.8-17-23.2zM379.5 603.6c-3.9-1.2-7 1-7 4.9s3.1 8.1 7 9.3 7-1 7-4.9c0-3.9-3.1-8-7-9.3z" fill="#FFFFFF" p-id="50189"></path></svg>
+              机器信息
+            </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>CPU：XXXX</p>
+          <p>内存：XXXX</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn me-auto" data-bs-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">复制</button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block api_script %}
+<script>
+    var task_table = maketable({Table:'#task_table',paging:false})
+    //任务名过滤
+    $('#filter_task').on('keyup change', function () {
+        let taskname = this.value;
+        if (taskname=='全部'){
+            task_table.column(1).search('').draw();
+         }else{
+            task_table.column(1).search(this.value).draw();
+            }
+    });
+</script>
+
 {% endblock %}

@@ -3460,8 +3460,8 @@ exports.prepareContent = function(name, inputData, isBinary, isOptimizedBinarySt
 
     // if inputData is already a promise, this flatten it.
     var promise = external.Promise.resolve(inputData).then(function(data) {
-        
-        
+
+
         var isBlob = support.blob && (data instanceof Blob || ['[object File]', '[object Blob]'].indexOf(Object.prototype.toString.call(data)) !== -1);
 
         if (isBlob && typeof FileReader !== "undefined") {
@@ -6166,7 +6166,7 @@ function longest_match(s, cur_match) {
     match++;
     // Assert(*scan == *match, "match[2]?");
 
-    /* We check for insufficient lookahead only every 8th comparison;
+    /* We check for insufficient lookahead only every 8th comparxxxx;
      * the 256th check will be made at strstart+258.
      */
     do {

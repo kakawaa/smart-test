@@ -2404,16 +2404,16 @@
             return this._createOnOffSwitchButton("inserting", this.insertModeButtonClass, false);
         },
 
-        _createOnOffSwitchButton: function(option, cssClass, isOnInitially) {
-            var isOn = isOnInitially;
+        _createOnOffSwitchButton: function(option, cssClass, xxxxInitially) {
+            var xxxx = xxxxInitially;
 
             var updateButtonState = $.proxy(function() {
-                $button.toggleClass(this.modeOnButtonClass, isOn);
+                $button.toggleClass(this.modeOnButtonClass, xxxx);
             }, this);
 
             var $button = this._createGridButton(this.modeButtonClass + " " + cssClass, "", function(grid) {
-                isOn = !isOn;
-                grid.option(option, isOn);
+                xxxx = !xxxx;
+                grid.option(option, xxxx);
                 updateButtonState();
             });
 

@@ -1052,7 +1052,7 @@
             // If there are custom options set or it is a custom pane then get them
             if (colOpts.options !== undefined ||
                 this.customPaneSettings !== null && this.customPaneSettings.options !== undefined) {
-                this._getComparisonRows();
+                this._getComparxxxxRows();
             }
             // Display the pane
             this.s.dtPane.draw();
@@ -1221,7 +1221,7 @@
          *
          * @returns {Array} Returns the array of rows which have been added to the pane
          */
-        SearchPane.prototype._getComparisonRows = function () {
+        SearchPane.prototype._getComparxxxxRows = function () {
             var colOpts = this.s.colOpts;
             // Find the appropriate options depending on whether this is a pane for a specific column or a custom pane
             var options = colOpts.options !== undefined
@@ -1245,7 +1245,7 @@
                 var insert = comp.label !== '' ?
                     comp.label :
                     this.emptyMessage();
-                var comparisonObj = {
+                var comparxxxxObj = {
                     className: comp.className,
                     display: insert,
                     filter: typeof comp.value === 'function' ? comp.value : [],
@@ -1259,23 +1259,23 @@
                     // Count the number of times the function evaluates to true for the data currently being displayed
                     for (var tVal = 0; tVal < tableVals.length; tVal++) {
                         if (comp.value.call(this.s.dt, tableVals[tVal], appRows[0][tVal])) {
-                            comparisonObj.shown++;
+                            comparxxxxObj.shown++;
                         }
                     }
                     // Count the number of times the function evaluates to true for the original data in the Table
                     for (var i = 0; i < tableValsTotal.length; i++) {
                         if (comp.value.call(this.s.dt, tableValsTotal[i], allRows[0][i])) {
-                            comparisonObj.total++;
+                            comparxxxxObj.total++;
                         }
                     }
-                    // Update the comparisonObj
-                    if (typeof comparisonObj.filter !== 'function') {
-                        comparisonObj.filter.push(comp.filter);
+                    // Update the comparxxxxObj
+                    if (typeof comparxxxxObj.filter !== 'function') {
+                        comparxxxxObj.filter.push(comp.filter);
                     }
                 }
-                // If cascadePanes is not active or if it is and the comparisonObj should be shown then add it to the pane
-                if (!this.c.cascadePanes || this.c.cascadePanes && comparisonObj.shown !== 0) {
-                    rows.push(this.addRow(comparisonObj.display, comparisonObj.filter, comparisonObj.shown, comparisonObj.total, comparisonObj.sort, comparisonObj.type, comparisonObj.className));
+                // If cascadePanes is not active or if it is and the comparxxxxObj should be shown then add it to the pane
+                if (!this.c.cascadePanes || this.c.cascadePanes && comparxxxxObj.shown !== 0) {
+                    rows.push(this.addRow(comparxxxxObj.display, comparxxxxObj.filter, comparxxxxObj.shown, comparxxxxObj.total, comparxxxxObj.sort, comparxxxxObj.type, comparxxxxObj.className));
                 }
             }
             return rows;
@@ -1618,7 +1618,7 @@
                 if (colOpts.searchPanes !== undefined && colOpts.searchPanes.options !== undefined ||
                     colOpts.options !== undefined ||
                     this.customPaneSettings !== null && this.customPaneSettings.options !== undefined) {
-                    var rows = this._getComparisonRows();
+                    var rows = this._getComparxxxxRows();
                     var _loop_2 = function (row) {
                         var selectIndex = selected.findIndex(function (element) {
                             if (element.display === row.data().display) {

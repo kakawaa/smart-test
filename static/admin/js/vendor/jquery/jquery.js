@@ -1129,7 +1129,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Return early if doc is invalid or already selected
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-	// two documents; shallow comparisons work.
+	// two documents; shallow comparxxxxs work.
 	// eslint-disable-next-line eqeqeq
 	if ( doc == document || doc.nodeType !== 9 || !doc.documentElement ) {
 		return document;
@@ -1144,7 +1144,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// Accessing iframe documents after unload throws "permission denied" errors (jQuery #13936)
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-	// two documents; shallow comparisons work.
+	// two documents; shallow comparxxxxs work.
 	// eslint-disable-next-line eqeqeq
 	if ( preferredDoc != document &&
 		( subWindow = document.defaultView ) && subWindow.top !== subWindow ) {
@@ -1489,7 +1489,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		// Calculate position if both inputs belong to the same document
 		// Support: IE 11+, Edge 17 - 18+
 		// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-		// two documents; shallow comparisons work.
+		// two documents; shallow comparxxxxs work.
 		// eslint-disable-next-line eqeqeq
 		compare = ( a.ownerDocument || a ) == ( b.ownerDocument || b ) ?
 			a.compareDocumentPosition( b ) :
@@ -1504,7 +1504,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Choose the first element that is related to our preferred document
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-			// two documents; shallow comparisons work.
+			// two documents; shallow comparxxxxs work.
 			// eslint-disable-next-line eqeqeq
 			if ( a == document || a.ownerDocument == preferredDoc &&
 				contains( preferredDoc, a ) ) {
@@ -1513,7 +1513,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-			// two documents; shallow comparisons work.
+			// two documents; shallow comparxxxxs work.
 			// eslint-disable-next-line eqeqeq
 			if ( b == document || b.ownerDocument == preferredDoc &&
 				contains( preferredDoc, b ) ) {
@@ -1548,7 +1548,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-			// two documents; shallow comparisons work.
+			// two documents; shallow comparxxxxs work.
 			/* eslint-disable eqeqeq */
 			return a == document ? -1 :
 				b == document ? 1 :
@@ -1564,7 +1564,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			return siblingCheck( a, b );
 		}
 
-		// Otherwise we need full lists of their ancestors for comparison
+		// Otherwise we need full lists of their ancestors for comparxxxx
 		cur = a;
 		while ( ( cur = cur.parentNode ) ) {
 			ap.unshift( cur );
@@ -1587,7 +1587,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Otherwise nodes in our document sort first
 			// Support: IE 11+, Edge 17 - 18+
 			// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-			// two documents; shallow comparisons work.
+			// two documents; shallow comparxxxxs work.
 			/* eslint-disable eqeqeq */
 			ap[ i ] == preferredDoc ? -1 :
 			bp[ i ] == preferredDoc ? 1 :
@@ -1634,7 +1634,7 @@ Sizzle.contains = function( context, elem ) {
 	// Set document vars if needed
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-	// two documents; shallow comparisons work.
+	// two documents; shallow comparxxxxs work.
 	// eslint-disable-next-line eqeqeq
 	if ( ( context.ownerDocument || context ) != document ) {
 		setDocument( context );
@@ -1647,7 +1647,7 @@ Sizzle.attr = function( elem, name ) {
 	// Set document vars if needed
 	// Support: IE 11+, Edge 17 - 18+
 	// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-	// two documents; shallow comparisons work.
+	// two documents; shallow comparxxxxs work.
 	// eslint-disable-next-line eqeqeq
 	if ( ( elem.ownerDocument || elem ) != document ) {
 		setDocument( elem );
@@ -2686,7 +2686,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 				// Support: IE 11+, Edge 17 - 18+
 				// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-				// two documents; shallow comparisons work.
+				// two documents; shallow comparxxxxs work.
 				// eslint-disable-next-line eqeqeq
 				outermostContext = context == document || context || outermost;
 			}
@@ -2700,7 +2700,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 					// Support: IE 11+, Edge 17 - 18+
 					// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
-					// two documents; shallow comparisons work.
+					// two documents; shallow comparxxxxs work.
 					// eslint-disable-next-line eqeqeq
 					if ( !context && elem.ownerDocument != document ) {
 						setDocument( elem );
@@ -2911,7 +2911,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 support.sortStable = expando.split( "" ).sort( sortOrder ).join( "" ) === expando;
 
 // Support: Chrome 14-35+
-// Always assume duplicates if they aren't passed to the comparison function
+// Always assume duplicates if they aren't passed to the comparxxxx function
 support.detectDuplicates = !!hasDuplicate;
 
 // Initialize against the default document

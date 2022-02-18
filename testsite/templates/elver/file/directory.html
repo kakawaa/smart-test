@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}文件管理{% endblock %}
+{% block page-title %}文件管理{% endblock %}
+
+{% block content %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row mt-3 mb-3">
+            <div class="input-group" style="width: auto;min-width:25%">
+                <div class="input-group-text">文件夹</div>
+                <select id="filter_directory" class="select2-selection--single" data-placeholder="请选择文件夹">
+                    <option>全部</option>
+                    {% for directory_name in directory_names%}
+                    <option>{{ directory_name.directory_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <a class="btn btn-default" data-bs-toggle="modal" data-bs-target="#modal-new-directory">
+                    <svg t="1638003419490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="101642" width="200" height="200"><path d="M0 0m512 0l0 0q512 0 512 512l0 0q0 512-512 512l0 0q-512 0-512-512l0 0q0-512 512-512Z" fill="#517EFF" p-id="101643"></path><path d="M704 448a64 64 0 0 1 7.488 127.552L704 576H320a64 64 0 0 1-7.488-127.552L320 448h384z" fill="#FFFFFF" p-id="101644"></path><path d="M512 256a64 64 0 0 1 63.552 56.512L576 320v384a64 64 0 0 1-127.552 7.488L448 704V320a64 64 0 0 1 64-64z" fill="#FFFFFF" p-id="101645"></path></svg>
+                    文件夹
+                </a>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="table-responsive" style="font-size: 14px;">
+                    <table id="directory_table" class="table card-table table-vcenter text-nowrap datatable">
+                        <thead>
+                        <tr>
+                            <th class="w-10"></th>
+                            <th style="font-size: 14px;">名称</th>
+                            <th style="font-size: 14px;">文件个数</th>
+                            <th style="font-size: 14px;">更新时间</th>
+                            <th style="font-size: 14px;">创建人</th>
+                            <th style="font-size: 14px;">上传成员</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for directory in directorys %}
+                        <tr>
+                          <td>
+                            <span class="avatar avatar-sm" style="background-image: url(/static/image/directory.png);background-color: white;"></span>
+                          </td>
+                          <td><a href="/file/manage/directory/{{ directory.directory_name }}">{{ directory.directory_name }}</a></td>
+                            <td>{{ directory.file_num }}</td>
+                            <td>{{ directory.ctime }}</td>
+                            <td>{{ directory.creater }}</td>
+                            <td>
+                                <div class="avatar-list avatar-list-stacked">
+                                    <!--{{ directory.member }}-->
+                                    <span class="avatar avatar-sm avatar-rounded" style="background-image: url({{ directory.member3 }})"></span>
+                                    <span class="avatar avatar-sm avatar-rounded" style="background-image: url({{ directory.member2 }})"></span>
+                                    <span class="avatar avatar-sm avatar-rounded" style="background-image: url({{ directory.member1 }})"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="/file/manage/directory/{{ directory.directory_name }}" class="btn btn-default" style="margin-right: 10px;">
+                                    <svg t="1641463540470" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3430" width="300" height="300"><path d="M512 63.6C264.4 63.6 63.6 264.4 63.6 512S264.4 960.4 512 960.4 960.4 759.6 960.4 512 759.6 63.6 512 63.6z m-64.3 690.2l-74.1-74.1 168.2-168.2-183.3-183.3 73.2-73.2 252.7 257-236.7 241.8z" fill="#3B87EF" p-id="3431"></path></svg>
+                                    进入
+                                </a>
+                                <a onclick="edit_directory('{{ directory.directory_name }}')" class="btn btn-default" style="margin-right: 10px;" data-bs-toggle="modal" data-bs-target="#modal-edit-directory">
+                                    <svg t="1641465484999" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="22746" width="300" height="300"><path d="M0 512C0 229.248 229.248 0 512 0s512 229.248 512 512-229.248 512-512 512S0 794.752 0 512z" fill="#4A6DB1" p-id="22747"></path><path d="M671.018667 681.856H341.674667V348.672h174.421333v-39.253333H341.674667c-21.333333 0-38.741333 17.578667-38.741334 39.210666v333.226667c0 21.632 17.365333 39.210667 38.741334 39.210667h329.386666c21.376 0 38.741333-17.578667 38.741334-39.210667v-176.341333h-38.741334v176.341333h-0.042666z m47.274666-362.197333l-13.696-13.866667a9.6 9.6 0 0 0-13.738666 0l-232.234667 234.922667-11.989333 39.936 39.381333-12.245334 232.277333-234.88a9.984 9.984 0 0 0 0-13.866666z" fill="#FFFFFF" p-id="22748"></path></svg>
+                                    重命名
+                                </a>
+                                <a onclick="del_directory('{{ directory.directory_name }}')" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#modal-danger">
+                                    <svg t="1635400029781" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17941" width="200" height="200"><path d="M877.79 217.23H624.22c0-36.02-29.2-65.23-65.23-65.23H465c-36.02 0-65.23 29.2-65.23 65.23H146.21c-18.01 0-32.61 14.6-32.61 32.61 0 18.01 14.6 32.61 32.61 32.61h49.75l14.43 528.79c1.06 33.91 25.21 60.76 54.64 60.76h493.93c29.43 0 53.58-26.86 54.64-60.76l14.48-528.79h49.7c18.01 0 32.61-14.6 32.61-32.61 0.01-18.01-14.59-32.61-32.6-32.61zM364.24 748.41c-17.98 0.82-33.4-10.01-34.44-24.19L308 427.56c-1.04-14.18 12.69-26.34 30.67-27.16 17.98-0.82 33.4 10.01 34.45 24.19l21.8 296.67c1.04 14.17-12.7 26.33-30.68 27.15z m180.37-25.42c0 14.2-14.6 25.72-32.61 25.72-18.01 0-32.61-11.51-32.61-25.72V425.83c0-14.2 14.6-25.72 32.61-25.72 18.01 0 32.61 11.51 32.61 25.72v297.16zM716 427.56l-21.8 296.67c-1.04 14.18-16.46 25.01-34.44 24.19-17.98-0.82-31.71-12.98-30.67-27.16l21.8-296.67c1.04-14.18 16.46-25.01 34.44-24.19 17.98 0.82 31.72 12.98 30.67 27.16z" fill="#FF5D5D" p-id="17942"></path></svg>
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="modal-new-directory" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">创建文件夹</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="task_name">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    文件夹名称
+                                </span>
+                                <input id="directory_name" type="text" class="form-control"  placeholder="请输入文件夹名称.."  autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a  class="btn btn-link link-secondary" data-bs-dismiss="modal">取消</a>
+                <a  class="btn btn-primary ms-auto"  id="create_directory">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                    创建
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="modal-edit-directory" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">重命名</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="api_content">
+                            <div class="col apiform">
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        文件夹名称
+                                    </span>
+                                    <input id="new_directory_name" type="text" class="form-control"  placeholder="请输入文件夹名称.."  autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a  class="btn btn-link link-secondary" data-bs-dismiss="modal">取消</a>
+                <a  class="btn btn-info ms-auto"  id="edit_directory_confirm">
+                    <svg t="1638686890624" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8488" width="200" height="200"><path d="M286.487273 759.854545c-5.818182 0-11.403636-2.094545-16.058182-6.283636a354.816 354.816 0 0 1-111.010909-257.163636c0-30.487273 3.956364-60.741818 11.636363-90.065455 3.258182-12.567273 16.058182-19.781818 28.392728-16.523636s19.781818 16.058182 16.523636 28.392727c-6.749091 25.367273-10.007273 51.898182-10.007273 78.429091 0 85.410909 34.210909 164.770909 96.349091 223.185455a23.179636 23.179636 0 0 1-15.825454 40.02909zM510.370909 848.756364c-6.516364 0-13.032727-2.792727-17.454545-7.68s-6.981818-11.170909-6.283637-17.687273l4.189091-53.527273-89.832727 43.054546c-6.981818 10.705455-20.712727 13.265455-31.650909 6.283636-10.705455-6.981818-13.498182-21.876364-6.516364-32.814545 4.421818-6.749091 10.472727-12.101818 18.152727-15.592728l92.16-44.218182c14.429091-6.981818 31.185455-5.818182 44.683637 3.49091 13.265455 9.076364 20.712727 24.669091 19.549091 40.727272l-2.327273 30.021818C691.432727 788.247273 814.545455 656.523636 814.545455 496.407273c0-90.298182-39.563636-175.476364-108.218182-233.890909a23.505455 23.505455 0 0 1-2.792728-32.814546c8.378182-9.774545 23.04-10.938182 32.814546-2.792727 79.127273 67.258182 124.741818 165.469091 124.741818 269.265454 0 194.327273-157.323636 352.581818-350.72 352.581819z m-19.549091-81.221819zM261.818182 305.570909a23.249455 23.249455 0 0 1-17.687273-38.4c66.792727-78.196364 163.84-123.112727 266.24-123.112727 6.516364 0 13.032727 2.792727 17.454546 7.68s6.981818 11.170909 6.283636 17.687273l-4.189091 53.527272 89.832727-43.054545c6.981818-10.705455 20.945455-13.265455 31.650909-6.283637 10.705455 6.981818 13.498182 21.876364 6.516364 32.814546-4.421818 6.749091-10.472727 12.101818-18.152727 15.592727l-92.16 44.218182c-14.661818 6.981818-31.185455 5.585455-44.683637-3.490909-13.265455-9.076364-20.712727-24.669091-19.549091-40.727273l2.327273-30.021818c-79.825455 6.516364-153.832727 44.218182-206.196363 105.658182-4.654545 5.12-11.170909 7.912727-17.687273 7.912727z" fill="#ffffff" p-id="8489"></path><path d="M528.290909 270.429091c-8.843636 0-17.687273-2.792727-25.367273-7.912727-13.265455-9.076364-20.712727-24.669091-19.549091-40.727273l7.912728-102.4c1.163636-16.290909 10.705455-30.254545 25.367272-37.236364 14.661818-6.981818 31.650909-5.818182 45.149091 3.258182l84.48 58.181818c20.48 14.661818 25.6 42.821818 11.403637 63.069091-3.956364 6.050909-10.007273 11.403636-17.687273 15.127273l-92.16 44.218182c-6.283636 2.792727-13.032727 4.421818-19.549091 4.421818z m9.309091-145.454546l-7.68 98.676364 89.832727-43.985454-42.123636-26.763637-40.029091-27.927273zM506.647273 223.418182zM484.305455 915.316364c-8.843636 0-17.687273-2.56-25.367273-7.912728 0 0-0.232727 0-0.232727-0.232727l-84.247273-58.181818a45.777455 45.777455 0 0 1-11.403637-63.069091c3.956364-6.050909 10.007273-11.403636 17.687273-14.894545l92.16-44.218182c14.429091-6.981818 31.185455-5.818182 44.683637 3.490909 13.265455 9.076364 20.712727 24.669091 19.54909 40.727273l-7.912727 102.4c-1.163636 16.290909-10.705455 30.254545-25.367273 37.236363-6.050909 3.025455-12.8 4.654545-19.54909 4.654546z m6.283636-145.454546l-89.832727 43.054546 42.123636 26.763636 40.727273 28.392727 6.981818-98.210909z m0.232727-2.327273z" fill="#ffffff" p-id="8490"></path></svg>
+                    更新
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-status bg-danger"></div>
+            <div class="modal-body text-center py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                <h3>确认删除?</h3>
+                <div class="text-muted directory-name"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <a  class="btn btn-white w-100" data-bs-dismiss="modal">
+                            取消
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a  id="del_directory_confirm" class="btn btn-danger w-100">
+                            确认
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $('#file_tab').addClass('active');
+
+    var directory_table = maketable({Table:'#directory_table',paging:false})
+
+    //文件夹过滤
+    $('#filter_directory').on('keyup change', function () {
+        let directory = this.value;
+        if (directory=='全部'){
+            directory_table.column(1).search('').draw();
+        }else{
+            directory_table.column(1).search(this.value).draw();
+        }
+    });
+
+    $('#create_directory').on('click', function () {
+        let directory_name = $('#directory_name').val().trim()
+        if(directory_name){
+            $.ajax({
+                url: "/file/api/create_directory",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    directory_name: directory_name,
+                    creater:owner
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        location.reload()
+                    }
+                }
+            });
+        }else{
+            Spop(SPOP_TYPE['error'],'文件夹名称不能为空')
+        }
+    });
+
+    function edit_directory(directory_name){
+        $('#new_directory_name').val(directory_name)
+        $('#edit_directory_confirm').on('click', function () {
+            let new_directory_name = $('#new_directory_name').val()
+            $.ajax({
+                url: "/file/api/edit_directory",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    old_directory_name:directory_name,
+                    new_directory_name:new_directory_name
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        location.reload()
+                    }
+                }
+            });
+        });
+
+    }
+
+    function del_directory(directory_name){
+        $('.directory-name').text(directory_name)
+        $('#del_directory_confirm').on('click', function () {
+            $.ajax({
+                url: "/file/api/delete_directory",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    directory_name: directory_name,
+                    owner:owner
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        location.reload()
+                    }
+                }
+            });
+        });
+
+    }
+</script>
+{% endblock %}

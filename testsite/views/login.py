@@ -89,8 +89,8 @@ class Login(View):
         """二维码认证接口"""
         if request.method == "GET":
             code = request.GET.get('code', )
-            appId = 'xxx'
-            appSecret = 'xxx'
+            appId = 'dingoabey3yfj0iyxvkvn3'
+            appSecret = 'rmdjih3UDXXqPwJ7q1VpnGKL2P_wRNaxnAzgszwH8D1JVxWCBnM0hF9BqCCYIrhI'
 
             # 获取token
             token = requests.get(
@@ -145,7 +145,7 @@ class Login(View):
                 all_user_info = user_info.json()
                 avatar = all_user_info['result']['avatar']
                 if avatar is None:
-                    avatar = "https://v.starhalo.mobi/d4/pic/cms/vidmate/1641182134932.png?t=1641182135057"
+                    avatar = "https://v.xxxx.mobi/d4/pic/cms/xxxx/1641182134932.png?t=1641182135057"
                 mobile = all_user_info['result']['mobile']
                 name = all_user_info['result']['name']
                 # 安全起见 不用userid，使用unionid
@@ -158,7 +158,7 @@ class Login(View):
                                 admin_type=0).save()
                 else:
                     models.User.objects.filter(token=unionid).update(username=name, nickname=name, mobile=mobile,avatar=avatar)
-                result = {'code': 200, 'msg': 'login suc!', 'nickname': username, 'username': username}
+                result = {'code': 200, 'msg': 'login suc!', 'nickname': name, 'username': name}
             else:
                 result = {'code': 202, 'msg': 'login wrong!', 'nickname': '', 'username': ''}
         return HttpResponse(json.dumps(result), content_type="application/json")

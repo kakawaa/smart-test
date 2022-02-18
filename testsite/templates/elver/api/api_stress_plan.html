@@ -1,0 +1,360 @@
+{% extends 'api_base.html' %}
+{% block title %}压力测试 - 测试计划{% endblock %}
+{% block page-title %}
+<a class="active" style="color: #1e71df" href="/api_test/stress">压力测试</a>
+<svg t="1635085520789" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="165732" width="200" height="200"><path d="M360.704 280.746667l45.226667-45.226667 246.570666 246.528a42.666667 42.666667 0 0 1 0 60.330667l-246.528 246.570666-45.22666601-45.269333 231.42400001-231.466667-231.466667-231.424z" p-id="165733"></path></svg>
+测试计划
+{% endblock %}
+
+{% block api_tab %}
+<li class="nav-item">
+    <a  onclick="tab_click('post')" class="nav-link" data-bs-toggle="tab">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="7" r="4" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+        手工测试
+    </a>
+</li>
+<li class="nav-item">
+    <a  onclick="tab_click('automation')" class="nav-link" data-bs-toggle="tab">
+        <svg t="1636172939547" class="icon me-2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4269" width="200" height="200"><path d="M212.704 410.208l-13.76-14.88-109.696 101.472 108.064 96.192 13.504-15.104-91.36-81.376zM535.904 410.208l13.856-14.88 109.6 101.472-108.032 96.192-13.44-15.104 91.328-81.376z" p-id="4270"></path><path d="M551.2 596.384l-16.704-18.688 91.2-81.216-93.12-86.112 17.056-18.432 113.376 104.928-1.984 1.76zM197.504 596.384l-1.792-1.6-110.048-97.952 1.952-1.792 111.424-103.136 17.056 18.432-93.088 86.112 91.168 81.216-16.672 18.72z m-104.672-99.616l104.288 92.832 10.304-11.52-91.552-81.504 1.952-1.792 91.488-84.64-10.528-11.424-105.952 98.048z" p-id="4271"></path><path d="M50.368 274.24h913.344v-20.288H50.368z" p-id="4272"></path><path d="M966.112 276.64H47.968V251.52h918.144v25.12z m-913.344-4.8h908.544v-15.488H52.768v15.488z" p-id="4273"></path><path d="M121.376 193.056h20.288v20.32h-20.288z" p-id="4274"></path><path d="M144.064 215.776h-25.088v-25.12h25.088v25.12z m-20.256-4.832h15.456v-15.488h-15.456v15.488z" p-id="4275"></path><path d="M202.592 193.056h20.288v20.32h-20.288z" p-id="4276"></path><path d="M225.28 215.776h-25.12v-25.12h25.12v25.12z m-20.288-4.832h15.488v-15.488h-15.488v15.488z" p-id="4277"></path><path d="M283.744 193.056h20.288v20.32h-20.288z" p-id="4278"></path><path d="M306.432 215.776h-25.088v-25.12h25.088v25.12z m-20.288-4.832h15.456v-15.488h-15.456v15.488z" p-id="4279"></path><path d="M60.48 883.136V152.448H953.6v552.032c1.408-0.16 2.72-0.48 4.288-0.48 5.92 0 11.072 0.992 16 2.336V132.16H40.192v771.2h598.176a59.776 59.776 0 0 1-11.008-20.32H60.48v0.096z" p-id="4280"></path><path d="M643.488 905.824H37.792V129.76h938.496v579.776l-3.04-0.768a56.448 56.448 0 0 0-15.36-2.208 15.744 15.744 0 0 0-2.56 0.256l-4.128 0.544V154.848H62.88v725.856h566.272l0.544 1.728c2.304 7.328 5.888 13.92 10.528 19.456l3.264 3.936z m-600.864-4.832h590.88a59.264 59.264 0 0 1-7.84-15.488H58.08V150.048h897.92v551.776c4.576-0.48 9.952 0.256 15.424 1.504V134.592H42.624v766.4z" p-id="4281"></path><path d="M458.144 367.36l-152.32 263.648-17.6-10.176 152.288-263.648z" p-id="4282"></path><path d="M306.688 634.24l-21.76-12.576 1.216-2.016 153.504-265.728 21.76 12.576z" p-id="4283"></path><path d="M578.016 814.592c0.064 0.032 0.064 0.096 0.128 0.096-0.032 0.064-0.096 0.032-0.128-0.096z" p-id="4284"></path><path d="M841.056 980.928l-3.328-0.192a50.752 50.752 0 0 1-32.544-13.568l-4.768-5.408c-4.288-7.328-18.496-15.2-29.92-15.2a23.392 23.392 0 0 0-20.096 12.128l-3.936 5.632c-18.304 17.312-37.6 20.096-57.792 10.464l-52.768-30.624a48.096 48.096 0 0 1-15.008-56.448c1.568-3.936 2.56-8.32 2.688-12.16 0-16.48-12.416-30.72-28.128-29.984a35.52 35.52 0 0 1-32.704-18.912c-0.64-1.12-1.472-3.072-1.984-4.256l-0.096-0.192-6.528-14.784a223.68 223.68 0 0 1-0.096-90.336c4.48-24.032 19.616-38.56 40.48-38.56 15.168-0.064 27.616-13.568 27.648-29.44a38.944 38.944 0 0 0-2.688-12.576 48.448 48.448 0 0 1 15.712-57.152l3.52-2.304 55.456-31.2c6.56-1.92 11.424-2.56 15.584-2.56 13.6 0 25.76 4.704 34.976 13.312l4.448 4.768c15.2 24.032 45.344 8.96 49.056 3.04l4.32-5.728c18.56-16.608 37.984-18.048 56.992-9.28l52.832 30.784c17.44 13.312 23.424 36.896 15.2 56.704a41.664 41.664 0 0 0-2.752 12.384c0.032 10.4 2.368 29.376 18.144 29.376h3.712c20.832 0 36.512 14.688 40.864 38.304 6.144 29.344 6.176 60.64 0.064 90.08-4.512 23.744-20.192 38.688-40.864 38.688-16.352 0-18.08 20.672-18.08 29.568 0.224 4.224 1.088 8.64 2.72 12.672 8.384 20.416 1.92 43.968-15.84 57.088l-3.392 2.24-52.736 29.92a47.776 47.776 0 0 1-18.368 3.712z m-70.528-66.336c21.76 0 46.976 12.896 56.192 28.736a18.72 18.72 0 0 0 12.864 5.472l1.472 16.128v-16a18.816 18.816 0 0 0 5.568-0.864l49.76-28.48a16.32 16.32 0 0 0 5.44-19.52 72.224 72.224 0 0 1-4.992-23.904c-0.032-37.568 20.096-62.304 50.048-62.304 5.824 0 8.384-7.04 9.504-12.928a191.808 191.808 0 0 0-0.064-77.664c-1.568-8.416-4.736-12.512-9.504-12.512h-3.712c-30.432 0-50.112-24.448-50.112-62.272 0.448-8.448 2.176-16.256 5.056-23.488 2.784-6.72 0.928-14.784-4.128-18.656l-48.992-28.448a15.392 15.392 0 0 0-6.688-1.504h-0.032a18.048 18.048 0 0 0-12.288 4.576c-10.496 16.608-36.32 26.144-55.488 26.144a55.36 55.36 0 0 1-46.784-26.368 18.176 18.176 0 0 0-12.992-5.344h-0.032a19.616 19.616 0 0 0-5.12 0.608l-50.848 28.96a16.544 16.544 0 0 0-5.408 19.584c2.944 7.328 4.64 15.328 4.992 23.904 0 34.432-26.528 61.984-59.072 62.144-2.56-0.064-7.296 0.032-9.664 12.736a192.128 192.128 0 0 0 0.064 77.728l0.448 1.152c0.928 1.44 1.728 2.688 2.336 3.744l2.016 4.16-2.336 18.528 4.896-15.232a62.112 62.112 0 0 1 62.688 62.784c-0.32 8.128-2.016 16.032-5.024 23.552-2.752 6.624-0.896 14.688 4.128 18.496l48.864 28.224a14.816 14.816 0 0 0 6.688 1.536 17.824 17.824 0 0 0 12.16-4.896c10.432-17.792 28.736-28.512 48.096-28.512z" p-id="4285"></path><path d="M775.584 894.688a132.608 132.608 0 0 1-132.512-132.448c0-73.088 59.424-132.576 132.512-132.576s132.544 59.456 132.544 132.576a132.64 132.64 0 0 1-132.544 132.448z m0-232.992a100.672 100.672 0 0 0-100.512 100.576 100.608 100.608 0 0 0 100.512 100.448 100.608 100.608 0 0 0 100.544-100.448 100.672 100.672 0 0 0-100.544-100.576z" p-id="4286"></path></svg>
+        自动化测试
+    </a>
+</li>
+<li class="nav-item">
+    <a  onclick="tab_click('stress')" class="nav-link active" data-bs-toggle="tab">
+        <svg t="1636371462410" class="icon me-2" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2741" width="200" height="200"><path d="M461.223546 894.876154c-1.062192 0-2.099824-0.048095-3.162016-0.193405-11.732206-1.497097-20.736277-11.103896-21.532409-22.884197l-40.336684-605.249801L287.129486 630.065999c-3.186576 10.670014-14.097066 17.911952-24.260543 17.621333-11.128455-0.2415-20.711717-7.91732-23.390733-18.732643l-38.864146-155.385976-68.000743 68.000743c-4.634554 4.634554-10.911514 7.241938-17.477047 7.241938L65.698305 548.811394l0-49.437969 39.20286 0 91.634-91.634c6.300496-6.300496 15.425318-8.810666 24.067138-6.348592 8.593725 2.38942 15.231913 9.197476 17.380856 17.839297l27.6395 110.48637 122.460076-408.222425c3.451612-11.466146 14.677281-18.732643 26.456558-17.477047 11.876492 1.351787 21.097504 11.007705 21.894659 22.932292l41.061185 616.136755 108.555391-325.68971c3.186576-9.487072 11.732206-16.125259 21.725814-16.825201 10.041704-0.627287 19.408025 4.634554 23.850198 13.59053l76.763314 153.526629 27.326369-54.651714c4.200672-8.376785 12.745279-13.663184 22.1116-13.663184l197.750853 0 0 49.437969L773.08225 548.811394l-42.581818 85.212754c-8.400321 16.70445-35.82288 16.70445-44.223201 0l-72.176856-144.378272L484.638839 877.978299C481.259882 888.165312 471.724715 894.876154 461.223546 894.876154z" p-id="2742"></path></svg>
+        压力测试
+    </a>
+</li>
+{% endblock %}
+
+{% block api_tab_content %}
+<div class="tab-pane active">
+    <div class="col">
+        <strong>基础信息</strong>
+        <div class="dropdown-divider"></div>
+        <div class="row mt-3">
+            <div class="col-auto ">
+                <div class="input-group" style="width:400px">
+                    <span class="input-group-text">计划名称</span>
+                    <input id="new_taskname" type="text" class="form-control"  placeholder="请输入名称"  autocomplete="off">
+                </div>
+            </div>
+            <div class="col-auto">
+                <a class="btn btn-default">
+                    <svg t="1642664148883" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="91623" width="300" height="300"><path d="M510.299003 3.401993C227.933555 3.401993 0 231.335548 0 513.700997s227.933555 510.299003 510.299003 510.299003 510.299003-227.933555 510.299004-510.299003-227.933555-510.299003-510.299004-510.299004z m-248.345515 544.318937V333.395349c0-34.019934 27.215947-57.833887 57.833887-57.833887h214.325582c30.61794 0 57.833887 27.215947 57.833887 57.833887v37.421927c0 13.607973-10.20598 23.813953-23.813954 23.813953-10.20598 0-20.41196-10.20598-20.41196-23.813953V333.395349c0-6.803987-6.803987-13.607973-13.607973-13.607974H319.787375c-6.803987-3.401993-13.607973 3.401993-13.607973 13.607974v214.325581c0 6.803987 6.803987 13.607973 13.607973 13.607974h214.325582c6.803987 0 13.607973-6.803987 13.607973-13.607974v-27.215947c0-13.607973 10.20598-20.41196 20.41196-20.41196 13.607973 0 23.813953 10.20598 23.813954 20.41196v27.215947c0 34.019934-27.215947 57.833887-57.833887 57.833887H319.787375c-30.61794 0-57.833887-23.813953-57.833887-57.833887z m496.69103 146.285715c0 30.61794-27.215947 57.833887-57.833887 57.833887h-214.325581c-30.61794 0-57.833887-27.215947-57.833887-57.833887v-40.823921c0-10.20598 10.20598-20.41196 20.41196-20.41196s23.813953 10.20598 23.813953 20.41196v40.823921c0 6.803987 6.803987 13.607973 13.607974 13.607973h214.325581c6.803987 0 13.607973-6.803987 13.607974-13.607973V476.27907c0-6.803987-6.803987-13.607973-13.607974-13.607974h-214.325581c-6.803987 0-13.607973 6.803987-13.607974 13.607974v27.215947c0 13.607973-10.20598 20.41196-23.813953 20.41196s-20.41196-10.20598-20.41196-20.41196V476.27907c0-34.019934 27.215947-57.833887 57.833887-57.833887h214.325581c34.019934 0 57.833887 27.215947 57.833887 57.833887v217.727575z" fill="#1891FF" p-id="91624"></path></svg>
+                    引用其他计划
+                </a>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-auto">
+                <strong>接口请求</strong>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="row mt-3">
+            <div class="col-auto ">
+                <div class="input-group" style="width: 400px">
+                     <div class="input-group-text">接口地址</div>
+                     <input id="new_url" type="text" class="form-control"  placeholder="请输入URL"  autocomplete="off">
+                 </div>
+            </div>
+            <div class="col-auto ">
+                <div class="input-group" style="width: 200px">
+                     <div class="input-group-text">
+                         请求方式
+                     </div>
+                    <select class="select2-selection--single" data-placeholder="请选择请求方式">
+                        <option>POST</option>
+                        <option>GET</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <textarea style="width: 617px" class="form-control mt-3" name="example-textarea-input" rows="6" placeholder="请输入请求内容.."></textarea>
+
+        <div class="row mt-3">
+            <div class="col-auto">
+                <strong>压力配置</strong>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="row mt-3">
+            <div class="col-auto" style="width:180px">
+                 <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+                     <label class="form-selectgroup-item flex-fill">
+                         <input type="radio" name="form-payment" value="tech" class="form-selectgroup-input" checked>
+                         <div class="form-selectgroup-label d-flex align-items-center p-3">
+                             <div class="me-3">
+                                 <span class="form-selectgroup-check" checked></span>
+                             </div>
+                             <div>
+                                 <svg style="margin-right:2px" t="1642649337584" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="58606" width="300" height="300"><path d="M153.6 256c6.4-6.4 19.2-6.4 32 0 0 0 192 172.8 422.4 217.6 160 32 320 44.8 409.6 51.2 0-25.6-25.6-32-102.4-70.4-44.8-19.2-115.2-64-192-108.8-44.8 38.4-108.8 64-121.6 64-12.8 6.4-19.2 0-25.6-12.8-6.4-12.8 0-19.2 12.8-25.6 0 0 32-12.8 64-32 12.8-6.4 25.6-12.8 32-19.2-19.2-12.8-38.4-19.2-57.6-32-25.6 12.8-51.2 25.6-76.8 32-44.8 19.2-83.2 25.6-89.6 25.6-12.8 0-19.2-6.4-25.6-12.8 0-12.8 6.4-19.2 12.8-25.6 0 0 70.4-19.2 128-44.8-32-12.8-57.6-25.6-83.2-38.4-115.2-38.4-268.8-51.2-358.4-12.8l-96-108.8c-6.4-6.4-19.2-6.4-25.6 0-6.4 6.4-6.4 19.2 0 25.6l96 108.8s-64 249.6 281.6 358.4c307.2 96 550.4 19.2 608-38.4-89.6-6.4-243.2-19.2-403.2-51.2-243.2-51.2-435.2-224-441.6-230.4-6.4 0-6.4-12.8 0-19.2z" fill="#C10652" p-id="58607"></path><path d="M224 876.8h-44.8l-19.2-44.8h-76.8l-12.8 44.8h-38.4l76.8-192h38.4l76.8 192z m-70.4-76.8l-25.6-70.4-25.6 70.4h51.2z m89.6-57.6h32v19.2l19.2-19.2c6.4-6.4 19.2-6.4 25.6-6.4 19.2 0 32 6.4 38.4 19.2s19.2 32 19.2 51.2c0 25.6-6.4 38.4-19.2 51.2-12.8 12.8-25.6 19.2-38.4 19.2-6.4 0-12.8 0-19.2-6.4-6.4 0-12.8-6.4-19.2-12.8v70.4h-38.4v-185.6z m38.4 64c0 12.8 0 25.6 6.4 32 6.4 6.4 12.8 12.8 25.6 12.8 6.4 0 12.8-6.4 19.2-12.8 6.4-6.4 6.4-19.2 6.4-32s0-25.6-6.4-32c-6.4-6.4-12.8-12.8-19.2-12.8-6.4 0-19.2 6.4-25.6 12.8-6.4 6.4-6.4 19.2-6.4 32z m153.6-25.6l-32-6.4c6.4-12.8 12.8-25.6 19.2-32 6.4-6.4 25.6-12.8 38.4-12.8 19.2 0 25.6 0 38.4 6.4 6.4 6.4 12.8 6.4 19.2 12.8 6.4 6.4 6.4 19.2 6.4 32v70.4c0 6.4 6.4 12.8 6.4 19.2h-38.4s0-6.4-6.4-12.8v-6.4c-6.4 6.4-12.8 12.8-19.2 12.8-6.4 0-12.8 6.4-25.6 6.4s-25.6-6.4-32-12.8c-6.4-6.4-12.8-19.2-12.8-32 0-6.4 0-12.8 6.4-19.2 6.4-6.4 6.4-12.8 12.8-12.8 6.4-6.4 19.2-6.4 32-6.4 19.2-6.4 32-6.4 38.4-6.4v-6.4c0-6.4 0-12.8-6.4-12.8s-12.8-6.4-19.2-6.4c-6.4 0-12.8 0-12.8 6.4s-6.4 12.8-12.8 19.2z m51.2 32c-6.4 0-12.8 6.4-25.6 6.4s-19.2 6.4-19.2 6.4c-6.4 6.4-6.4 6.4-6.4 12.8s0 12.8 6.4 12.8c6.4 6.4 6.4 6.4 12.8 6.4s12.8 0 19.2-6.4c6.4-6.4 6.4-6.4 6.4-12.8v-19.2c6.4 0 6.4-6.4 6.4-6.4z m192-32l-38.4 6.4c0-6.4-6.4-12.8-6.4-19.2-6.4-6.4-12.8-6.4-19.2-6.4-6.4 0-19.2 0-19.2 6.4-6.4 6.4-6.4 19.2-6.4 32 0 19.2 0 25.6 6.4 32 6.4 6.4 12.8 12.8 19.2 12.8 6.4 0 12.8 0 19.2-6.4 6.4-6.4 6.4-12.8 6.4-19.2l38.4 6.4c-6.4 19.2-12.8 32-19.2 38.4-12.8 6.4-25.6 12.8-44.8 12.8-19.2 0-38.4-6.4-51.2-19.2s-19.2-32-19.2-51.2c0-25.6 6.4-38.4 19.2-51.2 12.8-12.8 25.6-19.2 51.2-19.2 19.2 0 32 6.4 38.4 12.8 19.2 6.4 25.6 19.2 25.6 32z m64-96v70.4c12.8-12.8 25.6-19.2 44.8-19.2 6.4 0 19.2 0 25.6 6.4 6.4 0 12.8 6.4 12.8 12.8 6.4 6.4 6.4 12.8 6.4 19.2V883.2h-38.4v-76.8-25.6c0-6.4-6.4-6.4-6.4-6.4-6.4 0-6.4-6.4-12.8-6.4s-12.8 0-19.2 6.4c-6.4 0-6.4 6.4-12.8 12.8 0 6.4-6.4 12.8-6.4 25.6v70.4h-38.4v-192h44.8z m211.2 147.2l38.4 6.4c-6.4 12.8-12.8 25.6-19.2 32-12.8 6.4-25.6 12.8-38.4 12.8-25.6 0-44.8-6.4-51.2-25.6-6.4-12.8-12.8-25.6-12.8-51.2s6.4-38.4 19.2-51.2c12.8-12.8 25.6-19.2 44.8-19.2 19.2 0 38.4 6.4 51.2 19.2 12.8 12.8 19.2 32 19.2 64h-89.6c0 12.8 6.4 19.2 6.4 25.6 6.4 6.4 12.8 6.4 19.2 6.4 6.4 0 12.8 0 12.8-6.4-6.4 0 0-6.4 0-12.8z m0-32c0-12.8 0-19.2-6.4-25.6-6.4-6.4-12.8-6.4-19.2-6.4-6.4 0-12.8 0-19.2 6.4-6.4 6.4-6.4 12.8-6.4 25.6h51.2z" fill="#606060" p-id="58608"></path></svg>
+                                 Jmeter
+                             </div>
+                         </div>
+                     </label>
+                 </div>
+            </div>
+            <div class="col-auto" style="width:180px">
+                 <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+                     <label class="form-selectgroup-item flex-fill">
+                         <input type="radio" name="form-payment" value="tech" class="form-selectgroup-input">
+                         <div class="form-selectgroup-label d-flex align-items-center p-3">
+                             <div class="me-3">
+                                 <span class="form-selectgroup-check"></span>
+                             </div>
+                             <div>
+                                 <span class="avatar avatar-xs avatar-rounded" style="background-image: url(https://locust.io/static/img/favicon.ico)"></span>
+                                 Locust
+                             </div>
+                         </div>
+                     </label>
+                 </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-auto">
+                <div class="input-group" style="width: 300px">
+                    <span class="input-group-text">并发用户数</span>
+                    <input  type="text" class="form-control"  placeholder="请输入用户数"  autocomplete="off">
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="btn-group w-100">
+                    <button type="button" class="btn btn-primary">按持续时间</button>
+                    <button type="button" class="btn">按循环次数</button>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="input-group" style="width: 200px">
+                    <input type="text" name="input-mask" class="form-control" data-mask="00小时00分钟00秒"  placeholder="00/00/0000" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="input-group" style="width: 300px">
+                    <span class="input-group-text">异常后处理</span>
+                    <select class="select2-selection--single" data-placeholder="请选择处理方式">
+                        <option>继续</option>
+                        <option>启动下一次循环</option>
+                        <option>停止线程</option>
+                        <option>停止测试</option>
+                        <option>立即停止测试</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-auto">
+                <strong>机器分配</strong>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="row mt-3">
+            <div class="col-auto">
+                <div class="input-group" style="width: 300px">
+                    <span class="input-group-text">执行模式</span>
+                    <select class="select2-selection--single" data-placeholder="请选择执行模式">
+                        <option>单机</option>
+                        <option>分布式</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="input-group" style="width: 300px">
+                    <span class="input-group-text">执行机器</span>
+                    <input  type="text" class="form-control"  placeholder="请选择执行机器"  autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-table table-responsive mt-3" style="width: 620px;max-height:300px">
+            <table id="task_user_table" class="table table-vcenter">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>机器</th>
+                    <th>状态</th>
+                    <th>配置</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <svg t="1642589216794" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="50182" width="300" height="300"><path d="M447.5 960.3l-321-110v-642l321 82z" fill="#37BBEF" p-id="50183"></path><path d="M447.5 960.3l450-240v-600l-450 170z" fill="#2481BA" p-id="50184"></path><path d="M126.5 208.3l321 82 450-170-344.4-56.6z" fill="#3ED6FF" p-id="50185"></path><path d="M400.3 348.9v80l-239-60v-80l239 60z m-239 48.3l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z" fill="#D4F7FF" p-id="50186"></path><path d="M175.7 308.4v34l210.2 53v-34zM175.7 363.4l210.2 53v-13.3l-210.2-53z" fill="#113B42" p-id="50187"></path><path d="M447.5 894.1v-5.2l-174.4-55.3-1.2 4.8zM271.9 809.3L447.5 864v-5.3l-174.4-54.3zM271.9 780.1l175.6 53.7v-5.2l-174.4-53.4zM447.5 707.9l-174.4-49.3-1.2 4.8 175.6 49.7zM271.9 692.6l175.6 50.7v-5.2l-174.4-50.4zM271.9 750.9l175.6 52.7v-5.2l-174.4-52.3zM271.9 721.8l175.6 51.7v-5.3l-174.4-51.3z" fill="#0071BC" p-id="50188"></path><path d="M379.5 540.8c-9.4-3.4-17 1.6-17 11.2s7.6 20.1 17 23.2 17-1.9 17-11.2-7.6-19.8-17-23.2zM379.5 603.6c-3.9-1.2-7 1-7 4.9s3.1 8.1 7 9.3 7-1 7-4.9c0-3.9-3.1-8-7-9.3z" fill="#FFFFFF" p-id="50189"></path></svg>
+                    </td>
+                    <td>机器1</td>
+                    <td><span class="badge bg-danger">使用中</span></td>
+                    <td>内存:16G CPU:4个 磁盘:500G</td>
+                    <td class="text-nowrap text-muted"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <svg t="1642589216794" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="50182" width="300" height="300"><path d="M447.5 960.3l-321-110v-642l321 82z" fill="#37BBEF" p-id="50183"></path><path d="M447.5 960.3l450-240v-600l-450 170z" fill="#2481BA" p-id="50184"></path><path d="M126.5 208.3l321 82 450-170-344.4-56.6z" fill="#3ED6FF" p-id="50185"></path><path d="M400.3 348.9v80l-239-60v-80l239 60z m-239 48.3l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z m0 23l239 60v-10l-239-60v10z" fill="#D4F7FF" p-id="50186"></path><path d="M175.7 308.4v34l210.2 53v-34zM175.7 363.4l210.2 53v-13.3l-210.2-53z" fill="#113B42" p-id="50187"></path><path d="M447.5 894.1v-5.2l-174.4-55.3-1.2 4.8zM271.9 809.3L447.5 864v-5.3l-174.4-54.3zM271.9 780.1l175.6 53.7v-5.2l-174.4-53.4zM447.5 707.9l-174.4-49.3-1.2 4.8 175.6 49.7zM271.9 692.6l175.6 50.7v-5.2l-174.4-50.4zM271.9 750.9l175.6 52.7v-5.2l-174.4-52.3zM271.9 721.8l175.6 51.7v-5.3l-174.4-51.3z" fill="#0071BC" p-id="50188"></path><path d="M379.5 540.8c-9.4-3.4-17 1.6-17 11.2s7.6 20.1 17 23.2 17-1.9 17-11.2-7.6-19.8-17-23.2zM379.5 603.6c-3.9-1.2-7 1-7 4.9s3.1 8.1 7 9.3 7-1 7-4.9c0-3.9-3.1-8-7-9.3z" fill="#FFFFFF" p-id="50189"></path></svg>
+                    </td>
+                    <td>机器2</td>
+                    <td><span class="badge">空闲</span></td>
+                    <td>内存:16G CPU:4个 磁盘:500G</td>
+                    <td class="text-nowrap text-muted">
+                        <a class="active">选择</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dropdown-divider"></div>
+        <div class="col-md-6 col-xl-4 mt-3">
+            <button id="task_info_save" type="submit" class="btn btn-primary">保存</button>
+        </div>
+
+    </div>
+</div>
+<div class="modal modal-blur fade" id="modal-danger" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-status bg-danger"></div>
+            <div class="modal-body text-center py-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v2m0 4v.01" /><path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" /></svg>
+                <h3>确认删除?</h3>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col">
+                            <a  class="btn btn-white w-100" data-bs-dismiss="modal">
+                            取消
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a  id="del_user_confirm" class="btn btn-danger w-100">
+                            确认
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block api_script %}
+<script>
+
+    $(document).ready(function () {})
+
+    $('#task_info_save').on('click', function () {
+        let ding_switch = $(".ding_switch").is(':checked')
+        let timer_switch = $(".timer_switch").is(':checked')
+        let new_taskname = $("#new_taskname").val().trim()
+        let timer_value = $("#timer_value").val().trim()
+        let ding_token = $("#ding_token").val().trim()
+        if(new_taskname){
+            $.ajax({
+                url: "/api_test/api/edit_task",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    taskname:'{{ taskname }}' ,
+                    new_taskname: new_taskname,
+                    timer_switch: timer_switch,
+                    timer_value:timer_value,
+                    ding_switch:ding_switch,
+                    ding_token:ding_token
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        if(new_taskname == '{{ taskname }}'){
+                            Spop(SPOP_TYPE['success'],'保存成功')
+                        }else{
+                            window.location.href = '/api_test/automation/'+new_taskname+'/config'
+                        }
+                    }
+                }
+            });
+        }else{
+            Spop(SPOP_TYPE['error'],'任务名称不能为空')
+        }
+    });
+
+    $('#add_task_user').on('click', function (e) {
+        window.event.preventDefault()
+        let taskname = '{{ taskname }}'
+        let username = $('#user_select').val()
+        $.ajax({
+            url: "/api_test/api/add_task_user",
+            type: "POST",
+            async: true,
+            cache: false,
+            data:{
+                taskname:taskname,
+                username: username,
+                owner:owner
+            },
+            beforeSend: function () {
+                loading();
+            },
+            complete: function () {
+                removeLoading()
+            },
+            success: function (data) {
+                if(data['status'] != 1 ){
+                    Spop(SPOP_TYPE['error'],data['msg'])
+                }else{
+                    Spop(SPOP_TYPE['success'],data['msg'])
+                    location.reload()
+                }
+            }
+        });
+    });
+
+    function remove_task_user(username){
+        window.event.preventDefault()
+        let taskname = '{{ taskname }}'
+        $('#del_user_confirm').on('click', function () {
+            $.ajax({
+                url: "/api_test/api/remove_task_user",
+                type: "POST",
+                async: true,
+                cache: false,
+                data:{
+                    taskname:taskname,
+                    username: username,
+                    owner:owner
+                },
+                beforeSend: function () {
+                    loading();
+                    },
+                complete: function () {
+                    removeLoading()
+                },
+                success: function (data) {
+                    if(data['status'] != 1 ){
+                        Spop(SPOP_TYPE['error'],data['msg'])
+                    }else{
+                        Spop(SPOP_TYPE['success'],data['msg'])
+                        location.reload()
+                    }
+                }
+            });
+        });
+    }
+
+</script>
+{% endblock %}

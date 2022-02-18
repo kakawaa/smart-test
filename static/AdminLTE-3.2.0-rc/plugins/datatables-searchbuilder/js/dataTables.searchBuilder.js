@@ -1439,9 +1439,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     value = value.replace(/(\/|-|,)/g, '-');
-                    return value === comparison[0];
+                    return value === comparxxxx[0];
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -1452,9 +1452,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     value = value.replace(/(\/|-|,)/g, '-');
-                    return value !== comparison[0];
+                    return value !== comparxxxx[0];
                 }
             },
             '<': {
@@ -1464,9 +1464,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     value = value.replace(/(\/|-|,)/g, '-');
-                    return value < comparison[0];
+                    return value < comparxxxx[0];
                 }
             },
             '>': {
@@ -1476,9 +1476,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     value = value.replace(/(\/|-|,)/g, '-');
-                    return value > comparison[0];
+                    return value > comparxxxx[0];
                 }
             },
             'between': {
@@ -1488,13 +1488,13 @@
                 init: Criteria.init2Date,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     value = value.replace(/(\/|-|,)/g, '-');
-                    if (comparison[0] < comparison[1]) {
-                        return comparison[0] <= value && value <= comparison[1];
+                    if (comparxxxx[0] < comparxxxx[1]) {
+                        return comparxxxx[0] <= value && value <= comparxxxx[1];
                     }
                     else {
-                        return comparison[1] <= value && value <= comparison[0];
+                        return comparxxxx[1] <= value && value <= comparxxxx[0];
                     }
                 }
             },
@@ -1506,13 +1506,13 @@
                 init: Criteria.init2Date,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     value = value.replace(/(\/|-|,)/g, '-');
-                    if (comparison[0] < comparison[1]) {
-                        return !(comparison[0] <= value && value <= comparison[1]);
+                    if (comparxxxx[0] < comparxxxx[1]) {
+                        return !(comparxxxx[0] <= value && value <= comparxxxx[1]);
                     }
                     else {
-                        return !(comparison[1] <= value && value <= comparison[0]);
+                        return !(comparxxxx[1] <= value && value <= comparxxxx[0]);
                     }
                 }
             },
@@ -1560,9 +1560,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     return moment(value, that.s.dateFormat).valueOf() ===
-                        moment(comparison[0], that.s.dateFormat).valueOf();
+                        moment(comparxxxx[0], that.s.dateFormat).valueOf();
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -1573,9 +1573,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     return moment(value, that.s.dateFormat).valueOf() !==
-                        moment(comparison[0], that.s.dateFormat).valueOf();
+                        moment(comparxxxx[0], that.s.dateFormat).valueOf();
                 }
             },
             '<': {
@@ -1585,8 +1585,8 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
-                    return moment(value, that.s.dateFormat).valueOf() < moment(comparison[0], that.s.dateFormat).valueOf();
+                search: function (value, comparxxxx, that) {
+                    return moment(value, that.s.dateFormat).valueOf() < moment(comparxxxx[0], that.s.dateFormat).valueOf();
                 }
             },
             '>': {
@@ -1596,8 +1596,8 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
-                    return moment(value, that.s.dateFormat).valueOf() > moment(comparison[0], that.s.dateFormat).valueOf();
+                search: function (value, comparxxxx, that) {
+                    return moment(value, that.s.dateFormat).valueOf() > moment(comparxxxx[0], that.s.dateFormat).valueOf();
                 }
             },
             'between': {
@@ -1607,10 +1607,10 @@
                 init: Criteria.init2Date,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     var val = moment(value, that.s.dateFormat).valueOf();
-                    var comp0 = moment(comparison[0], that.s.dateFormat).valueOf();
-                    var comp1 = moment(comparison[1], that.s.dateFormat).valueOf();
+                    var comp0 = moment(comparxxxx[0], that.s.dateFormat).valueOf();
+                    var comp1 = moment(comparxxxx[1], that.s.dateFormat).valueOf();
                     if (comp0 < comp1) {
                         return comp0 <= val && val <= comp1;
                     }
@@ -1627,10 +1627,10 @@
                 init: Criteria.init2Date,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     var val = moment(value, that.s.dateFormat).valueOf();
-                    var comp0 = moment(comparison[0], that.s.dateFormat).valueOf();
-                    var comp1 = moment(comparison[1], that.s.dateFormat).valueOf();
+                    var comp0 = moment(comparxxxx[0], that.s.dateFormat).valueOf();
+                    var comp1 = moment(comparxxxx[1], that.s.dateFormat).valueOf();
                     if (comp0 < comp1) {
                         return !(+comp0 <= +val && +val <= +comp1);
                     }
@@ -1683,9 +1683,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     return luxon.DateTime.fromFormat(value, that.s.dateFormat).ts
-                        === luxon.DateTime.fromFormat(comparison[0], that.s.dateFormat).ts;
+                        === luxon.DateTime.fromFormat(comparxxxx[0], that.s.dateFormat).ts;
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -1696,9 +1696,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     return luxon.DateTime.fromFormat(value, that.s.dateFormat).ts
-                        !== luxon.DateTime.fromFormat(comparison[0], that.s.dateFormat).ts;
+                        !== luxon.DateTime.fromFormat(comparxxxx[0], that.s.dateFormat).ts;
                 }
             },
             '<': {
@@ -1708,9 +1708,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     return luxon.DateTime.fromFormat(value, that.s.dateFormat).ts
-                        < luxon.DateTime.fromFormat(comparison[0], that.s.dateFormat).ts;
+                        < luxon.DateTime.fromFormat(comparxxxx[0], that.s.dateFormat).ts;
                 }
             },
             '>': {
@@ -1720,9 +1720,9 @@
                 init: Criteria.initDate,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     return luxon.DateTime.fromFormat(value, that.s.dateFormat).ts
-                        > luxon.DateTime.fromFormat(comparison[0], that.s.dateFormat).ts;
+                        > luxon.DateTime.fromFormat(comparxxxx[0], that.s.dateFormat).ts;
                 }
             },
             'between': {
@@ -1732,10 +1732,10 @@
                 init: Criteria.init2Date,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     var val = luxon.DateTime.fromFormat(value, that.s.dateFormat).ts;
-                    var comp0 = luxon.DateTime.fromFormat(comparison[0], that.s.dateFormat).ts;
-                    var comp1 = luxon.DateTime.fromFormat(comparison[1], that.s.dateFormat).ts;
+                    var comp0 = luxon.DateTime.fromFormat(comparxxxx[0], that.s.dateFormat).ts;
+                    var comp1 = luxon.DateTime.fromFormat(comparxxxx[1], that.s.dateFormat).ts;
                     if (comp0 < comp1) {
                         return comp0 <= val && val <= comp1;
                     }
@@ -1752,10 +1752,10 @@
                 init: Criteria.init2Date,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison, that) {
+                search: function (value, comparxxxx, that) {
                     var val = luxon.DateTime.fromFormat(value, that.s.dateFormat).ts;
-                    var comp0 = luxon.DateTime.fromFormat(comparison[0], that.s.dateFormat).ts;
-                    var comp1 = luxon.DateTime.fromFormat(comparison[1], that.s.dateFormat).ts;
+                    var comp0 = luxon.DateTime.fromFormat(comparxxxx[0], that.s.dateFormat).ts;
+                    var comp1 = luxon.DateTime.fromFormat(comparxxxx[1], that.s.dateFormat).ts;
                     if (comp0 < comp1) {
                         return !(+comp0 <= +val && +val <= +comp1);
                     }
@@ -1808,8 +1808,8 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
-                    return +value === +comparison[0];
+                search: function (value, comparxxxx) {
+                    return +value === +comparxxxx[0];
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -1820,8 +1820,8 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
-                    return +value !== +comparison[0];
+                search: function (value, comparxxxx) {
+                    return +value !== +comparxxxx[0];
                 }
             },
             '<': {
@@ -1831,8 +1831,8 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return +value < +comparison[0];
+                search: function (value, comparxxxx) {
+                    return +value < +comparxxxx[0];
                 }
             },
             '<=': {
@@ -1842,8 +1842,8 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return +value <= +comparison[0];
+                search: function (value, comparxxxx) {
+                    return +value <= +comparxxxx[0];
                 }
             },
             '>=': {
@@ -1853,8 +1853,8 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return +value >= +comparison[0];
+                search: function (value, comparxxxx) {
+                    return +value >= +comparxxxx[0];
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -1865,8 +1865,8 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return +value > +comparison[0];
+                search: function (value, comparxxxx) {
+                    return +value > +comparxxxx[0];
                 }
             },
             'between': {
@@ -1876,12 +1876,12 @@
                 init: Criteria.init2Input,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    if (+comparison[0] < +comparison[1]) {
-                        return +comparison[0] <= +value && +value <= +comparison[1];
+                search: function (value, comparxxxx) {
+                    if (+comparxxxx[0] < +comparxxxx[1]) {
+                        return +comparxxxx[0] <= +value && +value <= +comparxxxx[1];
                     }
                     else {
-                        return +comparison[1] <= +value && +value <= +comparison[0];
+                        return +comparxxxx[1] <= +value && +value <= +comparxxxx[0];
                     }
                 }
             },
@@ -1893,12 +1893,12 @@
                 init: Criteria.init2Input,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    if (+comparison[0] < +comparison[1]) {
-                        return !(+comparison[0] <= +value && +value <= +comparison[1]);
+                search: function (value, comparxxxx) {
+                    if (+comparxxxx[0] < +comparxxxx[1]) {
+                        return !(+comparxxxx[0] <= +value && +value <= +comparxxxx[1]);
                     }
                     else {
-                        return !(+comparison[1] <= +value && +value <= +comparison[0]);
+                        return !(+comparxxxx[1] <= +value && +value <= +comparxxxx[0]);
                     }
                 }
             },
@@ -1946,13 +1946,13 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
+                    var comp = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
                     return +val === +comp;
                 }
             },
@@ -1964,13 +1964,13 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
+                    var comp = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
                     return +val !== +comp;
                 }
             },
@@ -1981,13 +1981,13 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
+                    var comp = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
                     return +val < +comp;
                 }
             },
@@ -1998,13 +1998,13 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
+                    var comp = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
                     return +val <= +comp;
                 }
             },
@@ -2015,13 +2015,13 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
+                    var comp = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
                     return +val >= +comp;
                 }
             },
@@ -2033,13 +2033,13 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
+                    var comp = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
                     return +val > +comp;
                 }
             },
@@ -2050,16 +2050,16 @@
                 init: Criteria.init2Input,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp0 = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
-                    var comp1 = comparison[1].indexOf('-') === 0 ?
-                        '-' + comparison[1].replace(/[^0-9.]/g, '') :
-                        comparison[1].replace(/[^0-9.]/g, '');
+                    var comp0 = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
+                    var comp1 = comparxxxx[1].indexOf('-') === 0 ?
+                        '-' + comparxxxx[1].replace(/[^0-9.]/g, '') :
+                        comparxxxx[1].replace(/[^0-9.]/g, '');
                     if (+comp0 < +comp1) {
                         return +comp0 <= +val && +val <= +comp1;
                     }
@@ -2076,16 +2076,16 @@
                 init: Criteria.init2Input,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
+                search: function (value, comparxxxx) {
                     var val = value.indexOf('-') === 0 ?
                         '-' + value.replace(/[^0-9.]/g, '') :
                         value.replace(/[^0-9.]/g, '');
-                    var comp0 = comparison[0].indexOf('-') === 0 ?
-                        '-' + comparison[0].replace(/[^0-9.]/g, '') :
-                        comparison[0].replace(/[^0-9.]/g, '');
-                    var comp1 = comparison[1].indexOf('-') === 0 ?
-                        '-' + comparison[1].replace(/[^0-9.]/g, '') :
-                        comparison[1].replace(/[^0-9.]/g, '');
+                    var comp0 = comparxxxx[0].indexOf('-') === 0 ?
+                        '-' + comparxxxx[0].replace(/[^0-9.]/g, '') :
+                        comparxxxx[0].replace(/[^0-9.]/g, '');
+                    var comp1 = comparxxxx[1].indexOf('-') === 0 ?
+                        '-' + comparxxxx[1].replace(/[^0-9.]/g, '') :
+                        comparxxxx[1].replace(/[^0-9.]/g, '');
                     if (+comp0 < +comp1) {
                         return !(+comp0 <= +val && +val <= +comp1);
                     }
@@ -2138,8 +2138,8 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
-                    return value === comparison[0];
+                search: function (value, comparxxxx) {
+                    return value === comparxxxx[0];
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -2150,8 +2150,8 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return value !== comparison[0];
+                search: function (value, comparxxxx) {
+                    return value !== comparxxxx[0];
                 }
             },
             'starts': {
@@ -2161,8 +2161,8 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return value.toLowerCase().indexOf(comparison[0].toLowerCase()) === 0;
+                search: function (value, comparxxxx) {
+                    return value.toLowerCase().indexOf(comparxxxx[0].toLowerCase()) === 0;
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -2173,8 +2173,8 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return value.toLowerCase().includes(comparison[0].toLowerCase());
+                search: function (value, comparxxxx) {
+                    return value.toLowerCase().includes(comparxxxx[0].toLowerCase());
                 }
             },
             'ends': {
@@ -2184,8 +2184,8 @@
                 init: Criteria.initInput,
                 inputValue: Criteria.inputValueInput,
                 isInputValid: Criteria.isInputValidInput,
-                search: function (value, comparison) {
-                    return value.toLowerCase().endsWith(comparison[0].toLowerCase());
+                search: function (value, comparxxxx) {
+                    return value.toLowerCase().endsWith(comparxxxx[0].toLowerCase());
                 }
             },
             'null': {
@@ -2231,8 +2231,8 @@
                 init: Criteria.initSelectArray,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
-                    return value.includes(comparison[0]);
+                search: function (value, comparxxxx) {
+                    return value.includes(comparxxxx[0]);
                 }
             },
             'without': {
@@ -2242,8 +2242,8 @@
                 init: Criteria.initSelectArray,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
-                    return value.indexOf(comparison[0]) === -1;
+                search: function (value, comparxxxx) {
+                    return value.indexOf(comparxxxx[0]) === -1;
                 }
             },
             // eslint-disable-next-line sort-keys
@@ -2254,10 +2254,10 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
-                    if (value.length === comparison[0].length) {
+                search: function (value, comparxxxx) {
+                    if (value.length === comparxxxx[0].length) {
                         for (var i = 0; i < value.length; i++) {
-                            if (value[i] !== comparison[0][i]) {
+                            if (value[i] !== comparxxxx[0][i]) {
                                 return false;
                             }
                         }
@@ -2274,10 +2274,10 @@
                 init: Criteria.initSelect,
                 inputValue: Criteria.inputValueSelect,
                 isInputValid: Criteria.isInputValidSelect,
-                search: function (value, comparison) {
-                    if (value.length === comparison[0].length) {
+                search: function (value, comparxxxx) {
+                    if (value.length === comparxxxx[0].length) {
                         for (var i = 0; i < value.length; i++) {
-                            if (value[i] !== comparison[0][i]) {
+                            if (value[i] !== comparxxxx[0][i]) {
                                 return true;
                             }
                         }

@@ -6614,7 +6614,7 @@ var FullCalendar = (function (exports) {
         var endMarker = framingRange.end;
         var instanceStarts = [];
         while (dayMarker < endMarker) {
-            var instanceStart 
+            var instanceStart
             // if everyday, or this particular day-of-week
             = void 0;
             // if everyday, or this particular day-of-week
@@ -7688,12 +7688,12 @@ var FullCalendar = (function (exports) {
             var props = this.props;
             var theme = this.context.theme;
             var children = [];
-            var isOnlyButtons = true;
+            var xxxxlyButtons = true;
             for (var _i = 0, widgetGroup_1 = widgetGroup; _i < widgetGroup_1.length; _i++) {
                 var widget = widgetGroup_1[_i];
                 var buttonName = widget.buttonName, buttonClick = widget.buttonClick, buttonText = widget.buttonText, buttonIcon = widget.buttonIcon;
                 if (buttonName === 'title') {
-                    isOnlyButtons = false;
+                    xxxxlyButtons = false;
                     children.push(createElement("h2", { className: "fc-toolbar-title" }, props.title));
                 }
                 else {
@@ -7709,7 +7709,7 @@ var FullCalendar = (function (exports) {
                 }
             }
             if (children.length > 1) {
-                var groupClassName = (isOnlyButtons && theme.getClass('buttonGroup')) || '';
+                var groupClassName = (xxxxlyButtons && theme.getClass('buttonGroup')) || '';
                 return createElement.apply(void 0, __spreadArray(['div', { className: groupClassName }], children));
             }
             return children[0];
@@ -13607,7 +13607,7 @@ var FullCalendar = (function (exports) {
             if (!slatCoords) {
                 return null;
             }
-            return segs.map(function (seg, i) { return (createElement(NowIndicatorRoot, { isAxis: false, date: date, 
+            return segs.map(function (seg, i) { return (createElement(NowIndicatorRoot, { isAxis: false, date: date,
                 // key doesn't matter. will only ever be one
                 key: i }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("div", { ref: rootElRef, className: ['fc-timegrid-now-indicator-line'].concat(classNames).join(' '), style: { top: slatCoords.computeDateTop(seg.start, date) } }, innerContent)); })); });
         };
